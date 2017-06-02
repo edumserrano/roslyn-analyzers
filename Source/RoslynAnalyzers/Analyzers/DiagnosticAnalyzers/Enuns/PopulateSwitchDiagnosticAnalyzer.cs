@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
+using System.Threading;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
 
-namespace Analyzers.DiagnosticAnalyzers
+namespace Analyzers.DiagnosticAnalyzers.Enuns
 {
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
     public class PopulateSwitchDiagnosticAnalyzer : DiagnosticAnalyzer
@@ -35,10 +36,11 @@ namespace Analyzers.DiagnosticAnalyzers
         private void SwitchStatementOnEnumContainsAllCases(SyntaxNodeAnalysisContext context)
         {
             if (!(context.Node is SwitchStatementSyntax switchStatement)) return;
-            if (switchStatement.ContainsDiagnostics) return;
+            if (switchStatement.ContainsDiagnostics && switchStatement.GetDiagnostics().Any(x => x.Severity == DiagnosticSeverity.Error)) return;
+
 
             var model = context.SemanticModel;
-            var enumType = ModelExtensions.GetTypeInfo(model, switchStatement.Expression).Type as INamedTypeSymbol;
+            var enumType = model.GetTypeInfo(switchStatement.Expression, context.CancellationToken).Type as INamedTypeSymbol;
 
             if (!IsValidSwitch(enumType)) return;
 
@@ -49,7 +51,7 @@ namespace Analyzers.DiagnosticAnalyzers
                 return;
             };
 
-            var labelSymbols = GetLabelSymbols(model, caseLabels);
+            var labelSymbols = GetLabelSymbols(model, caseLabels, context.CancellationToken);
             if (!labelSymbols.Any()) return;
 
             var possibleEnumSymbols = GetAllPossibleEnumSymbols(enumType);
@@ -153,13 +155,13 @@ namespace Analyzers.DiagnosticAnalyzers
             return caseLabels;
         }
 
-        private Dictionary<long, ISymbol> GetLabelSymbols(SemanticModel model, List<ExpressionSyntax> caseLabels)
+        private Dictionary<long, ISymbol> GetLabelSymbols(SemanticModel model, List<ExpressionSyntax> caseLabels, CancellationToken cancellationToken)
         {
             var labelSymbols = new Dictionary<long, ISymbol>();
 
             foreach (var label in caseLabels)
             {
-                if (!(ModelExtensions.GetSymbolInfo(model, label).Symbol is IFieldSymbol fieldSymbol))
+                if (!(model.GetSymbolInfo(label, cancellationToken).Symbol is IFieldSymbol fieldSymbol))
                 {
                     // something is wrong with the label and the SemanticModel was unable to determine its symbol
                     // or the symbol is not a field symbol which should be for case labels of switchs on enum types
