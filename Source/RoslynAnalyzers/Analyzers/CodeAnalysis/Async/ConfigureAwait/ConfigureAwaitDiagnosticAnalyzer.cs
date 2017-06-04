@@ -1,4 +1,4 @@
-﻿using System.Collections.Immutable;
+using System.Collections.Immutable;
 using System.Linq;
 using Analyzers.Extensions;
 using Microsoft.CodeAnalysis;
@@ -6,7 +6,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
 
-namespace Analyzers.DiagnosticAnalyzers.Async
+namespace Analyzers.CodeAnalysis.Async.ConfigureAwait
 {
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
     public class ConfigureAwaitDiagnosticAnalyzer : DiagnosticAnalyzer

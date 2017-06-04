@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Threading;
@@ -7,7 +7,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
 
-namespace Analyzers.DiagnosticAnalyzers.Enuns
+namespace Analyzers.CodeAnalysis.Enums.PopulateSwitch
 {
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
     public class PopulateSwitchDiagnosticAnalyzer : DiagnosticAnalyzer

@@ -5,7 +5,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
 
-namespace Analyzers.DiagnosticAnalyzers.Enuns
+namespace Analyzers.CodeAnalysis.Enums.MergeSwitchSections
 {
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
     public class MergeSwitchSectionsDiagnosticAnalyzer : DiagnosticAnalyzer
