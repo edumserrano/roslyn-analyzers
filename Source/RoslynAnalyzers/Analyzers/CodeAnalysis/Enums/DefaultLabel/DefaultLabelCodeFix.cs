@@ -10,12 +10,12 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Editing;
 
+
 namespace Analyzers.CodeAnalysis.Enums.DefaultLabel
 {
     //https://msdn.microsoft.com/en-us/magazine/dn904670.aspx
-    [ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(DefaultLabelCodeFixer))]
-    [Shared]
-    public class DefaultLabelCodeFixer : CodeFixProvider
+    [ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(DefaultLabelCodeFix)), Shared]
+    public class DefaultLabelCodeFix : CodeFixProvider
     {
         public override ImmutableArray<string> FixableDiagnosticIds => ImmutableArray.Create(DefaultLabelDiagnosticAnalyzer.DiagnosticId);
 
