@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Composition;
 using System.Linq;
@@ -70,4 +71,11 @@ namespace Analyzers.CodeAnalysis.Enums.DefaultLabel
             return newDocument;
         }
     }
+
+    public enum Test
+    {
+
+        A, B, C, D
+    }
+
 }
