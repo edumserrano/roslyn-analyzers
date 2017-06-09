@@ -1,41 +1,43 @@
 ﻿using System.Collections.Immutable;
 using System.Linq;
+using Analyzers.CodeAnalysis.AnalyzersMetadata;
+using Analyzers.CodeAnalysis.AnalyzersMetadata.DiagnosticIdentifiers;
+using Analyzers.Extensions;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
 
-namespace Analyzers.CodeAnalysis.Enums.DefaultLabel
+namespace Analyzers.CodeAnalysis.Enums.DefaultLabelShouldBeLastInSwitchStatement
 {
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    public class DefaultLabelDiagnosticAnalyzer : DiagnosticAnalyzer
+    public class DefaultLabelShouldBeLastInSwitchStatementDiagnosticAnalyzer : DiagnosticAnalyzer
     {
-        public const string DiagnosticId = "ENUM002";
-        private const string Category = "Enum";
+        public const string DiagnosticId = EnumDiagnosticIdentifiers.DefaultLabelShouldBeTheLast;
         private static readonly LocalizableString Title = "Default switch label";
-        private static readonly LocalizableString MessageFormat = "Make sure the default label is the last label in the switch statement";
-        private static readonly LocalizableString Description = "Default label in switch statement should be the last one";
+        private static readonly LocalizableString MessageFormat = "The default label should be the last in the switch statement";
+
         private static readonly DiagnosticDescriptor Rule = new DiagnosticDescriptor(
-            DiagnosticId,
-            Title,
-            MessageFormat,
-            Category,
-            DiagnosticSeverity.Error,
-            isEnabledByDefault: true,
-            description: Description);
+            id: DiagnosticId,
+            title: Title,
+            messageFormat: MessageFormat,
+            category: DiagnosticCategories.Readibility,
+            defaultSeverity: DiagnosticSeverity.Warning,
+            isEnabledByDefault: true);
 
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics => ImmutableArray.Create(Rule);
 
         public override void Initialize(AnalysisContext context)
         {
-            context.RegisterSyntaxNodeAction(DefaultLabelOnSwitchStatementIsLast, SyntaxKind.SwitchStatement);
+            context.RegisterSyntaxNodeAction(DefaultLabelShouldBeLastInSwitchStatement, SyntaxKind.SwitchStatement);
         }
 
-        private void DefaultLabelOnSwitchStatementIsLast(SyntaxNodeAnalysisContext context)
+        private void DefaultLabelShouldBeLastInSwitchStatement(SyntaxNodeAnalysisContext context)
         {
-            if (!(context.Node is SwitchStatementSyntax switchStatement)) return;
-            if (switchStatement.ContainsDiagnostics && switchStatement.GetDiagnostics().Any(x => x.Severity == DiagnosticSeverity.Error)) return;
+            var result = context.TryGetSyntaxNode<SwitchStatementSyntax>();
+            if (!result.success) return;
 
+            var switchStatement = result.syntaxNode;
             var defaultLabel = switchStatement.Sections
                 .SelectMany(x => x.Labels)
                 .FirstOrDefault(x => x.IsKind(SyntaxKind.DefaultSwitchLabel));
