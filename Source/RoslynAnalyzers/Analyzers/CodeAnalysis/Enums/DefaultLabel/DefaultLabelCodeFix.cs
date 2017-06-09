@@ -31,7 +31,7 @@ namespace Analyzers.CodeAnalysis.Enums.DefaultLabel
             if (diagnostic == null) return;
 
             CodeAction codeAction = CodeAction.Create(
-                               "Move default label to the last position",
+                               "Move default label to the last position 2",
                                cancellationToken => GetNewDocument(context),
                                DefaultLabelDiagnosticAnalyzer.DiagnosticId + "CodeFixProvider");
 
@@ -44,22 +44,29 @@ namespace Analyzers.CodeAnalysis.Enums.DefaultLabel
             SyntaxNode root = await context.Document.GetSyntaxRootAsync(context.CancellationToken).ConfigureAwait(false);
             SyntaxNode node = root.FindNode(context.Span);
 
-            SwitchSectionSyntax switchSection = root
+            SwitchSectionSyntax defaultSwitchSection = root
                 .FindNode(context.Span, getInnermostNodeForTie: true)?
                 .FirstAncestorOrSelf<SwitchSectionSyntax>();
 
+            SwitchStatementSyntax switchStatement = root
+                .FindNode(context.Span, getInnermostNodeForTie: true)?
+                .FirstAncestorOrSelf<SwitchStatementSyntax>();
 
+            var defaultSwitchSectionLabels = defaultSwitchSection.Labels;
+            var defaultLabel = defaultSwitchSection.Labels.First(x => x.IsKind(SyntaxKind.DefaultSwitchLabel));
+            defaultSwitchSectionLabels = defaultSwitchSectionLabels.Remove(defaultLabel);
+            defaultSwitchSectionLabels = defaultSwitchSectionLabels.Add(defaultLabel);
 
-            SyntaxList<SwitchLabelSyntax> labels = switchSection.Labels;
-            SwitchLabelSyntax defaultLabel = labels.First(f => f.IsKind(SyntaxKind.DefaultSwitchLabel));
-            int index = labels.IndexOf(defaultLabel);
-            SwitchLabelSyntax lastLabel = labels.Last();
-            labels = labels.Replace(lastLabel, defaultLabel.WithTriviaFrom(lastLabel));
-            labels = labels.Replace(labels[index], lastLabel.WithTriviaFrom(defaultLabel));
-            SwitchSectionSyntax newSwitchSection = switchSection.WithLabels(labels);
-            var newRoot = root.ReplaceNode(switchSection, new List<SyntaxNode> { newSwitchSection });
+            var newDefaultSwitchSection = defaultSwitchSection.WithLabels(defaultSwitchSectionLabels);
+
+            var switchSections = switchStatement.Sections;
+            switchSections = switchSections.Remove(defaultSwitchSection);
+            switchSections = switchSections.Add(newDefaultSwitchSection);
+
+            SwitchStatementSyntax newSwitchStatement = switchStatement.WithSections(switchSections);
+
+            var newRoot = root.ReplaceNode(switchStatement, newSwitchStatement);
             var newDocument = context.Document.WithSyntaxRoot(newRoot);
-
             return newDocument;
         }
     }
