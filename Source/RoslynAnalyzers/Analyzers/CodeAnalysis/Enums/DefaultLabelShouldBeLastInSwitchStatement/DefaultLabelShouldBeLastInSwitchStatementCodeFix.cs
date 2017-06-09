@@ -12,7 +12,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace Analyzers.CodeAnalysis.Enums.DefaultLabelShouldBeLastInSwitchStatement
 {
     [ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(DefaultLabelShouldBeLastInSwitchStatementCodeFix)), Shared]
-    public class DefaultLabelShouldBeLastInSwitchStatementCodeFix : CodeFixProvider
+    public sealed class DefaultLabelShouldBeLastInSwitchStatementCodeFix : CodeFixProvider
     {
         private const string Title = "Move default label to the last position";
         private const string EquivalenceKey = DefaultLabelShouldBeLastInSwitchStatementDiagnosticAnalyzer.DiagnosticId + "CodeFixProvider";

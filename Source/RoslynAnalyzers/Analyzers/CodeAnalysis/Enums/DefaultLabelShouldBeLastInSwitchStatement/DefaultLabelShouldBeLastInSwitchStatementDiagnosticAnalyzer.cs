@@ -11,7 +11,7 @@ using Microsoft.CodeAnalysis.Diagnostics;
 namespace Analyzers.CodeAnalysis.Enums.DefaultLabelShouldBeLastInSwitchStatement
 {
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    public class DefaultLabelShouldBeLastInSwitchStatementDiagnosticAnalyzer : DiagnosticAnalyzer
+    public sealed class DefaultLabelShouldBeLastInSwitchStatementDiagnosticAnalyzer : DiagnosticAnalyzer
     {
         public const string DiagnosticId = EnumDiagnosticIdentifiers.DefaultLabelShouldBeTheLast;
         private static readonly LocalizableString Title = "Default switch label";
@@ -29,6 +29,8 @@ namespace Analyzers.CodeAnalysis.Enums.DefaultLabelShouldBeLastInSwitchStatement
 
         public override void Initialize(AnalysisContext context)
         {
+            context.EnableConcurrentExecution();
+            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
             context.RegisterSyntaxNodeAction(DefaultLabelShouldBeLastInSwitchStatement, SyntaxKind.SwitchStatement);
         }
 
