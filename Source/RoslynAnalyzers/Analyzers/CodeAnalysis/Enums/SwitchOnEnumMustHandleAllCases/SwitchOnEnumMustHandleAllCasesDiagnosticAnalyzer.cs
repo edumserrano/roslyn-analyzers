@@ -2,43 +2,46 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Threading;
+using Analyzers.CodeAnalysis.AnalyzersMetadata;
+using Analyzers.CodeAnalysis.AnalyzersMetadata.DiagnosticIdentifiers;
+using Analyzers.Extensions;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
 
-namespace Analyzers.CodeAnalysis.Enums.PopulateSwitch
+namespace Analyzers.CodeAnalysis.Enums.SwitchOnEnumMustHandleAllCases
 {
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    public class PopulateSwitchDiagnosticAnalyzer : DiagnosticAnalyzer
+    public class SwitchOnEnumMustHandleAllCasesDiagnosticAnalyzer : DiagnosticAnalyzer
     {
-        public const string DiagnosticId = "ENUM001";
-        private const string Category = "Enum";
+        public const string DiagnosticId = EnumDiagnosticIdentifiers.SwitchOnEnumMustHandleAllCases;
         private static readonly LocalizableString Title = "Populate switch";
         private static readonly LocalizableString MessageFormat = "Add missing switch cases. A switch is considered incomplete if it is missing a possible value of the enum or the default case.";
-        private static readonly LocalizableString Description = "Switch cases on enums must contain all possible cases. A switch is considered incomplete if it is missing a possible value of the enum or the default case.";
+
         private static readonly DiagnosticDescriptor Rule = new DiagnosticDescriptor(
             DiagnosticId,
             Title,
             MessageFormat,
-            Category,
+            DiagnosticCategories.Maintainability,
             DiagnosticSeverity.Error,
-            isEnabledByDefault: true,
-            description: Description);
+            isEnabledByDefault: true);
 
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics => ImmutableArray.Create(Rule);
 
         public override void Initialize(AnalysisContext context)
         {
+            context.EnableConcurrentExecution();
+            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
             context.RegisterSyntaxNodeAction(SwitchStatementOnEnumContainsAllCases, SyntaxKind.SwitchStatement);
         }
 
         private void SwitchStatementOnEnumContainsAllCases(SyntaxNodeAnalysisContext context)
         {
-            if (!(context.Node is SwitchStatementSyntax switchStatement)) return;
-            if (switchStatement.ContainsDiagnostics && switchStatement.GetDiagnostics().Any(x => x.Severity == DiagnosticSeverity.Error)) return;
+            var result = context.TryGetSyntaxNode<SwitchStatementSyntax>();
+            if (!result.success) return;
 
-
+            var switchStatement = result.syntaxNode;
             var model = context.SemanticModel;
             var enumType = model.GetTypeInfo(switchStatement.Expression, context.CancellationToken).Type as INamedTypeSymbol;
 
@@ -176,7 +179,7 @@ namespace Analyzers.CodeAnalysis.Enums.PopulateSwitch
             return labelSymbols;
         }
 
-        public long ToInt64(object o)
+        private long ToInt64(object o)
         {
             return o is ulong ? unchecked((long)(ulong)o) : System.Convert.ToInt64(o);
         }

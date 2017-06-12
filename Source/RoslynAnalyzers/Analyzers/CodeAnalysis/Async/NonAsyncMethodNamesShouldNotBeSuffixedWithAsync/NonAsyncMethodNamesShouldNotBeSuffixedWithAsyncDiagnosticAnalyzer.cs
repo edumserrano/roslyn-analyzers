@@ -1,46 +1,49 @@
 ﻿using System;
 using System.Collections.Immutable;
-using System.Linq;
+using Analyzers.CodeAnalysis.AnalyzersMetadata;
+using Analyzers.CodeAnalysis.AnalyzersMetadata.DiagnosticIdentifiers;
 using Analyzers.Extensions;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
 
-namespace Analyzers.CodeAnalysis.Async.NonAsyncNaming
+namespace Analyzers.CodeAnalysis.Async.NonAsyncMethodNamesShouldNotBeSuffixedWithAsync
 {
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    public class NonAsyncNamingDiagnosticAnalyzer : DiagnosticAnalyzer
+    public class NonAsyncMethodNamesShouldNotBeSuffixedWithAsyncDiagnosticAnalyzer : DiagnosticAnalyzer
     {
         private const string AsyncSuffix = "Async";
 
-        public const string DiagnosticId = "Async003";
-        private const string Category = "Async";
+        public const string DiagnosticId = AsyncDiagnosticIdentifiers.NonAsyncMethodNamesShouldNotBeSuffixedWithAsync;
         private static readonly LocalizableString Title = "Non asynchronous method names should end with Async";
         private static readonly LocalizableString MessageFormat = "Remove Async suffix from method name";
-        private static readonly LocalizableString Description = "Non asynchronous method name should end with Async";
+
         private static readonly DiagnosticDescriptor Rule = new DiagnosticDescriptor(
             DiagnosticId,
             Title,
             MessageFormat,
-            Category,
+            DiagnosticCategories.Naming,
             DiagnosticSeverity.Warning,
-            isEnabledByDefault: true,
-            description: Description);
+            isEnabledByDefault: true);
 
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics => ImmutableArray.Create(Rule);
 
         public override void Initialize(AnalysisContext context)
         {
+            context.EnableConcurrentExecution();
+            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
             context.RegisterSyntaxNodeAction(ShouldEndWithAsync, SyntaxKind.MethodDeclaration);
         }
 
         private void ShouldEndWithAsync(SyntaxNodeAnalysisContext context)
         {
-            if (!(context.Node is MethodDeclarationSyntax methodDeclaration)) return;
-            if (methodDeclaration.ContainsDiagnostics && methodDeclaration.GetDiagnostics().Any(x => x.Severity == DiagnosticSeverity.Error)) return;
+            var result = context.TryGetSyntaxNode<MethodDeclarationSyntax>();
+            if (!result.success) return;
 
+            var methodDeclaration = result.syntaxNode;
             var model = context.SemanticModel;
+
             var methodSymbol = model.GetDeclaredSymbol(methodDeclaration, context.CancellationToken);
             if (methodSymbol.ReturnsTask() || methodSymbol.IsAsync) return;
             if (!methodSymbol.Name.EndsWith(AsyncSuffix, StringComparison.Ordinal)) return;
