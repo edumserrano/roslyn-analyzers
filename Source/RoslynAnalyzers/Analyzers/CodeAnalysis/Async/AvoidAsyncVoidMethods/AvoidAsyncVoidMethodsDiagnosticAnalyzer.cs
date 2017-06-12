@@ -10,7 +10,7 @@ using Microsoft.CodeAnalysis.Diagnostics;
 namespace Analyzers.CodeAnalysis.Async.AvoidAsyncVoidMethods
 {
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    public class AvoidAsyncVoidMethodsDiagnosticAnalyzer : DiagnosticAnalyzer
+    public sealed class AvoidAsyncVoidMethodsDiagnosticAnalyzer : DiagnosticAnalyzer
     {
         public const string DiagnosticId = AsyncDiagnosticIdentifiers.AvoidAsyncVoidMethods;
         private static readonly LocalizableString Title = "Avoid void returning asynchronous method";

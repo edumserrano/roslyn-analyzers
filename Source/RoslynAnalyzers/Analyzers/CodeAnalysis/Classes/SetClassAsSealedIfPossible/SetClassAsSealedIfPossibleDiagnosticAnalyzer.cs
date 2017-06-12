@@ -12,7 +12,7 @@ using Microsoft.CodeAnalysis.Diagnostics;
 namespace Analyzers.CodeAnalysis.Classes.SetClassAsSealedIfPossible
 {
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    public class SetClassAsSealedIfPossibleDiagnosticAnalyzer : DiagnosticAnalyzer
+    public sealed class SetClassAsSealedIfPossibleDiagnosticAnalyzer : DiagnosticAnalyzer
     {
         public const string DiagnosticId = ClassDiagnosticIdentifiers.SetClassAsSealedIfPossible;
         private static readonly LocalizableString Title = "Seal classes that do not have any virtual or abstract methods, properties, events, or indexers";

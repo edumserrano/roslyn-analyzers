@@ -10,7 +10,7 @@ using Microsoft.CodeAnalysis.Diagnostics;
 namespace Analyzers.CodeAnalysis.Async.UseConfigureAwaitFalseWhenPossible
 {
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    public class UseConfigureAwaitFalseWhenPossibleDiagnosticAnalyzer : DiagnosticAnalyzer
+    public sealed class UseConfigureAwaitFalseWhenPossibleDiagnosticAnalyzer : DiagnosticAnalyzer
     {
         public const string DiagnosticId = AsyncDiagnosticIdentifiers.UseConfigureAwaitFalseWhenPossible;
         private static readonly LocalizableString Title = "Consider using ConfigureAwait(false)";

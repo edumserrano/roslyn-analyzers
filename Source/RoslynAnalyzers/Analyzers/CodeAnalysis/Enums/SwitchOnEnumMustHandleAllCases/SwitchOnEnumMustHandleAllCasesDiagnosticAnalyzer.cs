@@ -13,7 +13,7 @@ using Microsoft.CodeAnalysis.Diagnostics;
 namespace Analyzers.CodeAnalysis.Enums.SwitchOnEnumMustHandleAllCases
 {
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    public class SwitchOnEnumMustHandleAllCasesDiagnosticAnalyzer : DiagnosticAnalyzer
+    public sealed class SwitchOnEnumMustHandleAllCasesDiagnosticAnalyzer : DiagnosticAnalyzer
     {
         public const string DiagnosticId = EnumDiagnosticIdentifiers.SwitchOnEnumMustHandleAllCases;
         private static readonly LocalizableString Title = "Populate switch";

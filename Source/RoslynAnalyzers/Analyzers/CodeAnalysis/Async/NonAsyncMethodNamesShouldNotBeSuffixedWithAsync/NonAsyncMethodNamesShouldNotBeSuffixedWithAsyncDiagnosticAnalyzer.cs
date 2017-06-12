@@ -11,7 +11,7 @@ using Microsoft.CodeAnalysis.Diagnostics;
 namespace Analyzers.CodeAnalysis.Async.NonAsyncMethodNamesShouldNotBeSuffixedWithAsync
 {
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    public class NonAsyncMethodNamesShouldNotBeSuffixedWithAsyncDiagnosticAnalyzer : DiagnosticAnalyzer
+    public sealed class NonAsyncMethodNamesShouldNotBeSuffixedWithAsyncDiagnosticAnalyzer : DiagnosticAnalyzer
     {
         private const string AsyncSuffix = "Async";
 

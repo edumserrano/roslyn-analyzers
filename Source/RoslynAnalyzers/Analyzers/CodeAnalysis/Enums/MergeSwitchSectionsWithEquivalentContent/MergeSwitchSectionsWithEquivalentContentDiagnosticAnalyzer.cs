@@ -11,7 +11,7 @@ using Microsoft.CodeAnalysis.Diagnostics;
 namespace Analyzers.CodeAnalysis.Enums.MergeSwitchSectionsWithEquivalentContent
 {
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    public class MergeSwitchSectionsWithEquivalentContentDiagnosticAnalyzer : DiagnosticAnalyzer
+    public sealed class MergeSwitchSectionsWithEquivalentContentDiagnosticAnalyzer : DiagnosticAnalyzer
     {
         public const string DiagnosticId = EnumDiagnosticIdentifiers.MergeSwitchSectionsWithEquivalentContent;
         private static readonly LocalizableString Title = "Merge switch sections";
