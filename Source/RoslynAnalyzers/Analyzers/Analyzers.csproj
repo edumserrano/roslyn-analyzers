@@ -25,4 +25,8 @@
     </EmbeddedResource>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="CodeAnalysis\Classes\" />
+  </ItemGroup>
+
 </Project>

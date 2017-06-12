@@ -31,10 +31,10 @@ namespace Analyzers.CodeAnalysis.Enums.MergeSwitchSectionsWithEquivalentContent
         {
             context.EnableConcurrentExecution();
             context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-            context.RegisterSyntaxNodeAction(DefaultLabelOnSwitchStatementIsLast, SyntaxKind.SwitchStatement);
+            context.RegisterSyntaxNodeAction(AnalyzeSwitchStatement, SyntaxKind.SwitchStatement);
         }
 
-        private void DefaultLabelOnSwitchStatementIsLast(SyntaxNodeAnalysisContext context)
+        private void AnalyzeSwitchStatement(SyntaxNodeAnalysisContext context)
         {
             var result = context.TryGetSyntaxNode<SwitchStatementSyntax>();
             if (!result.success) return;

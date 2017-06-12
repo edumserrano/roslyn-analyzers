@@ -21,7 +21,7 @@ namespace Analyzers.CodeAnalysis.Async.AvoidAsyncVoidMethods
             Title,
             MessageFormat,
             DiagnosticCategories.Maintainability,
-            DiagnosticSeverity.Error,
+            DiagnosticSeverity.Warning,
             isEnabledByDefault: true);
 
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics => ImmutableArray.Create(Rule);
@@ -30,10 +30,10 @@ namespace Analyzers.CodeAnalysis.Async.AvoidAsyncVoidMethods
         {
             context.EnableConcurrentExecution();
             context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-            context.RegisterSyntaxNodeAction(ShouldEndWithAsync, SyntaxKind.MethodDeclaration);
+            context.RegisterSyntaxNodeAction(AnalyzeMethodDeclaration, SyntaxKind.MethodDeclaration);
         }
 
-        private void ShouldEndWithAsync(SyntaxNodeAnalysisContext context)
+        private void AnalyzeMethodDeclaration(SyntaxNodeAnalysisContext context)
         {
             var result = context.TryGetSyntaxNode<MethodDeclarationSyntax>();
             if (!result.success) return;

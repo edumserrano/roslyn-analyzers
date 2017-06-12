@@ -31,10 +31,10 @@ namespace Analyzers.CodeAnalysis.Enums.DefaultLabelShouldBeLastInSwitchStatement
         {
             context.EnableConcurrentExecution();
             context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-            context.RegisterSyntaxNodeAction(DefaultLabelShouldBeLastInSwitchStatement, SyntaxKind.SwitchStatement);
+            context.RegisterSyntaxNodeAction(AnalyzeSwitchStatement, SyntaxKind.SwitchStatement);
         }
 
-        private void DefaultLabelShouldBeLastInSwitchStatement(SyntaxNodeAnalysisContext context)
+        private void AnalyzeSwitchStatement(SyntaxNodeAnalysisContext context)
         {
             var result = context.TryGetSyntaxNode<SwitchStatementSyntax>();
             if (!result.success) return;

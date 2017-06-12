@@ -24,7 +24,7 @@ namespace Analyzers.CodeAnalysis.Enums.SwitchOnEnumMustHandleAllCases
             Title,
             MessageFormat,
             DiagnosticCategories.Maintainability,
-            DiagnosticSeverity.Error,
+            DiagnosticSeverity.Warning,
             isEnabledByDefault: true);
 
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics => ImmutableArray.Create(Rule);
@@ -33,10 +33,10 @@ namespace Analyzers.CodeAnalysis.Enums.SwitchOnEnumMustHandleAllCases
         {
             context.EnableConcurrentExecution();
             context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-            context.RegisterSyntaxNodeAction(SwitchStatementOnEnumContainsAllCases, SyntaxKind.SwitchStatement);
+            context.RegisterSyntaxNodeAction(AnalyzeSwitchStatement, SyntaxKind.SwitchStatement);
         }
 
-        private void SwitchStatementOnEnumContainsAllCases(SyntaxNodeAnalysisContext context)
+        private void AnalyzeSwitchStatement(SyntaxNodeAnalysisContext context)
         {
             var result = context.TryGetSyntaxNode<SwitchStatementSyntax>();
             if (!result.success) return;

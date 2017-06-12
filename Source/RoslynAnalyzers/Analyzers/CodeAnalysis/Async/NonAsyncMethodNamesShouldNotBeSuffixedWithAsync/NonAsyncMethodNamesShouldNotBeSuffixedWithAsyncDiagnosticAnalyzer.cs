@@ -33,10 +33,10 @@ namespace Analyzers.CodeAnalysis.Async.NonAsyncMethodNamesShouldNotBeSuffixedWit
         {
             context.EnableConcurrentExecution();
             context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-            context.RegisterSyntaxNodeAction(ShouldEndWithAsync, SyntaxKind.MethodDeclaration);
+            context.RegisterSyntaxNodeAction(AnalyzeMethodDeclaration, SyntaxKind.MethodDeclaration);
         }
 
-        private void ShouldEndWithAsync(SyntaxNodeAnalysisContext context)
+        private void AnalyzeMethodDeclaration(SyntaxNodeAnalysisContext context)
         {
             var result = context.TryGetSyntaxNode<MethodDeclarationSyntax>();
             if (!result.success) return;

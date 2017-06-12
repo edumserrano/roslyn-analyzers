@@ -30,10 +30,10 @@ namespace Analyzers.CodeAnalysis.Async.UseConfigureAwaitFalseWhenPossible
         {
             context.EnableConcurrentExecution();
             context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-            context.RegisterSyntaxNodeAction(ShouldUseConfigureAwait, SyntaxKind.AwaitExpression);
+            context.RegisterSyntaxNodeAction(AnalyzeAwaitExpression, SyntaxKind.AwaitExpression);
         }
 
-        private void ShouldUseConfigureAwait(SyntaxNodeAnalysisContext context)
+        private void AnalyzeAwaitExpression(SyntaxNodeAnalysisContext context)
         {
             var result = context.TryGetSyntaxNode<AwaitExpressionSyntax>();
             if (!result.success) return;
