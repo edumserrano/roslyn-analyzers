@@ -5,7 +5,7 @@ using Microsoft.CodeAnalysis.CodeFixes;
 
 namespace Analyzers.Extensions
 {
-    public static class CodeFixContextExtensions
+    internal static class CodeFixContextExtensions
     {
         public static async Task<(bool success, SyntaxNode root, T syntaxNode, Diagnostic diagnostic)> TryGetSyntaxNode<T>(
             this CodeFixContext context,
@@ -29,6 +29,24 @@ namespace Analyzers.Extensions
             return node == null
                 ? (success: false, root: root, syntaxNode: null as T, diagnostic: diagnostic)
                 : (success: true, root: root, syntaxNode: node, diagnostic: diagnostic);
+        }
+
+        public static async Task<Document> GetDocumentWithReplacedNode(
+            this CodeFixContext context,
+            SyntaxNode oldNode,
+            SyntaxNode newNode,
+            SyntaxNode root = null)
+        {
+            if (root == null)
+            {
+                root = await context.Document
+                    .GetSyntaxRootAsync(context.CancellationToken)
+                    .ConfigureAwait(false);
+            }
+
+            var newRoot = root.ReplaceNode(oldNode, newNode);
+            return context.Document
+                .WithSyntaxRoot(newRoot);
         }
     }
 }

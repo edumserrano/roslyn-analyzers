@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.Diagnostics;
 
 namespace Analyzers.Extensions
 {
-    public static class SyntaxNodeAnalysisContextExtensions
+    internal static class SyntaxNodeAnalysisContextExtensions
     {
         public static (bool success, T syntaxNode) TryGetSyntaxNode<T>(this SyntaxNodeAnalysisContext context) where T : SyntaxNode
         {

@@ -6,7 +6,7 @@ using Microsoft.CodeAnalysis.CSharp;
 
 namespace Analyzers.Extensions
 {
-    public static class ClassDeclarationSyntaxExtensions
+    internal static class ClassDeclarationSyntaxExtensions
     {
         public static bool IsStatic(this ClassDeclarationSyntax classDeclaration)
         {
@@ -46,6 +46,50 @@ namespace Analyzers.Extensions
             return classDeclaration.Members
                 .Where(x => x.IsKind(SyntaxKind.IndexerDeclaration))
                 .OfType<IndexerDeclarationSyntax>();
+        }
+
+        public static bool HasAbstractOrVirtualMethods(this ClassDeclarationSyntax classDeclaration)
+        {
+            var methods = classDeclaration.GetMethods();
+            foreach (var m in methods)
+            {
+                var modifiers = m.Modifiers.Where(x => x.IsKind(SyntaxKind.AbstractKeyword) || x.IsKind(SyntaxKind.VirtualKeyword));
+                if (modifiers.Any()) return true;
+            }
+            return false;
+        }
+
+        public static bool HasAbstractOrVirtualProperties(this ClassDeclarationSyntax classDeclaration)
+        {
+            var props = classDeclaration.GetProperties();
+            foreach (var p in props)
+            {
+                var modifiers = p.Modifiers.Where(x => x.IsKind(SyntaxKind.AbstractKeyword) || x.IsKind(SyntaxKind.VirtualKeyword));
+                if (modifiers.Any()) return true;
+            }
+            return false;
+        }
+
+        public static bool HasAbstractOrVirtualEvents(this ClassDeclarationSyntax classDeclaration)
+        {
+            var events = classDeclaration.GetEvents();
+            foreach (var e in events)
+            {
+                var modifiers = e.Modifiers.Where(x => x.IsKind(SyntaxKind.AbstractKeyword) || x.IsKind(SyntaxKind.VirtualKeyword));
+                if (modifiers.Any()) return true;
+            }
+            return false;
+        }
+
+        public static bool HasAbstractOrVirtualIndexers(this ClassDeclarationSyntax classDeclaration)
+        {
+            var indexers = classDeclaration.GetIndexers();
+            foreach (var i in indexers)
+            {
+                var modifiers = i.Modifiers.Where(x => x.IsKind(SyntaxKind.AbstractKeyword) || x.IsKind(SyntaxKind.VirtualKeyword));
+                if (modifiers.Any()) return true;
+            }
+            return false;
         }
     }
 }

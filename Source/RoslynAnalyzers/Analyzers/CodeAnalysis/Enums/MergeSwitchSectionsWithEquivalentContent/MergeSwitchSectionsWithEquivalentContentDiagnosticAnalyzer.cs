@@ -15,7 +15,9 @@ namespace Analyzers.CodeAnalysis.Enums.MergeSwitchSectionsWithEquivalentContent
     {
         public const string DiagnosticId = EnumDiagnosticIdentifiers.MergeSwitchSectionsWithEquivalentContent;
         private static readonly LocalizableString Title = "Merge switch sections";
-        private static readonly LocalizableString MessageFormat = "Switch statements with equivalent content should be merged";
+
+        private static readonly LocalizableString MessageFormat =
+            "Switch statements with equivalent content should be merged";
 
         private static readonly DiagnosticDescriptor Rule = new DiagnosticDescriptor(
             DiagnosticId,
@@ -42,67 +44,14 @@ namespace Analyzers.CodeAnalysis.Enums.MergeSwitchSectionsWithEquivalentContent
             var switchStatement = result.syntaxNode;
             var switchSections = switchStatement.Sections;
 
-            for (var i = 0; i < switchSections.Count; i++)
+            var listOfEquivalentIndexes = switchStatement.GetEquivalentSwitchStatementsIndexes();
+            if (!listOfEquivalentIndexes.Any()) return;
+
+            var indexes = listOfEquivalentIndexes.SelectMany(x => x);
+            foreach (var index in indexes)
             {
-                var sectionStatements = GetStatements(switchSections[i]);
-                for (var j = i + 1; j < switchSections.Count; j++)
-                {
-                    var sectionStatements2 = GetStatements(switchSections[j]);
-
-                    if (AreEquivalent(sectionStatements, sectionStatements2))
-                    {
-                        context.ReportDiagnostic(Diagnostic.Create(Rule, switchStatement.GetLocation()));
-                        return;
-                    }
-                }
+                context.ReportDiagnostic(Diagnostic.Create(Rule, switchSections[index].GetLocation()));
             }
-        }
-
-
-        private SyntaxList<StatementSyntax> GetStatements(SwitchSectionSyntax section)
-        {
-            var statements = section.Statements;
-
-            if (statements.Count == 1)
-            {
-                var statement = statements[0];
-
-                if (statement.IsKind(SyntaxKind.Block))
-                    return ((BlockSyntax)statement).Statements;
-            }
-
-            return statements;
-        }
-
-        private bool AreEquivalent(SyntaxList<StatementSyntax> statements, SyntaxList<StatementSyntax> statements2)
-        {
-            if (statements.Count == 1)
-            {
-                if (statements2.Count == 1)
-                    return AreEquivalent(statements[0], statements2[0]);
-            }
-            else if (statements.Count == 2
-                && statements2.Count == 2
-                && statements[1].IsKind(SyntaxKind.BreakStatement)
-                && statements2[1].IsKind(SyntaxKind.BreakStatement))
-            {
-                return AreEquivalent(statements[0], statements2[0]);
-            }
-
-            return false;
-        }
-
-        private bool AreEquivalent(StatementSyntax statement, StatementSyntax statement2)
-        {
-            return statement.Kind() == statement2.Kind()
-                && statement.IsEquivalentTo(statement2, topLevel: false)
-                && statement.DescendantTrivia().All(IsWhitespaceOrEndOfLineTrivia)
-                && statement2.DescendantTrivia().All(IsWhitespaceOrEndOfLineTrivia);
-        }
-
-        public bool IsWhitespaceOrEndOfLineTrivia(SyntaxTrivia trivia)
-        {
-            return trivia.IsKind(SyntaxKind.WhitespaceTrivia) || trivia.IsKind(SyntaxKind.EndOfLineTrivia);
         }
     }
 }

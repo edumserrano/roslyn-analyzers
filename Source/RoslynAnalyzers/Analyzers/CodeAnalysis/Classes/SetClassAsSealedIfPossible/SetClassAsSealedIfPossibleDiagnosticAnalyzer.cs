@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Linq;
+﻿using System.Collections.Immutable;
 using Analyzers.CodeAnalysis.AnalyzersMetadata;
 using Analyzers.CodeAnalysis.AnalyzersMetadata.DiagnosticIdentifiers;
 using Analyzers.Extensions;
@@ -42,60 +40,17 @@ namespace Analyzers.CodeAnalysis.Classes.SetClassAsSealedIfPossible
 
             var classDeclaration = result.syntaxNode;
 
-            if (classDeclaration.IsStatic()) return;
-            if (classDeclaration.IsSealed()) return;
-
-            var methods = classDeclaration.GetMethods();
-            var props = classDeclaration.GetProperties();
-            var events = classDeclaration.GetEvents();
-            var indexers = classDeclaration.GetIndexers();
-
-            if (HasAbstractOrVirtualMethods(methods)) return;
-            if (HasAbstractOrVirtualProperties(props)) return;
-            if (HasAbstractOrVirtualEvents(events)) return;
-            if (HasAbstractOrVirtualIndexers(indexers)) return;
-
-            context.ReportDiagnostic(Diagnostic.Create(Rule, classDeclaration.GetLocation()));
-        }
-
-        private bool HasAbstractOrVirtualMethods(IEnumerable<MethodDeclarationSyntax> methods)
-        {
-            foreach (var m in methods)
+            if (classDeclaration.IsSealed()
+                || classDeclaration.IsStatic()
+                || classDeclaration.HasAbstractOrVirtualMethods()
+                || classDeclaration.HasAbstractOrVirtualProperties()
+                || classDeclaration.HasAbstractOrVirtualEvents()
+                || classDeclaration.HasAbstractOrVirtualIndexers())
             {
-                var modifiers = m.Modifiers.Where(x => x.IsKind(SyntaxKind.AbstractKeyword) || x.IsKind(SyntaxKind.VirtualKeyword));
-                if (modifiers.Any()) return true;
+                return;
             }
-            return false;
-        }
 
-        private bool HasAbstractOrVirtualProperties(IEnumerable<PropertyDeclarationSyntax> props)
-        {
-            foreach (var p in props)
-            {
-                var modifiers = p.Modifiers.Where(x => x.IsKind(SyntaxKind.AbstractKeyword) || x.IsKind(SyntaxKind.VirtualKeyword));
-                if (modifiers.Any()) return true;
-            }
-            return false;
-        }
-
-        private bool HasAbstractOrVirtualEvents(IEnumerable<EventDeclarationSyntax> events)
-        {
-            foreach (var e in events)
-            {
-                var modifiers = e.Modifiers.Where(x => x.IsKind(SyntaxKind.AbstractKeyword) || x.IsKind(SyntaxKind.VirtualKeyword));
-                if (modifiers.Any()) return true;
-            }
-            return false;
-        }
-
-        private bool HasAbstractOrVirtualIndexers(IEnumerable<IndexerDeclarationSyntax> indexers)
-        {
-            foreach (var i in indexers)
-            {
-                var modifiers = i.Modifiers.Where(x => x.IsKind(SyntaxKind.AbstractKeyword) || x.IsKind(SyntaxKind.VirtualKeyword));
-                if (modifiers.Any()) return true;
-            }
-            return false;
+            context.ReportDiagnostic(Diagnostic.Create(Rule, classDeclaration.Identifier.GetLocation()));
         }
     }
 }

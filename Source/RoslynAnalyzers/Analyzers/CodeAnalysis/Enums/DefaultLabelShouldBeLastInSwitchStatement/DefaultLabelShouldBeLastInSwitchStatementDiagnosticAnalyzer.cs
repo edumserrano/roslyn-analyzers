@@ -1,5 +1,4 @@
 ﻿using System.Collections.Immutable;
-using System.Linq;
 using Analyzers.CodeAnalysis.AnalyzersMetadata;
 using Analyzers.CodeAnalysis.AnalyzersMetadata.DiagnosticIdentifiers;
 using Analyzers.Extensions;
@@ -40,9 +39,8 @@ namespace Analyzers.CodeAnalysis.Enums.DefaultLabelShouldBeLastInSwitchStatement
             if (!result.success) return;
 
             var switchStatement = result.syntaxNode;
-            var defaultLabel = switchStatement.Sections
-                .SelectMany(x => x.Labels)
-                .FirstOrDefault(x => x.IsKind(SyntaxKind.DefaultSwitchLabel));
+            var defaultSwitchSection = switchStatement.Sections.GetSwitchSectionWithDefaultLabel();
+            var defaultLabel = defaultSwitchSection?.Labels.GetDefaultSwitchLabel();
             if (defaultLabel == null) return;
 
             var lastSection = switchStatement.Sections.Last();
