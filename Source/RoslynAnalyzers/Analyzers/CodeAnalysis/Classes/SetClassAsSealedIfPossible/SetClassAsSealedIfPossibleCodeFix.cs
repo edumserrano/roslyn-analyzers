@@ -41,13 +41,13 @@ namespace Analyzers.CodeAnalysis.Classes.SetClassAsSealedIfPossible
             CodeFixContext context,
             SyntaxNode root,
             ClassDeclarationSyntax classDeclaration)
+
         {
             var syntaxGenerator = SyntaxGenerator.GetGenerator(context.Document);
             var newClassDeclaration = syntaxGenerator.WithModifiers(classDeclaration, DeclarationModifiers.Sealed);
-            //SyntaxToken tokenModifier = syntaxGenerator.mo;
-
-            //classDeclaration.AddModifiers(tokenModifier);
-
+            var newRoot = root.ReplaceNode(classDeclaration, newClassDeclaration);
+            var newDocument = context.Document.WithSyntaxRoot(newRoot);
+            return Task.FromResult(newDocument);
         }
     }
 }
