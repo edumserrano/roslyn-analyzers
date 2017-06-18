@@ -45,7 +45,7 @@ namespace Analyzers.CodeAnalysis.Async.AvoidAsyncVoidMethods
             if (!methodSymbol.IsAsync
                 || methodSymbol.ReturnType.SpecialType != SpecialType.System_Void) return;
 
-            context.ReportDiagnostic(Diagnostic.Create(Rule, methodDeclaration.Identifier.GetLocation()));
+            context.ReportDiagnostic(Diagnostic.Create(Rule, methodDeclaration.ReturnType.GetLocation()));
         }
     }
 }

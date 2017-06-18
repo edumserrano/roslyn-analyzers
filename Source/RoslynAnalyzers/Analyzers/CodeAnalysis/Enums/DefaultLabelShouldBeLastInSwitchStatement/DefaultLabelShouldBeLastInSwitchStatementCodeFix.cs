@@ -1,5 +1,6 @@
 ﻿using System.Collections.Immutable;
 using System.Composition;
+using System.Threading;
 using System.Threading.Tasks;
 using Analyzers.Extensions;
 using Microsoft.CodeAnalysis;
@@ -36,7 +37,11 @@ namespace Analyzers.CodeAnalysis.Enums.DefaultLabelShouldBeLastInSwitchStatement
             context.RegisterCodeFix(codeAction, diagnostic);
         }
 
-        private Task<Document> MoveDefaultLabelToLastInSwitchStatement(CodeFixContext context, SyntaxNode root, SwitchStatementSyntax switchStatement)
+        private Task<Document> MoveDefaultLabelToLastInSwitchStatement(
+            CodeFixContext context,
+            SyntaxNode root,
+            SwitchStatementSyntax
+            switchStatement)
         {
             var newSwitchStatement = switchStatement.MoveDefaultSwitchSectionToLastInSwitchStatement();
             newSwitchStatement = newSwitchStatement.MoveDefaultLabelToLastInSwitchSection();

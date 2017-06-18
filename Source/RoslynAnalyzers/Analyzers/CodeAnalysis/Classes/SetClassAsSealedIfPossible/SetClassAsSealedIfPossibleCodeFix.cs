@@ -38,8 +38,8 @@ namespace Analyzers.CodeAnalysis.Classes.SetClassAsSealedIfPossible
         }
 
         private Task<Document> AddSealedModifierToClass(
-            CodeFixContext context, 
-            SyntaxNode root, 
+            CodeFixContext context,
+            SyntaxNode root,
             ClassDeclarationSyntax classDeclaration)
         {
             var syntaxGenerator = SyntaxGenerator.GetGenerator(context.Document);
