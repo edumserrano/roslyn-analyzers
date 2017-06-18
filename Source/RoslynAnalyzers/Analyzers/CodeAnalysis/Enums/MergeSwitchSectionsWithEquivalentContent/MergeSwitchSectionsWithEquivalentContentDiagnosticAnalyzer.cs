@@ -50,7 +50,11 @@ namespace Analyzers.CodeAnalysis.Enums.MergeSwitchSectionsWithEquivalentContent
             var indexes = listOfEquivalentIndexes.SelectMany(x => x);
             foreach (var index in indexes)
             {
-                context.ReportDiagnostic(Diagnostic.Create(Rule, switchSections[index].GetLocation()));
+                var switchSection = switchSections[index];
+                foreach (var switchLabel in switchSection.Labels)
+                {
+                    context.ReportDiagnostic(Diagnostic.Create(Rule, switchLabel.GetLocation()));
+                }
             }
         }
     }

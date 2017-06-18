@@ -1,12 +1,62 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Analyzers.Extensions
 {
     internal static class SwitchStatementSyntaxExtensions
     {
+        public static Dictionary<long, ISymbol> GetLabelSymbols(
+            this SwitchStatementSyntax switchStatement,
+            SemanticModel model,
+            CancellationToken cancellationToken)
+        {
+            var labelSymbols = new Dictionary<long, ISymbol>();
+
+            var caseLabels = switchStatement.GetCaseSwitchLabels();
+            foreach (var label in caseLabels)
+            {
+                if (!(model.GetSymbolInfo(label, cancellationToken).Symbol is IFieldSymbol fieldSymbol))
+                {
+                    // something is wrong with the label and the SemanticModel was unable to determine its symbol
+                    // or the symbol is not a field symbol which should be for case labels of switchs on enum types
+                    // abort analyzer
+                    return new Dictionary<long, ISymbol>();
+                }
+
+                var enumValue = fieldSymbol.ConstantValue.ToInt64();
+                labelSymbols.Add(enumValue, fieldSymbol);
+            }
+
+            return labelSymbols;
+        }
+
+        public static List<ExpressionSyntax> GetCaseSwitchLabels(this SwitchStatementSyntax switchStatement)
+        {
+            var caseLabels = new List<ExpressionSyntax>();
+
+            foreach (var section in switchStatement.Sections)
+            {
+                foreach (var label in section.Labels)
+                {
+                    if (label is CaseSwitchLabelSyntax caseLabel)
+                    {
+                        caseLabels.Add(caseLabel.Value);
+                    }
+                }
+            }
+
+            return caseLabels;
+        }
+
+        public static bool HasDefaultSwitchStatement(this SwitchStatementSyntax switchStatement)
+        {
+            return switchStatement.Sections.GetSwitchSectionWithDefaultLabel() != null;
+        }
+
         public static SwitchStatementSyntax MoveDefaultSwitchSectionToLastInSwitchStatement(this SwitchStatementSyntax switchStatement)
         {
             var switchSections = switchStatement.Sections;

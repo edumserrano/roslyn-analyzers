@@ -1,7 +1,5 @@
-using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
-using System.Threading;
 using Analyzers.CodeAnalysis.AnalyzersMetadata;
 using Analyzers.CodeAnalysis.AnalyzersMetadata.DiagnosticIdentifiers;
 using Analyzers.Extensions;
@@ -47,17 +45,16 @@ namespace Analyzers.CodeAnalysis.Enums.SwitchOnEnumMustHandleAllCases
 
             if (!IsValidSwitch(enumType)) return;
 
-            var caseLabels = GetCaseLabelsExcludingDefaultCase(switchStatement, out bool hasDefaultCase);
-            if (!hasDefaultCase)
+            if (!switchStatement.HasDefaultSwitchStatement())
             {
-                context.ReportDiagnostic(Diagnostic.Create(Rule, switchStatement.GetLocation()));
+                context.ReportDiagnostic(Diagnostic.Create(Rule, switchStatement.SwitchKeyword.GetLocation()));
                 return;
-            };
+            }
 
-            var labelSymbols = GetLabelSymbols(model, caseLabels, context.CancellationToken);
+            var labelSymbols = switchStatement.GetLabelSymbols(model, context.CancellationToken);
             if (!labelSymbols.Any()) return;
 
-            var possibleEnumSymbols = GetAllPossibleEnumSymbols(enumType);
+            var possibleEnumSymbols = enumType.GetAllPossibleEnumSymbols();
             if (!possibleEnumSymbols.Any()) return;
 
             // possibleEnumSymbols and labelSymbols has a dictionary with the enum value and its corresponding symbols
@@ -72,44 +69,7 @@ namespace Analyzers.CodeAnalysis.Enums.SwitchOnEnumMustHandleAllCases
 
             if (declaredEnumValues.SequenceEqual(possibleEnumValues)) return;
 
-            context.ReportDiagnostic(Diagnostic.Create(Rule, switchStatement.GetLocation()));
-        }
-
-        private Dictionary<long, List<ISymbol>> GetAllPossibleEnumSymbols(INamedTypeSymbol enumType)
-        {
-            var enumValues = new Dictionary<long, List<ISymbol>>();
-            var enumMembers = enumType.GetMembers();
-
-            foreach (var enumMember in enumMembers)
-            {
-                // skip '.ctor' and '__value'
-                var fieldSymbol = enumMember as IFieldSymbol;
-                if (fieldSymbol == null || fieldSymbol.Type.SpecialType != SpecialType.None)
-                {
-                    continue;
-                }
-
-                if (fieldSymbol.ConstantValue == null)
-                {
-                    // We have an enum that has problems with it (i.e. non-const members).  We won't
-                    // be able to determine properly if the switch is complete.  Assume it is so we
-                    // don't offer to do anything.
-                    return new Dictionary<long, List<ISymbol>>();
-                }
-
-                //// Multiple enum members may have the same value.
-                var enumValue = ToInt64(fieldSymbol.ConstantValue);
-                if (!enumValues.ContainsKey(enumValue))
-                {
-                    enumValues.Add(enumValue, new List<ISymbol> { fieldSymbol });
-                }
-                else
-                {
-                    enumValues[enumValue].Add(fieldSymbol);
-                }
-            }
-
-            return enumValues;
+            context.ReportDiagnostic(Diagnostic.Create(Rule, switchStatement.SwitchKeyword.GetLocation()));
         }
 
         private bool IsValidSwitch(INamedTypeSymbol enumType)
@@ -131,57 +91,6 @@ namespace Analyzers.CodeAnalysis.Enums.SwitchOnEnumMustHandleAllCases
             }
 
             return true;
-        }
-
-        private List<ExpressionSyntax> GetCaseLabelsExcludingDefaultCase(SwitchStatementSyntax switchStatement, out bool hasDefaultCase)
-        {
-            hasDefaultCase = false;
-            var caseLabels = new List<ExpressionSyntax>();
-
-            foreach (var section in switchStatement.Sections)
-            {
-                foreach (var label in section.Labels)
-                {
-                    if (label.IsKind(SyntaxKind.DefaultSwitchLabel))
-                    {
-                        hasDefaultCase = true;
-                        continue;
-                    }
-
-                    if (label is CaseSwitchLabelSyntax caseLabel)
-                    {
-                        caseLabels.Add(caseLabel.Value);
-                    }
-                }
-            }
-
-            return caseLabels;
-        }
-
-        private Dictionary<long, ISymbol> GetLabelSymbols(SemanticModel model, List<ExpressionSyntax> caseLabels, CancellationToken cancellationToken)
-        {
-            var labelSymbols = new Dictionary<long, ISymbol>();
-
-            foreach (var label in caseLabels)
-            {
-                if (!(model.GetSymbolInfo(label, cancellationToken).Symbol is IFieldSymbol fieldSymbol))
-                {
-                    // something is wrong with the label and the SemanticModel was unable to determine its symbol
-                    // or the symbol is not a field symbol which should be for case labels of switchs on enum types
-                    // abort analyzer
-                    return new Dictionary<long, ISymbol>();
-                }
-
-                var enumValue = ToInt64(fieldSymbol.ConstantValue);
-                labelSymbols.Add(enumValue, fieldSymbol);
-            }
-
-            return labelSymbols;
-        }
-
-        private long ToInt64(object o)
-        {
-            return o is ulong ? unchecked((long)(ulong)o) : System.Convert.ToInt64(o);
         }
     }
 }
