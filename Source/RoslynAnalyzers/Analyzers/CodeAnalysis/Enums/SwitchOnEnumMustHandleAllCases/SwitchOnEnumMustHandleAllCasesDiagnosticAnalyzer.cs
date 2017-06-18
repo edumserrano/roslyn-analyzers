@@ -40,8 +40,8 @@ namespace Analyzers.CodeAnalysis.Enums.SwitchOnEnumMustHandleAllCases
             if (!result.success) return;
 
             var switchStatement = result.syntaxNode;
-            var model = context.SemanticModel;
-            var enumType = model.GetTypeInfo(switchStatement.Expression, context.CancellationToken).Type as INamedTypeSymbol;
+            var semanticModel = context.SemanticModel;
+            var enumType = semanticModel.GetTypeInfo(switchStatement.Expression, context.CancellationToken).Type as INamedTypeSymbol;
 
             if (!IsValidSwitch(enumType)) return;
 
@@ -51,7 +51,7 @@ namespace Analyzers.CodeAnalysis.Enums.SwitchOnEnumMustHandleAllCases
                 return;
             }
 
-            var labelSymbols = switchStatement.GetLabelSymbols(model, context.CancellationToken);
+            var labelSymbols = switchStatement.GetLabelSymbols(semanticModel, context.CancellationToken);
             if (!labelSymbols.Any()) return;
 
             var possibleEnumSymbols = enumType.GetAllPossibleEnumSymbols();

@@ -39,10 +39,10 @@ namespace Analyzers.CodeAnalysis.Async.UseConfigureAwaitFalseWhenPossible
             if (!result.success) return;
 
             var awaitExpression = result.syntaxNode;
-            var model = context.SemanticModel;
+            var semanticModel = context.SemanticModel;
             var expression = awaitExpression.Expression;
 
-            var methodSymbol = model.GetSymbolInfo(expression, context.CancellationToken).Symbol as IMethodSymbol;
+            var methodSymbol = semanticModel.GetSymbolInfo(expression, context.CancellationToken).Symbol as IMethodSymbol;
             if (!methodSymbol.ReturnsTask()) return;
 
             context.ReportDiagnostic(Diagnostic.Create(Rule, awaitExpression.GetLocation()));

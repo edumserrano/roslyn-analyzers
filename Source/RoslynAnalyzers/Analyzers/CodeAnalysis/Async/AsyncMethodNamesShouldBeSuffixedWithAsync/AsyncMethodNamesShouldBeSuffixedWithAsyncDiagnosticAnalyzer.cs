@@ -11,10 +11,8 @@ using Microsoft.CodeAnalysis.Diagnostics;
 namespace Analyzers.CodeAnalysis.Async.AsyncMethodNamesShouldBeSuffixedWithAsync
 {
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    public sealed class AsyncNamingDiagnosticAnalyzer : DiagnosticAnalyzer
+    public sealed class AsyncMethodNamesShouldBeSuffixedWithAsyncDiagnosticAnalyzer : DiagnosticAnalyzer
     {
-        private const string AsyncSuffix = "Async";
-
         public const string DiagnosticId = AsyncDiagnosticIdentifiers.AsyncMethodNamesShouldBeSuffixedWithAsync;
         private static readonly LocalizableString Title = "Asynchronous method names should end with Async";
         private static readonly LocalizableString MessageFormat = "Append asynchronous method name with Async";
@@ -42,11 +40,11 @@ namespace Analyzers.CodeAnalysis.Async.AsyncMethodNamesShouldBeSuffixedWithAsync
             if (!result.success) return;
 
             var methodDeclaration = result.syntaxNode;
-            var model = context.SemanticModel;
-            var methodSymbol = model.GetDeclaredSymbol(methodDeclaration, context.CancellationToken);
+            var semanticModel = context.SemanticModel;
+            var methodSymbol = semanticModel.GetDeclaredSymbol(methodDeclaration, context.CancellationToken);
 
             if (!methodSymbol.ReturnsTask() && !methodSymbol.IsAsync) return;
-            if (methodSymbol.Name.EndsWith(AsyncSuffix, StringComparison.Ordinal)) return;
+            if (methodSymbol.Name.EndsWith(AsyncConstants.AsyncSuffix, StringComparison.Ordinal)) return;
 
             context.ReportDiagnostic(Diagnostic.Create(Rule, methodDeclaration.Identifier.GetLocation()));
         }

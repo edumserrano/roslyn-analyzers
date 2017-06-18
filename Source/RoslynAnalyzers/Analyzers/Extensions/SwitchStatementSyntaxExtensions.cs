@@ -180,7 +180,7 @@ namespace Analyzers.Extensions
             }
 
             //replace the old switch sections with the new switch sections
-            var newSwitchStatement = switchStatement.RemoveNodes(nodesToRemove, SyntaxRemoveOptions.KeepNoTrivia);
+            var newSwitchStatement = switchStatement.RemoveNodes(nodesToRemove, default(SyntaxRemoveOptions));
             var newSections = newSwitchSections
                 .Aggregate(newSwitchStatement.Sections, (current, switchSectionSyntax) => current.Add(switchSectionSyntax));
 

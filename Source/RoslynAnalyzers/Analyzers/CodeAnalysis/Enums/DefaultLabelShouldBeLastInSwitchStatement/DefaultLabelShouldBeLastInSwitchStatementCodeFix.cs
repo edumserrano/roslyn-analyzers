@@ -21,26 +21,23 @@ namespace Analyzers.CodeAnalysis.Enums.DefaultLabelShouldBeLastInSwitchStatement
 
         public override async Task RegisterCodeFixesAsync(CodeFixContext context)
         {
-            var result = await context.TryGetSyntaxNode<SwitchSectionSyntax>(DefaultLabelShouldBeLastInSwitchStatementDiagnosticAnalyzer.DiagnosticId);
+            var result = await context.TryGetSyntaxNode<SwitchStatementSyntax>(DefaultLabelShouldBeLastInSwitchStatementDiagnosticAnalyzer.DiagnosticId);
             if (!result.success) return;
 
+            var switchStatement = result.syntaxNode;
             var diagnostic = result.diagnostic;
             var root = result.root;
 
             var codeAction = CodeAction.Create(
                 title: Title,
-                createChangedDocument: cancellationToken => MoveDefaultLabelToLastInSwitchStatement(context, root),
+                createChangedDocument: cancellationToken => MoveDefaultLabelToLastInSwitchStatement(context, root, switchStatement),
                 equivalenceKey: EquivalenceKey);
 
             context.RegisterCodeFix(codeAction, diagnostic);
         }
 
-        private Task<Document> MoveDefaultLabelToLastInSwitchStatement(CodeFixContext context, SyntaxNode root)
+        private Task<Document> MoveDefaultLabelToLastInSwitchStatement(CodeFixContext context, SyntaxNode root, SwitchStatementSyntax switchStatement)
         {
-            var switchStatement = root
-             .FindNode(context.Span, getInnermostNodeForTie: true)
-             ?.FirstAncestorOrSelf<SwitchStatementSyntax>();
-
             var newSwitchStatement = switchStatement.MoveDefaultSwitchSectionToLastInSwitchStatement();
             newSwitchStatement = newSwitchStatement.MoveDefaultLabelToLastInSwitchSection();
             return context.GetDocumentWithReplacedNode(switchStatement, newSwitchStatement, root);

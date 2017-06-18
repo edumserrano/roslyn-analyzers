@@ -39,8 +39,8 @@ namespace Analyzers.CodeAnalysis.Async.AvoidAsyncVoidMethods
             if (!result.success) return;
 
             var methodDeclaration = result.syntaxNode;
-            var model = context.SemanticModel;
-            var methodSymbol = model.GetDeclaredSymbol(methodDeclaration, context.CancellationToken);
+            var semanticModel = context.SemanticModel;
+            var methodSymbol = semanticModel.GetDeclaredSymbol(methodDeclaration, context.CancellationToken);
 
             if (!methodSymbol.IsAsync
                 || methodSymbol.ReturnType.SpecialType != SpecialType.System_Void) return;
