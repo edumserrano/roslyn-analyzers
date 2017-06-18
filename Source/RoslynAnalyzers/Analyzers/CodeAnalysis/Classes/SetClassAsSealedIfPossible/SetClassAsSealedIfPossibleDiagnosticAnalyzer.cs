@@ -13,7 +13,7 @@ namespace Analyzers.CodeAnalysis.Classes.SetClassAsSealedIfPossible
     public sealed class SetClassAsSealedIfPossibleDiagnosticAnalyzer : DiagnosticAnalyzer
     {
         public const string DiagnosticId = ClassDiagnosticIdentifiers.SetClassAsSealedIfPossible;
-        private static readonly LocalizableString Title = "Seal classes that do not have any virtual or abstract methods, properties, events, or indexers";
+        private static readonly LocalizableString Title = "Seal class";
         private static readonly LocalizableString MessageFormat = "Seal classes that do not have any virtual or abstract methods, properties, events, or indexers";
 
         private static readonly DiagnosticDescriptor Rule = new DiagnosticDescriptor(
