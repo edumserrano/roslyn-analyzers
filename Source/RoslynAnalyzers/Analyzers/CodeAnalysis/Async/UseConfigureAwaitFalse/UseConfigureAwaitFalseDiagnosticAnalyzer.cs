@@ -7,14 +7,14 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
 
-namespace Analyzers.CodeAnalysis.Async.UseConfigureAwaitFalseWhenPossible
+namespace Analyzers.CodeAnalysis.Async.UseConfigureAwaitFalse
 {
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    public sealed class UseConfigureAwaitFalseWhenPossibleDiagnosticAnalyzer : DiagnosticAnalyzer
+    public sealed class UseConfigureAwaitFalseDiagnosticAnalyzer : DiagnosticAnalyzer
     {
         public const string DiagnosticId = AsyncDiagnosticIdentifiers.UseConfigureAwaitFalseWhenPossible;
-        private static readonly LocalizableString Title = "Consider using ConfigureAwait(false)";
-        private static readonly LocalizableString MessageFormat = "If possible use ConfigureAwait(false)";
+        private static readonly LocalizableString Title = "Use ConfigureAwait(false) on await expression";
+        private static readonly LocalizableString MessageFormat = "Use ConfigureAwait(false)";
 
         private static readonly DiagnosticDescriptor Rule = new DiagnosticDescriptor(
             DiagnosticId,

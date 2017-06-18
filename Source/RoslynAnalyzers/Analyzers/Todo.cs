@@ -27,6 +27,12 @@
     // https://johnkoerner.com/csharp/creating-an-analyzer-for-sealing-classes/
 
 
+#warning what is the difference between :
+    //var syntaxGenerator = SyntaxGenerator.GetGenerator(context.Document);
+    //and
+    //using SyntaxFactory
+    // ???
+
     class Todo
     {
     }
