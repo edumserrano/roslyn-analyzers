@@ -1,22 +1,22 @@
 ﻿using System.Collections.Immutable;
 using Analyzers.CodeAnalysis.AnalyzersMetadata;
 using Analyzers.CodeAnalysis.AnalyzersMetadata.DiagnosticIdentifiers;
+using Analyzers.CodeAnalysis.AnalyzersMetadata.DiagnosticMessageFormats;
+using Analyzers.CodeAnalysis.AnalyzersMetadata.DiagnosticTitles;
 using Analyzers.Extensions;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
-using Analyzers.CodeAnalysis.AnalyzersMetadata.DiagnosticMessageFormats;
-using Analyzers.CodeAnalysis.AnalyzersMetadata.DiagnosticTitles;
 
-namespace Analyzers.CodeAnalysis.Classes.SetClassAsSealedIfPossible
+namespace Analyzers.CodeAnalysis.Classes.SetClassAsSealed
 {
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    public sealed class SetClassAsSealedIfPossibleDiagnosticAnalyzer : DiagnosticAnalyzer
+    public sealed class SetClassAsSealedDiagnosticAnalyzer : DiagnosticAnalyzer
     {
-        private const string DiagnosticId = ClassDiagnosticIdentifiers.SetClassAsSealedIfPossible;
-        private static readonly LocalizableString Title = ClassTitles.SetAllClassesAsSealed;
-        private static readonly LocalizableString MessageFormat = ClassMessageFormats.SetAllClassesAsSealed;
+        private const string DiagnosticId = ClassDiagnosticIdentifiers.SetClassAsSealed;
+        private static readonly LocalizableString Title = ClassTitles.SetClassAsSealed;
+        private static readonly LocalizableString MessageFormat = ClassMessageFormats.SetClassAsSealed;
 
         private static readonly DiagnosticDescriptor Rule = new DiagnosticDescriptor(
             DiagnosticId,

@@ -9,12 +9,12 @@ using Microsoft.CodeAnalysis.CodeFixes;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Editing;
 
-namespace Analyzers.CodeAnalysis.Classes.SetClassAsSealedIfPossible
+namespace Analyzers.CodeAnalysis.Classes.SetClassAsSealed
 {
-    [ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(SetClassAsSealedIfPossibleCodeFix)), Shared]
-    public sealed class SetClassAsSealedIfPossibleCodeFix : CodeFixProvider
+    [ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(SetClassAsSealedCodeFix)), Shared]
+    public sealed class SetClassAsSealedCodeFix : CodeFixProvider
     {
-        private const string DiagnosticId = ClassDiagnosticIdentifiers.SetClassAsSealedIfPossible;
+        private const string DiagnosticId = ClassDiagnosticIdentifiers.SetClassAsSealed;
         private const string Title = "Add sealed modifier to class";
         private const string EquivalenceKey = DiagnosticId + "CodeFixProvider";
 

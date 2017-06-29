@@ -1,6 +1,6 @@
 ﻿using Analyzers.CodeAnalysis.AnalyzersMetadata.DiagnosticIdentifiers;
 using Analyzers.CodeAnalysis.AnalyzersMetadata.DiagnosticMessageFormats;
-using Analyzers.CodeAnalysis.Classes.SetClassAsSealedIfPossible;
+using Analyzers.CodeAnalysis.Classes.SetClassAsSealed;
 using Analyzers.Tests._TestEnvironment.Base;
 using Analyzers.Tests._TestEnvironment.Roslyn.DiagnosticAnalyzers;
 using Microsoft.CodeAnalysis;
@@ -8,7 +8,7 @@ using Xunit;
 
 namespace Analyzers.Tests
 {
-    public class UnitTest1 : CSharpDiagnosticAnalyzerTest<SetClassAsSealedIfPossibleDiagnosticAnalyzer>
+    public class UnitTest1 : CSharpDiagnosticAnalyzerTest<SetClassAsSealedDiagnosticAnalyzer>
     {
         //No diagnostics expected to show up
         [Fact]
@@ -36,8 +36,8 @@ namespace Analyzers.Tests
 }";
             var expected = new DiagnosticResult
             {
-                Id = ClassDiagnosticIdentifiers.SetClassAsSealedIfPossible,
-                Message = ClassMessageFormats.SetAllClassesAsSealed.ToString(),
+                Id = ClassDiagnosticIdentifiers.SetClassAsSealed,
+                Message = ClassMessageFormats.SetClassAsSealed.ToString(),
                 Severity = DiagnosticSeverity.Warning,
                 Locations = new[] { new DiagnosticResultLocation("Test0.cs", 10, 18) }
             };

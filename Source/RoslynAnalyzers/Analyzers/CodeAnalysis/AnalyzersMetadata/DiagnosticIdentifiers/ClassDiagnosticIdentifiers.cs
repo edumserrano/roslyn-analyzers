@@ -4,6 +4,6 @@ namespace Analyzers.CodeAnalysis.AnalyzersMetadata.DiagnosticIdentifiers
     {
         private const string EnumPrefix = "CLASS";
 
-        public const string SetClassAsSealedIfPossible = EnumPrefix + "0001";
+        public const string SetClassAsSealed = EnumPrefix + "0001";
     }
 }

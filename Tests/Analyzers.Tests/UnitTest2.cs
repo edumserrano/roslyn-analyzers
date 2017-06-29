@@ -1,11 +1,11 @@
-﻿using Analyzers.CodeAnalysis.Classes.SetClassAsSealedIfPossible;
+﻿using Analyzers.CodeAnalysis.Classes.SetClassAsSealed;
 using Analyzers.Tests._TestEnvironment.Base;
 using Xunit;
 
 namespace Analyzers.Tests
 {
     public class UnitTest2
-        : CSharpCodeFixProviderTest<SetClassAsSealedIfPossibleDiagnosticAnalyzer, SetClassAsSealedIfPossibleCodeFix>
+        : CSharpCodeFixProviderTest<SetClassAsSealedDiagnosticAnalyzer, SetClassAsSealedCodeFix>
     {
         [Fact]
         public void TestMethod2()
