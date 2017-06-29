@@ -6,6 +6,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="DiagnosticTitles\**" />
+    <EmbeddedResource Remove="DiagnosticTitles\**" />
+    <None Remove="DiagnosticTitles\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="2.2.0" />
     <PackageReference Include="Microsoft.Composition" Version="1.0.30" />
   </ItemGroup>
@@ -23,10 +29,6 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <Generator>ResXFileCodeGenerator</Generator>
     </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="DiagnosticTitles\AnalyzersMetadata\CodeAnalysis\" />
   </ItemGroup>
 
 </Project>
