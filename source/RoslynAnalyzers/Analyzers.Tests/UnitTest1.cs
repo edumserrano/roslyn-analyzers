@@ -2,7 +2,6 @@
 using Analyzers.CodeAnalysis.AnalyzersMetadata.DiagnosticMessageFormats;
 using Analyzers.CodeAnalysis.Classes.SetClassAsSealedIfPossible;
 using Analyzers.Tests._TestEnvironment.Base;
-using Analyzers.Tests._TestEnvironment.Roslyn;
 using Analyzers.Tests._TestEnvironment.Roslyn.DiagnosticAnalyzers;
 using Microsoft.CodeAnalysis;
 using Xunit;
