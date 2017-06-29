@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.CodeAnalysis;
 
-namespace Analyzers.Tests.Roslyn.DiagnosticAnalyzers
+namespace Analyzers.Tests._TestEnvironment.Roslyn
 {
     /// <summary>
     /// Location where the diagnostic appears, as determined by path, line number, and column number.
