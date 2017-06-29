@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.6
+VisualStudioVersion = 15.0.26430.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnalyzersDefault", "AnalyzersDefault\AnalyzersDefault\AnalyzersDefault.csproj", "{FA4327B4-4FDA-4350-B742-E1FAE0563C3D}"
 EndProject
@@ -12,6 +12,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Analyzers", "Analyzers\Analyzers.csproj", "{21AC1140-A1CD-4919-97C8-136B577D83D5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Analyzers.Vsix", "Analyzers.Vsix\Analyzers.Vsix.csproj", "{37FEB210-C1E2-4EB8-B1BA-3372F05F87C2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Analyzers.Tests", "Analyzers.Tests\Analyzers.Tests.csproj", "{95786AAB-BBA1-4934-A6ED-84D5861C086F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{37FEB210-C1E2-4EB8-B1BA-3372F05F87C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{37FEB210-C1E2-4EB8-B1BA-3372F05F87C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{37FEB210-C1E2-4EB8-B1BA-3372F05F87C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95786AAB-BBA1-4934-A6ED-84D5861C086F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95786AAB-BBA1-4934-A6ED-84D5861C086F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95786AAB-BBA1-4934-A6ED-84D5861C086F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95786AAB-BBA1-4934-A6ED-84D5861C086F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -25,4 +25,8 @@
     </EmbeddedResource>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="DiagnosticTitles\AnalyzersMetadata\CodeAnalysis\" />
+  </ItemGroup>
+
 </Project>

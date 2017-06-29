@@ -1,6 +1,6 @@
 namespace Analyzers.CodeAnalysis.AnalyzersMetadata.DiagnosticIdentifiers
 {
-    public class AsyncDiagnosticIdentifiers
+    public static class AsyncDiagnosticIdentifiers
     {
         private const string AsyncPrefix = "ASYNC";
 

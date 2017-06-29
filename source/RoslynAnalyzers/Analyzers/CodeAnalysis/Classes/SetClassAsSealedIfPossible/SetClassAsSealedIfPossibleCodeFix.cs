@@ -1,6 +1,7 @@
 ﻿using System.Collections.Immutable;
 using System.Composition;
 using System.Threading.Tasks;
+using Analyzers.CodeAnalysis.AnalyzersMetadata.DiagnosticIdentifiers;
 using Analyzers.Extensions;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CodeActions;
@@ -13,16 +14,17 @@ namespace Analyzers.CodeAnalysis.Classes.SetClassAsSealedIfPossible
     [ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(SetClassAsSealedIfPossibleCodeFix)), Shared]
     public sealed class SetClassAsSealedIfPossibleCodeFix : CodeFixProvider
     {
+        private const string DiagnosticId = ClassDiagnosticIdentifiers.SetClassAsSealedIfPossible;
         private const string Title = "Add sealed modifier to class";
-        private const string EquivalenceKey = SetClassAsSealedIfPossibleDiagnosticAnalyzer.DiagnosticId + "CodeFixProvider";
+        private const string EquivalenceKey = DiagnosticId + "CodeFixProvider";
 
-        public override ImmutableArray<string> FixableDiagnosticIds => ImmutableArray.Create(SetClassAsSealedIfPossibleDiagnosticAnalyzer.DiagnosticId);
+        public override ImmutableArray<string> FixableDiagnosticIds => ImmutableArray.Create(DiagnosticId);
 
         public override FixAllProvider GetFixAllProvider() => WellKnownFixAllProviders.BatchFixer;
 
         public override async Task RegisterCodeFixesAsync(CodeFixContext context)
         {
-            var result = await context.TryGetSyntaxNode<ClassDeclarationSyntax>(SetClassAsSealedIfPossibleDiagnosticAnalyzer.DiagnosticId);
+            var result = await context.TryGetSyntaxNode<ClassDeclarationSyntax>(DiagnosticId);
             if (!result.success) return;
 
             var classDeclaration = result.syntaxNode;
