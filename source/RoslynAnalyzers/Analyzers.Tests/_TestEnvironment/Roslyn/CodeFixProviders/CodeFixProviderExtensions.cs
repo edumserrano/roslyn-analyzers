@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using Analyzers.Tests._TestEnvironment.Roslyn.DiagnosticAnalyzers;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CodeActions;
 using Microsoft.CodeAnalysis.CodeFixes;
@@ -8,10 +9,11 @@ using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.CodeAnalysis.Formatting;
 using Microsoft.CodeAnalysis.Simplification;
 using Xunit;
+using DiagnosticAnalyzerExtensions = Analyzers.Tests._TestEnvironment.Roslyn.DiagnosticAnalyzers.DiagnosticAnalyzerExtensions;
 
-namespace Analyzers.Tests._TestEnvironment.Roslyn
+namespace Analyzers.Tests._TestEnvironment.Roslyn.CodeFixProviders
 {
-    public static class CodeFixProviderExtensions
+    internal static class CodeFixProviderExtensions
     {
         /// <summary>
         /// Apply the inputted CodeAction to the inputted document.

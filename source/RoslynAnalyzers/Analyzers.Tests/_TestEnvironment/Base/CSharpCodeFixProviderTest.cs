@@ -1,4 +1,4 @@
-﻿using Analyzers.Tests._TestEnvironment.Roslyn;
+﻿using Analyzers.Tests._TestEnvironment.Roslyn.CodeFixProviders;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CodeFixes;
 using Microsoft.CodeAnalysis.Diagnostics;
@@ -24,7 +24,7 @@ namespace Analyzers.Tests._TestEnvironment.Base
         /// <param name="newSource">A class in the form of a string after the CodeFix was applied to it</param>
         /// <param name="codeFixIndex">Index determining which codefix to apply if there are multiple</param>
         /// <param name="allowNewCompilerDiagnostics">A bool controlling whether or not the test will fail if the CodeFix introduces other warnings after being applied</param>
-        public void VerifyFix(
+        protected void VerifyFix(
             string oldSource,
             string newSource,
             int? codeFixIndex = null,

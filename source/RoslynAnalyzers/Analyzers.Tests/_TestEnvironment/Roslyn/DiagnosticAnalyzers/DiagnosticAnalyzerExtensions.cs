@@ -7,9 +7,8 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.CodeAnalysis.Text;
-using Xunit;
 
-namespace Analyzers.Tests._TestEnvironment.Roslyn
+namespace Analyzers.Tests._TestEnvironment.Roslyn.DiagnosticAnalyzers
 {
     internal static class DiagnosticAnalyzerExtensions
     {
@@ -179,7 +178,7 @@ namespace Analyzers.Tests._TestEnvironment.Roslyn
         /// <param name="actualResults">The Diagnostics found by the compiler after running the analyzer on the source code</param>
         /// <param name="analyzer">The analyzer that was being run on the sources</param>
         /// <param name="expectedResults">Diagnostic Results that should have appeared in the code</param>
-        public static void VerifyDiagnosticResults(
+        public static VerifyDiagnosticAnalyzerResult VerifyDiagnosticResults(
             this DiagnosticAnalyzer analyzer,
             IEnumerable<Diagnostic> actualResults,
             params DiagnosticResult[] expectedResults)
@@ -190,9 +189,8 @@ namespace Analyzers.Tests._TestEnvironment.Roslyn
             if (expectedCount != actualCount)
             {
                 var diagnosticsOutput = actualResults.Any() ? FormatDiagnostics(analyzer, actualResults.ToArray()) : "    NONE.";
-
-                Assert.True(false,
-                    $"Mismatch between number of diagnostics returned, expected \"{expectedCount}\" actual \"{actualCount}\"\r\n\r\nDiagnostics:\r\n{diagnosticsOutput}\r\n");
+                string msg = GetMismatchNumberOfDiagnosticsMessage(expectedCount, actualCount, diagnosticsOutput);
+                return VerifyDiagnosticAnalyzerResult.Fail(msg);
             }
 
             for (var i = 0; i < expectedResults.Length; i++)
@@ -204,8 +202,8 @@ namespace Analyzers.Tests._TestEnvironment.Roslyn
                 {
                     if (actual.Location != Location.None)
                     {
-                        Assert.True(false,
-                            $"Expected:\nA project diagnostic with No location\nActual:\n{FormatDiagnostics(analyzer, actual)}");
+                        string msg = GetExpectedDiagnosticWithNoLocation(analyzer, actual);
+                        return VerifyDiagnosticAnalyzerResult.Fail(msg);
                     }
                 }
                 else
@@ -215,34 +213,37 @@ namespace Analyzers.Tests._TestEnvironment.Roslyn
 
                     if (additionalLocations.Length != expected.Locations.Length - 1)
                     {
-                        Assert.True(false,
-                            $"Expected {expected.Locations.Length - 1} additional locations but got {additionalLocations.Length} for Diagnostic:\r\n    {FormatDiagnostics(analyzer, actual)}\r\n");
+                        string msg = GetNotExpectedLocation(analyzer, actual, expected, additionalLocations);
+                        return VerifyDiagnosticAnalyzerResult.Fail(msg);
                     }
 
                     for (var j = 0; j < additionalLocations.Length; ++j)
                     {
-                        VerifyDiagnosticLocation(analyzer, actual, additionalLocations[j], expected.Locations[j + 1]);
+                        var locationResult = VerifyDiagnosticLocation(analyzer, actual, additionalLocations[j], expected.Locations[j + 1]);
+                        if (!locationResult.Success) return locationResult;
                     }
                 }
 
                 if (actual.Id != expected.Id)
                 {
-                    Assert.True(false,
-                        $"Expected diagnostic id to be \"{expected.Id}\" was \"{actual.Id}\"\r\n\r\nDiagnostic:\r\n    {FormatDiagnostics(analyzer, actual)}\r\n");
+                    string msg = GetNoExpectedDiagnosticId(analyzer, actual, expected);
+                    return VerifyDiagnosticAnalyzerResult.Fail(msg);
                 }
 
                 if (actual.Severity != expected.Severity)
                 {
-                    Assert.True(false,
-                        $"Expected diagnostic severity to be \"{expected.Severity}\" was \"{actual.Severity}\"\r\n\r\nDiagnostic:\r\n    {FormatDiagnostics(analyzer, actual)}\r\n");
+                    string msg = GetNotExpectedSeverityMessage(analyzer, actual, expected);
+                    return VerifyDiagnosticAnalyzerResult.Fail(msg);
                 }
 
                 if (actual.GetMessage() != expected.Message)
                 {
-                    Assert.True(false,
-                        $"Expected diagnostic message to be \"{expected.Message}\" was \"{actual.GetMessage()}\"\r\n\r\nDiagnostic:\r\n    {FormatDiagnostics(analyzer, actual)}\r\n");
+                    string msg = GetNotExcpectedMessage(analyzer, actual, expected);
+                    return VerifyDiagnosticAnalyzerResult.Fail(msg);
                 }
             }
+
+            return VerifyDiagnosticAnalyzerResult.Ok();
         }
 
         /// <summary>
@@ -252,7 +253,7 @@ namespace Analyzers.Tests._TestEnvironment.Roslyn
         /// <param name="diagnostic">The diagnostic that was found in the code</param>
         /// <param name="actual">The Location of the Diagnostic found in the code</param>
         /// <param name="expected">The DiagnosticResultLocation that should have been found</param>
-        private static void VerifyDiagnosticLocation(
+        private static VerifyDiagnosticAnalyzerResult VerifyDiagnosticLocation(
             DiagnosticAnalyzer analyzer,
             Diagnostic diagnostic,
             Location actual,
@@ -260,8 +261,15 @@ namespace Analyzers.Tests._TestEnvironment.Roslyn
         {
             var actualSpan = actual.GetLineSpan();
 
-            Assert.True(actualSpan.Path == expected.Path || (actualSpan.Path != null && actualSpan.Path.Contains("Test0.") && expected.Path.Contains("Test.")),
-                $"Expected diagnostic to be in file \"{expected.Path}\" was actually in file \"{actualSpan.Path}\"\r\n\r\nDiagnostic:\r\n    {FormatDiagnostics(analyzer, diagnostic)}\r\n");
+            var isInExpectedFile = actualSpan.Path == expected.Path
+                || (actualSpan.Path != null
+                && actualSpan.Path.Contains("Test0.")
+                && expected.Path.Contains("Test."));
+            if (!isInExpectedFile)
+            {
+                string msg = GetNotInExpectedFileMessage(analyzer, diagnostic, expected, actualSpan);
+                return VerifyDiagnosticAnalyzerResult.Fail(msg);
+            }
 
             var actualLinePosition = actualSpan.StartLinePosition;
 
@@ -270,8 +278,8 @@ namespace Analyzers.Tests._TestEnvironment.Roslyn
             {
                 if (actualLinePosition.Line + 1 != expected.Line)
                 {
-                    Assert.True(false,
-                        $"Expected diagnostic to be on line \"{expected.Line}\" was actually on line \"{actualLinePosition.Line + 1}\"\r\n\r\nDiagnostic:\r\n    {FormatDiagnostics(analyzer, diagnostic)}\r\n");
+                    string msg = GetNotInExpectedLineMessage(analyzer, diagnostic, expected, actualLinePosition);
+                    return VerifyDiagnosticAnalyzerResult.Fail(msg);
                 }
             }
 
@@ -280,11 +288,85 @@ namespace Analyzers.Tests._TestEnvironment.Roslyn
             {
                 if (actualLinePosition.Character + 1 != expected.Column)
                 {
-                    Assert.True(false,
-                        $"Expected diagnostic to start at column \"{expected.Column}\" was actually at column \"{actualLinePosition.Character + 1}\"\r\n\r\nDiagnostic:\r\n    {FormatDiagnostics(analyzer, diagnostic)}\r\n");
+                    string msg = GetNotInExpectedColumn(analyzer, diagnostic, expected, actualLinePosition);
+                    return VerifyDiagnosticAnalyzerResult.Fail(msg);
                 }
             }
+
+            return VerifyDiagnosticAnalyzerResult.Ok();
         }
+
+        private static string GetMismatchNumberOfDiagnosticsMessage(int expectedCount, int actualCount, string diagnosticsOutput)
+        {
+            return $"Mismatch between number of diagnostics returned, expected \"{expectedCount}\" actual \"{actualCount}\"{Environment.NewLine}{Environment.NewLine}Diagnostics:{Environment.NewLine}{diagnosticsOutput}{Environment.NewLine}";
+        }
+
+        private static string GetExpectedDiagnosticWithNoLocation(DiagnosticAnalyzer analyzer, Diagnostic actual)
+        {
+            return $"Expected:\nA project diagnostic with No location\nActual:\n{FormatDiagnostics(analyzer, actual)}";
+        }
+
+        private static string GetNotExpectedLocation(
+            DiagnosticAnalyzer analyzer,
+            Diagnostic actual,
+            DiagnosticResult expected,
+            Location[] additionalLocations)
+        {
+            return $"Expected {expected.Locations.Length - 1} additional locations but got {additionalLocations.Length} for Diagnostic:{Environment.NewLine}    {FormatDiagnostics(analyzer, actual)}{Environment.NewLine}";
+        }
+
+        private static string GetNoExpectedDiagnosticId(
+            DiagnosticAnalyzer analyzer,
+            Diagnostic actual,
+            DiagnosticResult expected)
+        {
+            return $"Expected diagnostic id to be \"{expected.Id}\" was \"{actual.Id}\"{Environment.NewLine}{Environment.NewLine}Diagnostic:{Environment.NewLine}    {FormatDiagnostics(analyzer, actual)}{Environment.NewLine}";
+        }
+
+        private static string GetNotExpectedSeverityMessage(
+            DiagnosticAnalyzer analyzer,
+            Diagnostic actual,
+            DiagnosticResult expected)
+        {
+            return $"Expected diagnostic severity to be \"{expected.Severity}\" was \"{actual.Severity}\"{Environment.NewLine}{Environment.NewLine}Diagnostic:{Environment.NewLine}    {FormatDiagnostics(analyzer, actual)}{Environment.NewLine}";
+        }
+
+        private static string GetNotExcpectedMessage
+            (DiagnosticAnalyzer analyzer, 
+            Diagnostic actual, 
+            DiagnosticResult expected)
+        {
+            return $"Expected diagnostic message to be \"{expected.Message}\" was \"{actual.GetMessage()}\"{Environment.NewLine}{Environment.NewLine}Diagnostic:{Environment.NewLine}    {FormatDiagnostics(analyzer, actual)}{Environment.NewLine}";
+        }
+
+
+        private static string GetNotInExpectedColumn(
+            DiagnosticAnalyzer analyzer, 
+            Diagnostic diagnostic,
+            DiagnosticResultLocation expected, 
+            LinePosition actualLinePosition)
+        {
+            return $"Expected diagnostic to start at column \"{expected.Column}\" was actually at column \"{actualLinePosition.Character + 1}\"{Environment.NewLine}{Environment.NewLine}Diagnostic:{Environment.NewLine}    {FormatDiagnostics(analyzer, diagnostic)}{Environment.NewLine}";
+        }
+
+        private static string GetNotInExpectedLineMessage(
+            DiagnosticAnalyzer analyzer,
+            Diagnostic diagnostic,
+            DiagnosticResultLocation expected,
+            LinePosition actualLinePosition)
+        {
+            return $"Expected diagnostic to be on line \"{expected.Line}\" was actually on line \"{actualLinePosition.Line + 1}\"{Environment.NewLine}{Environment.NewLine}Diagnostic:{Environment.NewLine}    {FormatDiagnostics(analyzer, diagnostic)}{Environment.NewLine}";
+        }
+
+        private static string GetNotInExpectedFileMessage(
+            DiagnosticAnalyzer analyzer,
+            Diagnostic diagnostic,
+            DiagnosticResultLocation expected,
+            FileLinePositionSpan actualSpan)
+        {
+            return $"Expected diagnostic to be in file \"{expected.Path}\" was actually in file \"{actualSpan.Path}\"{Environment.NewLine}{Environment.NewLine}Diagnostic:{Environment.NewLine}    {FormatDiagnostics(analyzer, diagnostic)}{Environment.NewLine}";
+        }
+
 
         /// <summary>
         /// Helper method to format a Diagnostic into an easily readable string
@@ -313,8 +395,11 @@ namespace Analyzers.Tests._TestEnvironment.Roslyn
                         }
                         else
                         {
-                            Assert.True(location.IsInSource,
-                                $"Test base does not currently handle diagnostics in metadata locations. Diagnostic in metadata: {diagnostics[i]}\r\n");
+                            if (!location.IsInSource)
+                            {
+                                var msg = $"Test base does not currently handle diagnostics in metadata locations. Diagnostic in metadata: {diagnostics[i]}{Environment.NewLine}";
+                                throw new Exception(msg);
+                            }
 
                             var resultMethodName = diagnostics[i].Location.SourceTree.FilePath.EndsWith(".cs") ? "GetCSharpResultAt" : "GetBasicResultAt";
                             var linePosition = diagnostics[i].Location.GetLineSpan().StartLinePosition;

@@ -7,7 +7,6 @@ namespace Analyzers.Tests
     public class UnitTest2
         : CSharpCodeFixProviderTest<SetClassAsSealedIfPossibleDiagnosticAnalyzer, SetClassAsSealedIfPossibleCodeFix>
     {
-        //Diagnostic and CodeFix both triggered and checked for
         [Fact]
         public void TestMethod2()
         {
