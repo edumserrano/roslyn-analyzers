@@ -1,6 +1,7 @@
 ﻿using Analyzers.CodeAnalysis.AnalyzersMetadata.DiagnosticIdentifiers;
 using Analyzers.CodeAnalysis.AnalyzersMetadata.DiagnosticMessageFormats;
 using Analyzers.CodeAnalysis.Classes.SetClassAsSealed;
+using Analyzers.Tests._TestEnvironment;
 using Analyzers.Tests._TestEnvironment.Base;
 using Analyzers.Tests._TestEnvironment.Roslyn.DiagnosticAnalyzers;
 using Microsoft.CodeAnalysis;
@@ -10,6 +11,11 @@ namespace Analyzers.Tests
 {
     public class UnitTest1 : CSharpDiagnosticAnalyzerTest<SetClassAsSealedDiagnosticAnalyzer>
     {
+        protected override string ReadFile(string filename)
+        {
+            return Utils.ReadFile(AnalyzerGroup.Classes, AnalyzerName.SetClassAsSealed, AnalysisType.DiagnosticAnalyzer, filename);
+        }
+
         //No diagnostics expected to show up
         [Fact]
         public void TestMethod1()
@@ -21,19 +27,7 @@ namespace Analyzers.Tests
         [Fact]
         public void TestMethod2()
         {
-            var test = @"
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Analyzers.Tests
-{
-    public class MyClass
-    {
-    }
-}";
+            var source = ReadFile("TriggersSetClassAsSealed.cs");
             var expected = new DiagnosticResult
             {
                 Id = ClassDiagnosticIdentifiers.SetClassAsSealed,
@@ -42,7 +36,7 @@ namespace Analyzers.Tests
                 Locations = new[] { new DiagnosticResultLocation("Test0.cs", 10, 18) }
             };
 
-            VerifyDiagnostic(test, expected);
+            VerifyDiagnostic(source, expected);
         }
     }
 }

@@ -181,6 +181,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="_TestEnvironment\Base\CSharpDiagnosticAnalyzerTest.cs" />
     <Compile Include="_TestEnvironment\Roslyn\DiagnosticAnalyzers\VerifyDiagnosticAnalyzerResult.cs" />
+    <Compile Include="_TestEnvironment\Utils.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

@@ -7,6 +7,11 @@ namespace Analyzers.Tests
     public class UnitTest2
         : CSharpCodeFixProviderTest<SetClassAsSealedDiagnosticAnalyzer, SetClassAsSealedCodeFix>
     {
+        protected override string ReadFile(string filename)
+        {
+            throw new System.NotImplementedException();
+        }
+
         [Fact]
         public void TestMethod2()
         {

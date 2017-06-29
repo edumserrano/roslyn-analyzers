@@ -18,6 +18,9 @@ namespace Analyzers.Tests._TestEnvironment.Base
             _diagnosticAnalyzer = new TDiagnosticAnalyzer();
             _codeFixProvider = new TCodeFixProvider();
         }
+
+        protected abstract string ReadFile(string filename);
+
         /// <summary>
         /// Called to test a C# codefix when applied on the inputted string as a source
         /// </summary>

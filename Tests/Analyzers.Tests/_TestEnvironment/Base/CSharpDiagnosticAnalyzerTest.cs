@@ -15,6 +15,8 @@ namespace Analyzers.Tests._TestEnvironment.Base
             _diagnosticAnalyzer = new T();
         }
 
+        protected abstract string ReadFile(string filename);
+
         /// <summary>
         /// Called to test a C# DiagnosticAnalyzer when applied on the single inputted string as a source
         /// Note: input a DiagnosticResult for each Diagnostic expected
