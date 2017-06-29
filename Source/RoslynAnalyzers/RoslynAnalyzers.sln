@@ -9,13 +9,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnalyzersDefault.Test", "An
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnalyzersDefault.Vsix", "AnalyzersDefault\AnalyzersDefault.Vsix\AnalyzersDefault.Vsix.csproj", "{11E10762-80B7-4A0B-9EEC-2F848BB00C6A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Analyzers", "Analyzers\Analyzers.csproj", "{21AC1140-A1CD-4919-97C8-136B577D83D5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Analyzers", "Analyzers\Analyzers.csproj", "{21AC1140-A1CD-4919-97C8-136B577D83D5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Analyzers.Vsix", "Analyzers.Vsix\Analyzers.Vsix.csproj", "{37FEB210-C1E2-4EB8-B1BA-3372F05F87C2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{BB25C7FF-2055-4178-84CD-9056C4863183}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{FC0DCA08-980A-4A70-BAA6-FD9B17C2AE67}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Analyzers.Tests", "..\..\Tests\Analyzers.Tests\Analyzers.Tests.csproj", "{95786AAB-BBA1-4934-A6ED-84D5861C086F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,11 +45,16 @@ Global
 		{37FEB210-C1E2-4EB8-B1BA-3372F05F87C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{37FEB210-C1E2-4EB8-B1BA-3372F05F87C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{37FEB210-C1E2-4EB8-B1BA-3372F05F87C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95786AAB-BBA1-4934-A6ED-84D5861C086F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95786AAB-BBA1-4934-A6ED-84D5861C086F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95786AAB-BBA1-4934-A6ED-84D5861C086F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95786AAB-BBA1-4934-A6ED-84D5861C086F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{21AC1140-A1CD-4919-97C8-136B577D83D5} = {BB25C7FF-2055-4178-84CD-9056C4863183}
+		{95786AAB-BBA1-4934-A6ED-84D5861C086F} = {FC0DCA08-980A-4A70-BAA6-FD9B17C2AE67}
 	EndGlobalSection
 EndGlobal
