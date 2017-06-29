@@ -171,8 +171,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
-    <Compile Include="Roslyn\CodeFixes\CodeFixVerifierAssertions.cs" />
-    <Compile Include="Roslyn\CodeFixes\CodeFixVerifier.cs" />
+    <Compile Include="UnitTest2.cs" />
+    <Compile Include="_TestEnvironment\Roslyn\CodeFixProviderExtensions.cs" />
+    <Compile Include="_TestEnvironment\Base\CSharpCodeFixProviderTest.cs" />
     <Compile Include="_TestEnvironment\Roslyn\DiagnosticAnalyzerExtensions.cs" />
     <Compile Include="_TestEnvironment\Roslyn\DiagnosticResult.cs" />
     <Compile Include="UnitTest1.cs" />
