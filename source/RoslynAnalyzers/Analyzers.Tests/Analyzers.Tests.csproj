@@ -172,9 +172,10 @@
   <ItemGroup>
     <Compile Include="Class1.cs" />
     <Compile Include="UnitTest2.cs" />
-    <Compile Include="_TestEnvironment\Roslyn\CodeFixProviders\CodeFixProviderExtensions.cs" />
+    <Compile Include="_TestEnvironment\Roslyn\CodeFixProviders\CodeFixProviderTestExtensions.cs" />
     <Compile Include="_TestEnvironment\Base\CSharpCodeFixProviderTest.cs" />
-    <Compile Include="_TestEnvironment\Roslyn\DiagnosticAnalyzers\DiagnosticAnalyzerExtensions.cs" />
+    <Compile Include="_TestEnvironment\Roslyn\CodeFixProviders\VerifyDiagnosticAnalyzerResult.cs" />
+    <Compile Include="_TestEnvironment\Roslyn\DiagnosticAnalyzers\DiagnosticAnalyzerTestExtensions.cs" />
     <Compile Include="_TestEnvironment\Roslyn\DiagnosticAnalyzers\DiagnosticResult.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using Analyzers.Tests._TestEnvironment.Roslyn.DiagnosticAnalyzers;
@@ -9,11 +10,10 @@ using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.CodeAnalysis.Formatting;
 using Microsoft.CodeAnalysis.Simplification;
 using Xunit;
-using DiagnosticAnalyzerExtensions = Analyzers.Tests._TestEnvironment.Roslyn.DiagnosticAnalyzers.DiagnosticAnalyzerExtensions;
 
 namespace Analyzers.Tests._TestEnvironment.Roslyn.CodeFixProviders
 {
-    internal static class CodeFixProviderExtensions
+    internal static class CodeFixProviderTestExtensions
     {
         /// <summary>
         /// Apply the inputted CodeAction to the inputted document.
@@ -44,7 +44,7 @@ namespace Analyzers.Tests._TestEnvironment.Roslyn.CodeFixProviders
         /// <param name="newSource">A class in the form of a string after the CodeFix was applied to it</param>
         /// <param name="codeFixIndex">Index determining which codefix to apply if there are multiple</param>
         /// <param name="allowNewCompilerDiagnostics">A bool controlling whether or not the test will fail if the CodeFix introduces other warnings after being applied</param>
-        public static void VerifyFix(
+        public static VerifyCodeFixProviderResult VerifyFix(
             this CodeFixProvider codeFixProvider,
             string language,
             DiagnosticAnalyzer analyzer,
@@ -53,7 +53,7 @@ namespace Analyzers.Tests._TestEnvironment.Roslyn.CodeFixProviders
             int? codeFixIndex,
             bool allowNewCompilerDiagnostics)
         {
-            var document = DiagnosticAnalyzerExtensions.CreateDocument(oldSource, language);
+            var document = DiagnosticAnalyzerTestExtensions.CreateDocument(oldSource, language);
             var analyzerDiagnostics = analyzer.GetSortedDiagnosticsFromDocuments(new[] { document });
             var compilerDiagnostics = document.GetCompilerDiagnostics();
             var attempts = analyzerDiagnostics.Length;
@@ -86,11 +86,9 @@ namespace Analyzers.Tests._TestEnvironment.Roslyn.CodeFixProviders
                     // Format and get the compiler diagnostics again so that the locations make sense in the output
                     document = document.WithSyntaxRoot(Formatter.Format(document.GetSyntaxRootAsync().Result, Formatter.Annotation, document.Project.Solution.Workspace));
                     newCompilerDiagnostics = GetNewDiagnostics(compilerDiagnostics, document.GetCompilerDiagnostics());
+                    var msg = GetNewComilerDiagnosticsIntroducedMessage(document, newCompilerDiagnostics);
+                    return VerifyCodeFixProviderResult.Fail(msg);
 
-                    Assert.True(false,
-                        string.Format("Fix introduced new compiler diagnostics:\r\n{0}\r\n\r\nNew document:\r\n{1}\r\n",
-                            string.Join("\r\n", newCompilerDiagnostics.Select(d => d.ToString())),
-                            document.GetSyntaxRootAsync().Result.ToFullString()));
                 }
 
                 //check if there are analyzer diagnostics left after the code fix
@@ -102,7 +100,14 @@ namespace Analyzers.Tests._TestEnvironment.Roslyn.CodeFixProviders
 
             //after applying all of the code fixes, compare the resulting string to the inputted one
             var actual = document.GetStringFromDocument();
-            Assert.Equal(newSource, actual);
+            return newSource.Equals(actual)
+                ? VerifyCodeFixProviderResult.Ok()
+                : VerifyCodeFixProviderResult.Fail(newSource, actual);
+        }
+
+        private static string GetNewComilerDiagnosticsIntroducedMessage(Document document, IEnumerable<Diagnostic> newCompilerDiagnostics)
+        {
+            return $"Fix introduced new compiler diagnostics:{Environment.NewLine}{string.Join("{Environment.NewLine}", newCompilerDiagnostics.Select(d => d.ToString()))}{Environment.NewLine}{Environment.NewLine}New document:{Environment.NewLine}{document.GetSyntaxRootAsync().Result.ToFullString()}{Environment.NewLine}";
         }
 
         /// <summary>

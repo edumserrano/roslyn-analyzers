@@ -10,7 +10,7 @@ using Microsoft.CodeAnalysis.Text;
 
 namespace Analyzers.Tests._TestEnvironment.Roslyn.DiagnosticAnalyzers
 {
-    internal static class DiagnosticAnalyzerExtensions
+    internal static class DiagnosticAnalyzerTestExtensions
     {
         private static readonly MetadataReference CorlibReference = MetadataReference.CreateFromFile(typeof(object).Assembly.Location);
         private static readonly MetadataReference SystemCoreReference = MetadataReference.CreateFromFile(typeof(Enumerable).Assembly.Location);

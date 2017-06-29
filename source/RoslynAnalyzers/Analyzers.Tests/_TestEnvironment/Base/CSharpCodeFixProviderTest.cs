@@ -2,6 +2,7 @@
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CodeFixes;
 using Microsoft.CodeAnalysis.Diagnostics;
+using Shouldly;
 
 namespace Analyzers.Tests._TestEnvironment.Base
 {
@@ -30,13 +31,24 @@ namespace Analyzers.Tests._TestEnvironment.Base
             int? codeFixIndex = null,
             bool allowNewCompilerDiagnostics = false)
         {
-            _codeFixProvider.VerifyFix(
+            var result = _codeFixProvider.VerifyFix(
                 language: LanguageNames.CSharp,
                 analyzer: _diagnosticAnalyzer,
                 oldSource: oldSource,
                 newSource: newSource,
                 codeFixIndex: codeFixIndex,
                 allowNewCompilerDiagnostics: allowNewCompilerDiagnostics);
+
+            if (result.Success) return;
+
+            if (string.IsNullOrEmpty(result.ErrorMessage))
+            {
+                result.NewSource.ShouldBe(result.ActualSource);
+            }
+            else
+            {
+                result.Success.ShouldBeTrue(result.ErrorMessage);
+            }
         }
     }
 }
