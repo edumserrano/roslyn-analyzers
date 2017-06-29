@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using Analyzers.Tests.Roslyn.DiagnosticAnalyzers;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CodeActions;
 using Microsoft.CodeAnalysis.CodeFixes;
@@ -8,30 +9,34 @@ using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.CodeAnalysis.Formatting;
 using Xunit;
 
-namespace Analyzers.Tests.Roslyn.CodeFixVerifier
+namespace Analyzers.Tests.Roslyn.CodeFixes
 {
     /// <summary>
     /// Superclass of all Unit tests made for diagnostics with codefixes.
     /// Contains methods used to verify correctness of codefixes
     /// </summary>
-    public abstract partial class CodeFixVerifier : DiagnosticVerifier.DiagnosticVerifier
+    public class CodeFixVerifierAssertions
     {
-        /// <summary>
-        /// Returns the codefix being tested (C#) - to be implemented in non-abstract class
-        /// </summary>
-        /// <returns>The CodeFixProvider to be used for CSharp code</returns>
-        protected virtual CodeFixProvider GetCSharpCodeFixProvider()
-        {
-            return null;
-        }
+        private readonly DiagnosticAnalyzer _cSharpAnalyzer;
+        private readonly DiagnosticAnalyzer _visualBasicAnalyzer;
+        private readonly CodeFixProvider _cSharpCodeFixProvider;
+        private readonly CodeFixProvider _visualBasicFixProvider;
+        private readonly CodeFixVerifier _codeFixVerifier;
+        private readonly DiagnosticVerifier _diagnosticVerifier;
 
-        /// <summary>
-        /// Returns the codefix being tested (VB) - to be implemented in non-abstract class
-        /// </summary>
-        /// <returns>The CodeFixProvider to be used for VisualBasic code</returns>
-        protected virtual CodeFixProvider GetBasicCodeFixProvider()
+        public CodeFixVerifierAssertions(
+            DiagnosticAnalyzer cSharpAnalyzer,
+            DiagnosticAnalyzer visualBasicAnalyzer,
+            CodeFixProvider cSharpCodeFixProvider,
+            CodeFixProvider visualBasicFixProvider)
         {
-            return null;
+            _cSharpAnalyzer = cSharpAnalyzer;
+            _visualBasicAnalyzer = visualBasicAnalyzer;
+            _cSharpCodeFixProvider = cSharpCodeFixProvider;
+            _visualBasicFixProvider = visualBasicFixProvider;
+
+            _diagnosticVerifier = new DiagnosticVerifier();
+            _codeFixVerifier = new CodeFixVerifier();
         }
 
         /// <summary>
@@ -41,9 +46,9 @@ namespace Analyzers.Tests.Roslyn.CodeFixVerifier
         /// <param name="newSource">A class in the form of a string after the CodeFix was applied to it</param>
         /// <param name="codeFixIndex">Index determining which codefix to apply if there are multiple</param>
         /// <param name="allowNewCompilerDiagnostics">A bool controlling whether or not the test will fail if the CodeFix introduces other warnings after being applied</param>
-        protected void VerifyCSharpFix(string oldSource, string newSource, int? codeFixIndex = null, bool allowNewCompilerDiagnostics = false)
+        public void VerifyCSharpFix(string oldSource, string newSource, int? codeFixIndex = null, bool allowNewCompilerDiagnostics = false)
         {
-            VerifyFix(LanguageNames.CSharp, GetCSharpDiagnosticAnalyzer(), GetCSharpCodeFixProvider(), oldSource, newSource, codeFixIndex, allowNewCompilerDiagnostics);
+            VerifyFix(LanguageNames.CSharp, _cSharpAnalyzer, _cSharpCodeFixProvider, oldSource, newSource, codeFixIndex, allowNewCompilerDiagnostics);
         }
 
         /// <summary>
@@ -53,9 +58,9 @@ namespace Analyzers.Tests.Roslyn.CodeFixVerifier
         /// <param name="newSource">A class in the form of a string after the CodeFix was applied to it</param>
         /// <param name="codeFixIndex">Index determining which codefix to apply if there are multiple</param>
         /// <param name="allowNewCompilerDiagnostics">A bool controlling whether or not the test will fail if the CodeFix introduces other warnings after being applied</param>
-        protected void VerifyBasicFix(string oldSource, string newSource, int? codeFixIndex = null, bool allowNewCompilerDiagnostics = false)
+        public void VerifyBasicFix(string oldSource, string newSource, int? codeFixIndex = null, bool allowNewCompilerDiagnostics = false)
         {
-            VerifyFix(LanguageNames.VisualBasic, GetBasicDiagnosticAnalyzer(), GetBasicCodeFixProvider(), oldSource, newSource, codeFixIndex, allowNewCompilerDiagnostics);
+            VerifyFix(LanguageNames.VisualBasic, _visualBasicAnalyzer, _visualBasicFixProvider, oldSource, newSource, codeFixIndex, allowNewCompilerDiagnostics);
         }
 
         /// <summary>
@@ -73,9 +78,9 @@ namespace Analyzers.Tests.Roslyn.CodeFixVerifier
         /// <param name="allowNewCompilerDiagnostics">A bool controlling whether or not the test will fail if the CodeFix introduces other warnings after being applied</param>
         private void VerifyFix(string language, DiagnosticAnalyzer analyzer, CodeFixProvider codeFixProvider, string oldSource, string newSource, int? codeFixIndex, bool allowNewCompilerDiagnostics)
         {
-            var document = CreateDocument(oldSource, language);
-            var analyzerDiagnostics = GetSortedDiagnosticsFromDocuments(analyzer, new[] { document });
-            var compilerDiagnostics = GetCompilerDiagnostics(document);
+            var document = _diagnosticVerifier.CreateDocument(oldSource, language);
+            var analyzerDiagnostics = _diagnosticVerifier.GetSortedDiagnosticsFromDocuments(analyzer, new[] { document });
+            var compilerDiagnostics = _codeFixVerifier.GetCompilerDiagnostics(document);
             var attempts = analyzerDiagnostics.Length;
 
             for (var i = 0; i < attempts; ++i)
@@ -91,21 +96,21 @@ namespace Analyzers.Tests.Roslyn.CodeFixVerifier
 
                 if (codeFixIndex != null)
                 {
-                    document = ApplyFix(document, actions.ElementAt((int)codeFixIndex));
+                    document = _codeFixVerifier.ApplyFix(document, actions.ElementAt((int)codeFixIndex));
                     break;
                 }
 
-                document = ApplyFix(document, actions.ElementAt(0));
-                analyzerDiagnostics = GetSortedDiagnosticsFromDocuments(analyzer, new[] { document });
+                document = _codeFixVerifier.ApplyFix(document, actions.ElementAt(0));
+                analyzerDiagnostics = _diagnosticVerifier.GetSortedDiagnosticsFromDocuments(analyzer, new[] { document });
 
-                var newCompilerDiagnostics = GetNewDiagnostics(compilerDiagnostics, GetCompilerDiagnostics(document));
+                var newCompilerDiagnostics = _codeFixVerifier.GetNewDiagnostics(compilerDiagnostics, _codeFixVerifier.GetCompilerDiagnostics(document));
 
                 //check if applying the code fix introduced any new compiler diagnostics
                 if (!allowNewCompilerDiagnostics && newCompilerDiagnostics.Any())
                 {
                     // Format and get the compiler diagnostics again so that the locations make sense in the output
                     document = document.WithSyntaxRoot(Formatter.Format(document.GetSyntaxRootAsync().Result, Formatter.Annotation, document.Project.Solution.Workspace));
-                    newCompilerDiagnostics = GetNewDiagnostics(compilerDiagnostics, GetCompilerDiagnostics(document));
+                    newCompilerDiagnostics = _codeFixVerifier.GetNewDiagnostics(compilerDiagnostics, _codeFixVerifier.GetCompilerDiagnostics(document));
 
                     Assert.True(false,
                         string.Format("Fix introduced new compiler diagnostics:\r\n{0}\r\n\r\nNew document:\r\n{1}\r\n",
@@ -121,7 +126,7 @@ namespace Analyzers.Tests.Roslyn.CodeFixVerifier
             }
 
             //after applying all of the code fixes, compare the resulting string to the inputted one
-            var actual = GetStringFromDocument(document);
+            var actual = _codeFixVerifier.GetStringFromDocument(document);
             Assert.Equal(newSource, actual);
         }
     }

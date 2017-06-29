@@ -171,11 +171,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
-    <Compile Include="Roslyn\CodeFixVerifier\CodeFixVerifier.cs" />
-    <Compile Include="Roslyn\CodeFixVerifier\CodeFixVerifier.Helper.cs" />
-    <Compile Include="Roslyn\DiagnosticVerifier\DiagnosticResult.cs" />
-    <Compile Include="Roslyn\DiagnosticVerifier\DiagnosticVerifier.cs" />
-    <Compile Include="Roslyn\DiagnosticVerifier\DiagnosticVerifier.Helper.cs" />
+    <Compile Include="Roslyn\CodeFixes\CodeFixVerifierAssertions.cs" />
+    <Compile Include="Roslyn\CodeFixes\CodeFixVerifier.cs" />
+    <Compile Include="Roslyn\DiagnosticAnalyzers\DiagnosticResult.cs" />
+    <Compile Include="Roslyn\DiagnosticAnalyzers\DiagnosticVerifierAssertions.cs" />
+    <Compile Include="Roslyn\DiagnosticAnalyzers\DiagnosticVerifier.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

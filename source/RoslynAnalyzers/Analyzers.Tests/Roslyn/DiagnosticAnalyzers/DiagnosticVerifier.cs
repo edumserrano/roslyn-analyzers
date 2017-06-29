@@ -7,13 +7,13 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.CodeAnalysis.Text;
 
-namespace Analyzers.Tests.Roslyn.DiagnosticVerifier
+namespace Analyzers.Tests.Roslyn.DiagnosticAnalyzers
 {
     /// <summary>
     /// Class for turning strings into documents and getting the diagnostics on them
     /// All methods are static
     /// </summary>
-    public abstract partial class DiagnosticVerifier
+    public class DiagnosticVerifier
     {
         private static readonly MetadataReference CorlibReference = MetadataReference.CreateFromFile(typeof(object).Assembly.Location);
         private static readonly MetadataReference SystemCoreReference = MetadataReference.CreateFromFile(typeof(Enumerable).Assembly.Location);
@@ -34,7 +34,7 @@ namespace Analyzers.Tests.Roslyn.DiagnosticVerifier
         /// <param name="language">The language the source classes are in</param>
         /// <param name="analyzer">The analyzer to be run on the sources</param>
         /// <returns>An IEnumerable of Diagnostics that surfaced in the source code, sorted by Location</returns>
-        private static Diagnostic[] GetSortedDiagnostics(string[] sources, string language, DiagnosticAnalyzer analyzer)
+        public Diagnostic[] GetSortedDiagnostics(string[] sources, string language, DiagnosticAnalyzer analyzer)
         {
             return GetSortedDiagnosticsFromDocuments(analyzer, GetDocuments(sources, language));
         }
@@ -46,7 +46,7 @@ namespace Analyzers.Tests.Roslyn.DiagnosticVerifier
         /// <param name="analyzer">The analyzer to run on the documents</param>
         /// <param name="documents">The Documents that the analyzer will be run on</param>
         /// <returns>An IEnumerable of Diagnostics that surfaced in the source code, sorted by Location</returns>
-        protected static Diagnostic[] GetSortedDiagnosticsFromDocuments(DiagnosticAnalyzer analyzer, Document[] documents)
+        public Diagnostic[] GetSortedDiagnosticsFromDocuments(DiagnosticAnalyzer analyzer, Document[] documents)
         {
             var projects = new HashSet<Project>();
             foreach (var document in documents)
@@ -67,9 +67,8 @@ namespace Analyzers.Tests.Roslyn.DiagnosticVerifier
                     }
                     else
                     {
-                        for (var i = 0; i < documents.Length; i++)
+                        foreach (var document in documents)
                         {
-                            var document = documents[i];
                             var tree = document.GetSyntaxTreeAsync().Result;
                             if (tree == diag.Location.SourceTree)
                             {
@@ -90,7 +89,7 @@ namespace Analyzers.Tests.Roslyn.DiagnosticVerifier
         /// </summary>
         /// <param name="diagnostics">The list of Diagnostics to be sorted</param>
         /// <returns>An IEnumerable containing the Diagnostics in order of Location</returns>
-        private static Diagnostic[] SortDiagnostics(IEnumerable<Diagnostic> diagnostics)
+        private Diagnostic[] SortDiagnostics(IEnumerable<Diagnostic> diagnostics)
         {
             return diagnostics.OrderBy(d => d.Location.SourceSpan.Start).ToArray();
         }
@@ -104,7 +103,7 @@ namespace Analyzers.Tests.Roslyn.DiagnosticVerifier
         /// <param name="sources">Classes in the form of strings</param>
         /// <param name="language">The language the source code is in</param>
         /// <returns>A Tuple containing the Documents produced from the sources and their TextSpans if relevant</returns>
-        private static Document[] GetDocuments(string[] sources, string language)
+        private Document[] GetDocuments(string[] sources, string language)
         {
             if (language != LanguageNames.CSharp && language != LanguageNames.VisualBasic)
             {
@@ -128,7 +127,7 @@ namespace Analyzers.Tests.Roslyn.DiagnosticVerifier
         /// <param name="source">Classes in the form of a string</param>
         /// <param name="language">The language the source code is in</param>
         /// <returns>A Document created from the source string</returns>
-        protected static Document CreateDocument(string source, string language = LanguageNames.CSharp)
+        public Document CreateDocument(string source, string language = LanguageNames.CSharp)
         {
             return CreateProject(new[] { source }, language).Documents.First();
         }
@@ -139,7 +138,7 @@ namespace Analyzers.Tests.Roslyn.DiagnosticVerifier
         /// <param name="sources">Classes in the form of strings</param>
         /// <param name="language">The language the source code is in</param>
         /// <returns>A Project created out of the Documents created from the source strings</returns>
-        private static Project CreateProject(string[] sources, string language = LanguageNames.CSharp)
+        private Project CreateProject(string[] sources, string language = LanguageNames.CSharp)
         {
             var fileNamePrefix = DefaultFilePathPrefix;
             var fileExt = language == LanguageNames.CSharp ? CSharpDefaultFileExt : VisualBasicDefaultExt;

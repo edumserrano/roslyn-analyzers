@@ -6,30 +6,25 @@ using Microsoft.CodeAnalysis.Diagnostics;
 using Shouldly;
 using Xunit;
 
-namespace Analyzers.Tests.Roslyn.DiagnosticVerifier
+namespace Analyzers.Tests.Roslyn.DiagnosticAnalyzers
 {
     /// <summary>
     /// Superclass of all Unit Tests for DiagnosticAnalyzers
     /// </summary>
-    public abstract partial class DiagnosticVerifier
+    public class DiagnosticVerifierAssertions
     {
-        #region To be implemented by Test classes
-        /// <summary>
-        /// Get the CSharp analyzer being tested - to be implemented in non-abstract class
-        /// </summary>
-        protected virtual DiagnosticAnalyzer GetCSharpDiagnosticAnalyzer()
-        {
-            return null;
-        }
+        private readonly DiagnosticAnalyzer _cSharpAnalyzer;
+        private readonly DiagnosticAnalyzer _visualBasicAnalyzer;
+        private readonly DiagnosticVerifier _diagnosticVerifier;
 
-        /// <summary>
-        /// Get the Visual Basic analyzer being tested (C#) - to be implemented in non-abstract class
-        /// </summary>
-        protected virtual DiagnosticAnalyzer GetBasicDiagnosticAnalyzer()
+        public DiagnosticVerifierAssertions(
+            DiagnosticAnalyzer cSharpAnalyzer,
+            DiagnosticAnalyzer visualBasicAnalyzer)
         {
-            return null;
+            _cSharpAnalyzer = cSharpAnalyzer;
+            _visualBasicAnalyzer = visualBasicAnalyzer;
+            _diagnosticVerifier = new DiagnosticVerifier();
         }
-        #endregion
 
         #region Verifier wrappers
 
@@ -39,9 +34,9 @@ namespace Analyzers.Tests.Roslyn.DiagnosticVerifier
         /// </summary>
         /// <param name="source">A class in the form of a string to run the analyzer on</param>
         /// <param name="expected"> DiagnosticResults that should appear after the analyzer is run on the source</param>
-        protected void VerifyCSharpDiagnostic(string source, params DiagnosticResult[] expected)
+        public void VerifyCSharpDiagnostic(string source, params DiagnosticResult[] expected)
         {
-            VerifyDiagnostics(new[] { source }, LanguageNames.CSharp, GetCSharpDiagnosticAnalyzer(), expected);
+            VerifyDiagnostics(new[] { source }, LanguageNames.CSharp, _cSharpAnalyzer, expected);
         }
 
         /// <summary>
@@ -50,9 +45,9 @@ namespace Analyzers.Tests.Roslyn.DiagnosticVerifier
         /// </summary>
         /// <param name="source">A class in the form of a string to run the analyzer on</param>
         /// <param name="expected">DiagnosticResults that should appear after the analyzer is run on the source</param>
-        protected void VerifyBasicDiagnostic(string source, params DiagnosticResult[] expected)
+        public void VerifyBasicDiagnostic(string source, params DiagnosticResult[] expected)
         {
-            VerifyDiagnostics(new[] { source }, LanguageNames.VisualBasic, GetBasicDiagnosticAnalyzer(), expected);
+            VerifyDiagnostics(new[] { source }, LanguageNames.VisualBasic, _visualBasicAnalyzer, expected);
         }
 
         /// <summary>
@@ -61,9 +56,9 @@ namespace Analyzers.Tests.Roslyn.DiagnosticVerifier
         /// </summary>
         /// <param name="sources">An array of strings to create source documents from to run the analyzers on</param>
         /// <param name="expected">DiagnosticResults that should appear after the analyzer is run on the sources</param>
-        protected void VerifyCSharpDiagnostic(string[] sources, params DiagnosticResult[] expected)
+        public void VerifyCSharpDiagnostic(string[] sources, params DiagnosticResult[] expected)
         {
-            VerifyDiagnostics(sources, LanguageNames.CSharp, GetCSharpDiagnosticAnalyzer(), expected);
+            VerifyDiagnostics(sources, LanguageNames.CSharp, _cSharpAnalyzer, expected);
         }
 
         /// <summary>
@@ -72,9 +67,9 @@ namespace Analyzers.Tests.Roslyn.DiagnosticVerifier
         /// </summary>
         /// <param name="sources">An array of strings to create source documents from to run the analyzers on</param>
         /// <param name="expected">DiagnosticResults that should appear after the analyzer is run on the sources</param>
-        protected void VerifyBasicDiagnostic(string[] sources, params DiagnosticResult[] expected)
+        public void VerifyBasicDiagnostic(string[] sources, params DiagnosticResult[] expected)
         {
-            VerifyDiagnostics(sources, LanguageNames.VisualBasic, GetBasicDiagnosticAnalyzer(), expected);
+            VerifyDiagnostics(sources, LanguageNames.VisualBasic, _visualBasicAnalyzer, expected);
         }
 
         /// <summary>
@@ -87,7 +82,7 @@ namespace Analyzers.Tests.Roslyn.DiagnosticVerifier
         /// <param name="expected">DiagnosticResults that should appear after the analyzer is run on the sources</param>
         private void VerifyDiagnostics(string[] sources, string language, DiagnosticAnalyzer analyzer, params DiagnosticResult[] expected)
         {
-            var diagnostics = GetSortedDiagnostics(sources, language, analyzer);
+            var diagnostics = _diagnosticVerifier.GetSortedDiagnostics(sources, language, analyzer);
             VerifyDiagnosticResults(diagnostics, analyzer, expected);
         }
 
@@ -215,7 +210,7 @@ namespace Analyzers.Tests.Roslyn.DiagnosticVerifier
             var builder = new StringBuilder();
             for (var i = 0; i < diagnostics.Length; ++i)
             {
-                builder.AppendLine("// " + diagnostics[i].ToString());
+                builder.AppendLine("// " + diagnostics[i]);
 
                 var analyzerType = analyzer.GetType();
                 var rules = analyzer.SupportedDiagnostics;

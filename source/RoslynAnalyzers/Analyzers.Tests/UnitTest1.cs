@@ -1,16 +1,14 @@
 ﻿using Analyzers.CodeAnalysis.AnalyzersMetadata.DiagnosticIdentifiers;
 using Analyzers.CodeAnalysis.AnalyzersMetadata.DiagnosticMessageFormats;
 using Analyzers.CodeAnalysis.Classes.SetClassAsSealedIfPossible;
-using Analyzers.Tests.Roslyn.CodeFixVerifier;
-using Analyzers.Tests.Roslyn.DiagnosticVerifier;
+using Analyzers.Tests.Roslyn.CodeFixes;
+using Analyzers.Tests.Roslyn.DiagnosticAnalyzers;
 using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CodeFixes;
-using Microsoft.CodeAnalysis.Diagnostics;
 using Xunit;
 
 namespace Analyzers.Tests
 {
-    public class UnitTest1 : CodeFixVerifier
+    public class UnitTest1
     {
         //No diagnostics expected to show up
         [Fact]
@@ -18,7 +16,8 @@ namespace Analyzers.Tests
         {
             var test = @"";
 
-            VerifyCSharpDiagnostic(test);
+            var diagnosticVerifierAssertions = new DiagnosticVerifierAssertions(new SetClassAsSealedIfPossibleDiagnosticAnalyzer(), null);
+            diagnosticVerifierAssertions.VerifyCSharpDiagnostic(test);
         }
 
         //Diagnostic and CodeFix both triggered and checked for
@@ -46,7 +45,8 @@ namespace Analyzers.Tests
                 Locations = new[] { new DiagnosticResultLocation("Test0.cs", 10, 18) }
             };
 
-            VerifyCSharpDiagnostic(test, expected);
+            var diagnosticVerifierAssertions = new DiagnosticVerifierAssertions(new SetClassAsSealedIfPossibleDiagnosticAnalyzer(), null);
+            diagnosticVerifierAssertions.VerifyCSharpDiagnostic(test, expected);
 
             var fixtest = @"
 using System;
@@ -61,17 +61,8 @@ namespace Analyzers.Tests
     {
     }
 }";
-            VerifyCSharpFix(test, fixtest);
-        }
-
-        protected override CodeFixProvider GetCSharpCodeFixProvider()
-        {
-            return new SetClassAsSealedIfPossibleCodeFix();
-        }
-
-        protected override DiagnosticAnalyzer GetCSharpDiagnosticAnalyzer()
-        {
-            return new SetClassAsSealedIfPossibleDiagnosticAnalyzer();
+            var codeFixVerifierAssertions = new CodeFixVerifierAssertions(new SetClassAsSealedIfPossibleDiagnosticAnalyzer(), null, new SetClassAsSealedIfPossibleCodeFix(), null);
+            codeFixVerifierAssertions.VerifyCSharpFix(test, fixtest);
         }
     }
 }
