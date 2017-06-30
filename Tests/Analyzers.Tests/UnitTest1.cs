@@ -4,6 +4,7 @@ using Analyzers.CodeAnalysis.Classes.SetClassAsSealed;
 using Analyzers.Tests._TestEnvironment;
 using Analyzers.Tests._TestEnvironment.Base;
 using Analyzers.Tests._TestEnvironment.Roslyn.DiagnosticAnalyzers;
+using Analyzers.Tests._TestEnvironment.Utils;
 using Microsoft.CodeAnalysis;
 using Xunit;
 
@@ -11,10 +12,8 @@ namespace Analyzers.Tests
 {
     public class UnitTest1 : CSharpDiagnosticAnalyzerTest<SetClassAsSealedDiagnosticAnalyzer>
     {
-        protected override string ReadFile(string filename)
-        {
-            return Utils.ReadFile(AnalyzerGroup.Classes, AnalyzerName.SetClassAsSealed, AnalysisType.DiagnosticAnalyzer, filename);
-        }
+        public override AnalyzerGroup AnalyzerGroup { get; } = AnalyzerGroup.Classes;
+        public override AnalyzerName AnalyzerName { get; } = AnalyzerName.SetClassAsSealed;
 
         //No diagnostics expected to show up
         [Fact]

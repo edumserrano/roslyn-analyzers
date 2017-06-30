@@ -170,8 +170,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="UnitTest2.cs" />
+    <Compile Include="_TestEnvironment\Base\FileReaderTest.cs" />
+    <Compile Include="_TestEnvironment\Utils\AnalyzerGroup.cs" />
+    <Compile Include="_TestEnvironment\Utils\AnalyzerName.cs" />
     <Compile Include="_TestEnvironment\Roslyn\CodeFixProviders\CodeFixProviderTestExtensions.cs" />
     <Compile Include="_TestEnvironment\Base\CSharpCodeFixProviderTest.cs" />
     <Compile Include="_TestEnvironment\Roslyn\CodeFixProviders\VerifyDiagnosticAnalyzerResult.cs" />
@@ -181,7 +183,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="_TestEnvironment\Base\CSharpDiagnosticAnalyzerTest.cs" />
     <Compile Include="_TestEnvironment\Roslyn\DiagnosticAnalyzers\VerifyDiagnosticAnalyzerResult.cs" />
-    <Compile Include="_TestEnvironment\Utils.cs" />
+    <Compile Include="_TestEnvironment\Utils\AnalysisType.cs" />
+    <Compile Include="_TestEnvironment\Utils\TestDataFileReader.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

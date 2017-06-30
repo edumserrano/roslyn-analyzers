@@ -6,7 +6,7 @@ using Shouldly;
 
 namespace Analyzers.Tests._TestEnvironment.Base
 {
-    public abstract class CSharpCodeFixProviderTest<TDiagnosticAnalyzer, TCodeFixProvider>
+    public abstract class CSharpCodeFixProviderTest<TDiagnosticAnalyzer, TCodeFixProvider> : FileReaderTest
         where TDiagnosticAnalyzer : DiagnosticAnalyzer, new()
         where TCodeFixProvider : CodeFixProvider, new()
     {
@@ -19,7 +19,7 @@ namespace Analyzers.Tests._TestEnvironment.Base
             _codeFixProvider = new TCodeFixProvider();
         }
 
-        protected abstract string ReadFile(string filename);
+        public override AnalysisType AnalysisType { get; } = AnalysisType.CodeFixProvider;
 
         /// <summary>
         /// Called to test a C# codefix when applied on the inputted string as a source

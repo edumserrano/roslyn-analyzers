@@ -5,7 +5,7 @@ using Shouldly;
 
 namespace Analyzers.Tests._TestEnvironment.Base
 {
-    public abstract class CSharpDiagnosticAnalyzerTest<T>
+    public abstract class CSharpDiagnosticAnalyzerTest<T> : FileReaderTest
         where T : DiagnosticAnalyzer, new()
     {
         private readonly DiagnosticAnalyzer _diagnosticAnalyzer;
@@ -15,7 +15,7 @@ namespace Analyzers.Tests._TestEnvironment.Base
             _diagnosticAnalyzer = new T();
         }
 
-        protected abstract string ReadFile(string filename);
+        public override AnalysisType AnalysisType { get; } = AnalysisType.DiagnosticAnalyzer;
 
         /// <summary>
         /// Called to test a C# DiagnosticAnalyzer when applied on the single inputted string as a source

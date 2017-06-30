@@ -1,5 +1,6 @@
 ﻿namespace Analyzers
 {
+#warning nos docs referir os 2 cursos no pluralsight!
 
 #warning change the name of the Vsix proj to DebugAnalyzers.Vsix
 #warning create a wiki with hints on how to create roslyn analyzers/code fixers
