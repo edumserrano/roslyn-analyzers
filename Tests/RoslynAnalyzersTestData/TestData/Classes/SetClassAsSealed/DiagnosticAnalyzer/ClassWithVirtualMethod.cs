@@ -1,6 +1,6 @@
 ﻿namespace TestData.Classes.SetClassAsSealed.DiagnosticAnalyzer
 {
-    public class DoestNotTriggerSetClassAsSealed3
+    public class ClassWithVirtualMethod
     {
         public virtual void Method1()
         {

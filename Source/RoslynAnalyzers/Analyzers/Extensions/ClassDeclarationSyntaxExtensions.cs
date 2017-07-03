@@ -37,8 +37,15 @@ namespace Analyzers.Extensions
         public static IEnumerable<EventDeclarationSyntax> GetEvents(this ClassDeclarationSyntax classDeclaration)
         {
             return classDeclaration.Members
-                .Where(x => x.IsKind(SyntaxKind.EventDeclaration))
+                .Where(x => x.IsKind(SyntaxKind.EventDeclaration) || x.IsKind(SyntaxKind.EventFieldDeclaration))
                 .OfType<EventDeclarationSyntax>();
+        }
+
+        public static IEnumerable<EventFieldDeclarationSyntax> GetEventFiels(this ClassDeclarationSyntax classDeclaration)
+        {
+            return classDeclaration.Members
+                .Where(x => x.IsKind(SyntaxKind.EventFieldDeclaration))
+                .OfType<EventFieldDeclarationSyntax>();
         }
 
         public static IEnumerable<IndexerDeclarationSyntax> GetIndexers(this ClassDeclarationSyntax classDeclaration)
@@ -73,6 +80,17 @@ namespace Analyzers.Extensions
         public static bool HasAbstractOrVirtualEvents(this ClassDeclarationSyntax classDeclaration)
         {
             var events = classDeclaration.GetEvents();
+            foreach (var e in events)
+            {
+                var modifiers = e.Modifiers.Where(x => x.IsKind(SyntaxKind.AbstractKeyword) || x.IsKind(SyntaxKind.VirtualKeyword));
+                if (modifiers.Any()) return true;
+            }
+            return false;
+        }
+
+        public static bool HasAbstractOrVirtualEventFields(this ClassDeclarationSyntax classDeclaration)
+        {
+            var events = classDeclaration.GetEventFiels();
             foreach (var e in events)
             {
                 var modifiers = e.Modifiers.Where(x => x.IsKind(SyntaxKind.AbstractKeyword) || x.IsKind(SyntaxKind.VirtualKeyword));

@@ -181,7 +181,7 @@ namespace Analyzers.Tests._TestEnvironment.Roslyn.DiagnosticAnalyzers
         public static VerifyDiagnosticAnalyzerResult VerifyDiagnosticResults(
             this DiagnosticAnalyzer analyzer,
             IEnumerable<Diagnostic> actualResults,
-            params DiagnosticResult[] expectedResults)
+            DiagnosticResult[] expectedResults)
         {
             var expectedCount = expectedResults.Count();
             var actualCount = actualResults.Count();
@@ -303,7 +303,7 @@ namespace Analyzers.Tests._TestEnvironment.Roslyn.DiagnosticAnalyzers
 
         private static string GetExpectedDiagnosticWithNoLocation(DiagnosticAnalyzer analyzer, Diagnostic actual)
         {
-            return $"Expected:\nA project diagnostic with No location\nActual:\n{FormatDiagnostics(analyzer, actual)}";
+            return $"Expected:\nA project diagnostic with No location\nActual:\n{FormatDiagnostics(analyzer, new[] { actual })}";
         }
 
         private static string GetNotExpectedLocation(
@@ -312,7 +312,7 @@ namespace Analyzers.Tests._TestEnvironment.Roslyn.DiagnosticAnalyzers
             DiagnosticResult expected,
             Location[] additionalLocations)
         {
-            return $"Expected {expected.Locations.Length - 1} additional locations but got {additionalLocations.Length} for Diagnostic:{Environment.NewLine}    {FormatDiagnostics(analyzer, actual)}{Environment.NewLine}";
+            return $"Expected {expected.Locations.Length - 1} additional locations but got {additionalLocations.Length} for Diagnostic:{Environment.NewLine}    {FormatDiagnostics(analyzer, new[] { actual })}{Environment.NewLine}";
         }
 
         private static string GetNoExpectedDiagnosticId(
@@ -320,7 +320,7 @@ namespace Analyzers.Tests._TestEnvironment.Roslyn.DiagnosticAnalyzers
             Diagnostic actual,
             DiagnosticResult expected)
         {
-            return $"Expected diagnostic id to be \"{expected.Id}\" was \"{actual.Id}\"{Environment.NewLine}{Environment.NewLine}Diagnostic:{Environment.NewLine}    {FormatDiagnostics(analyzer, actual)}{Environment.NewLine}";
+            return $"Expected diagnostic id to be \"{expected.Id}\" was \"{actual.Id}\"{Environment.NewLine}{Environment.NewLine}Diagnostic:{Environment.NewLine}    {FormatDiagnostics(analyzer, new[] { actual })}{Environment.NewLine}";
         }
 
         private static string GetNotExpectedSeverityMessage(
@@ -328,25 +328,25 @@ namespace Analyzers.Tests._TestEnvironment.Roslyn.DiagnosticAnalyzers
             Diagnostic actual,
             DiagnosticResult expected)
         {
-            return $"Expected diagnostic severity to be \"{expected.Severity}\" was \"{actual.Severity}\"{Environment.NewLine}{Environment.NewLine}Diagnostic:{Environment.NewLine}    {FormatDiagnostics(analyzer, actual)}{Environment.NewLine}";
+            return $"Expected diagnostic severity to be \"{expected.Severity}\" was \"{actual.Severity}\"{Environment.NewLine}{Environment.NewLine}Diagnostic:{Environment.NewLine}    {FormatDiagnostics(analyzer, new[] { actual })}{Environment.NewLine}";
         }
 
         private static string GetNotExcpectedMessage
-            (DiagnosticAnalyzer analyzer, 
-            Diagnostic actual, 
+            (DiagnosticAnalyzer analyzer,
+            Diagnostic actual,
             DiagnosticResult expected)
         {
-            return $"Expected diagnostic message to be \"{expected.Message}\" was \"{actual.GetMessage()}\"{Environment.NewLine}{Environment.NewLine}Diagnostic:{Environment.NewLine}    {FormatDiagnostics(analyzer, actual)}{Environment.NewLine}";
+            return $"Expected diagnostic message to be \"{expected.Message}\" was \"{actual.GetMessage()}\"{Environment.NewLine}{Environment.NewLine}Diagnostic:{Environment.NewLine}    {FormatDiagnostics(analyzer, new[] { actual })}{Environment.NewLine}";
         }
 
 
         private static string GetNotInExpectedColumn(
-            DiagnosticAnalyzer analyzer, 
+            DiagnosticAnalyzer analyzer,
             Diagnostic diagnostic,
-            DiagnosticResultLocation expected, 
+            DiagnosticResultLocation expected,
             LinePosition actualLinePosition)
         {
-            return $"Expected diagnostic to start at column \"{expected.Column}\" was actually at column \"{actualLinePosition.Character + 1}\"{Environment.NewLine}{Environment.NewLine}Diagnostic:{Environment.NewLine}    {FormatDiagnostics(analyzer, diagnostic)}{Environment.NewLine}";
+            return $"Expected diagnostic to start at column \"{expected.Column}\" was actually at column \"{actualLinePosition.Character + 1}\"{Environment.NewLine}{Environment.NewLine}Diagnostic:{Environment.NewLine}    {FormatDiagnostics(analyzer, new[] {diagnostic})}{Environment.NewLine}";
         }
 
         private static string GetNotInExpectedLineMessage(
@@ -355,7 +355,7 @@ namespace Analyzers.Tests._TestEnvironment.Roslyn.DiagnosticAnalyzers
             DiagnosticResultLocation expected,
             LinePosition actualLinePosition)
         {
-            return $"Expected diagnostic to be on line \"{expected.Line}\" was actually on line \"{actualLinePosition.Line + 1}\"{Environment.NewLine}{Environment.NewLine}Diagnostic:{Environment.NewLine}    {FormatDiagnostics(analyzer, diagnostic)}{Environment.NewLine}";
+            return $"Expected diagnostic to be on line \"{expected.Line}\" was actually on line \"{actualLinePosition.Line + 1}\"{Environment.NewLine}{Environment.NewLine}Diagnostic:{Environment.NewLine}    {FormatDiagnostics(analyzer, new[] {diagnostic})}{Environment.NewLine}";
         }
 
         private static string GetNotInExpectedFileMessage(
@@ -364,7 +364,7 @@ namespace Analyzers.Tests._TestEnvironment.Roslyn.DiagnosticAnalyzers
             DiagnosticResultLocation expected,
             FileLinePositionSpan actualSpan)
         {
-            return $"Expected diagnostic to be in file \"{expected.Path}\" was actually in file \"{actualSpan.Path}\"{Environment.NewLine}{Environment.NewLine}Diagnostic:{Environment.NewLine}    {FormatDiagnostics(analyzer, diagnostic)}{Environment.NewLine}";
+            return $"Expected diagnostic to be in file \"{expected.Path}\" was actually in file \"{actualSpan.Path}\"{Environment.NewLine}{Environment.NewLine}Diagnostic:{Environment.NewLine}    {FormatDiagnostics(analyzer, new[] { diagnostic })}{Environment.NewLine}";
         }
 
 
@@ -374,7 +374,7 @@ namespace Analyzers.Tests._TestEnvironment.Roslyn.DiagnosticAnalyzers
         /// <param name="analyzer">The analyzer that this verifier tests</param>
         /// <param name="diagnostics">The Diagnostics to be formatted</param>
         /// <returns>The Diagnostics formatted as a string</returns>
-        private static string FormatDiagnostics(DiagnosticAnalyzer analyzer, params Diagnostic[] diagnostics)
+        private static string FormatDiagnostics(DiagnosticAnalyzer analyzer, Diagnostic[] diagnostics)
         {
             var builder = new StringBuilder();
             for (var i = 0; i < diagnostics.Length; ++i)

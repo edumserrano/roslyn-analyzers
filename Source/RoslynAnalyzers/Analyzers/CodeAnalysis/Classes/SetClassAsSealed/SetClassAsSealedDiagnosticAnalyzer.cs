@@ -47,6 +47,7 @@ namespace Analyzers.CodeAnalysis.Classes.SetClassAsSealed
                 || classDeclaration.HasAbstractOrVirtualMethods()
                 || classDeclaration.HasAbstractOrVirtualProperties()
                 || classDeclaration.HasAbstractOrVirtualEvents()
+                || classDeclaration.HasAbstractOrVirtualEventFields()
                 || classDeclaration.HasAbstractOrVirtualIndexers())
             {
                 return;

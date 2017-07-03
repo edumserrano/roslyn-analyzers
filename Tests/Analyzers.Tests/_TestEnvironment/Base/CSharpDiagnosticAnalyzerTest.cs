@@ -23,9 +23,14 @@ namespace Analyzers.Tests._TestEnvironment.Base
         /// </summary>
         /// <param name="source">A class in the form of a string to run the analyzer on</param>
         /// <param name="expected"> DiagnosticResults that should appear after the analyzer is run on the source</param>
-        protected void VerifyDiagnostic(string source, params DiagnosticResult[] expected)
+        protected void VerifyDiagnostic(string source, DiagnosticResult[] expected)
         {
             VerifyDiagnostic(new[] { source }, expected);
+        }
+
+        protected void VerifyNoDiagnosticTriggered(string source)
+        {
+            VerifyDiagnostic(new[] { source }, new DiagnosticResult[0]);
         }
 
         /// <summary>
@@ -34,7 +39,7 @@ namespace Analyzers.Tests._TestEnvironment.Base
         /// </summary>
         /// <param name="sources">An array of strings to create source documents from to run the analyzers on</param>
         /// <param name="expected">DiagnosticResults that should appear after the analyzer is run on the sources</param>
-        protected void VerifyDiagnostic(string[] sources, params DiagnosticResult[] expected)
+        protected void VerifyDiagnostic(string[] sources, DiagnosticResult[] expected)
         {
             var actual = _diagnosticAnalyzer.GetSortedDiagnostics(sources, LanguageNames.CSharp);
             var result = _diagnosticAnalyzer.VerifyDiagnosticResults(actual, expected);

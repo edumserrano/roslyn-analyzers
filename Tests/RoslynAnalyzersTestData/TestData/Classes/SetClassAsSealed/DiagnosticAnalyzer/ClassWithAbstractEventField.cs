@@ -2,7 +2,7 @@ using System;
 
 namespace TestData.Classes.SetClassAsSealed.DiagnosticAnalyzer
 {
-    public abstract class DoestNotTriggerSetClassAsSealed6
+    public abstract class ClassWithAbstractEventField
     {
         public abstract event EventHandler Changed;
     }
