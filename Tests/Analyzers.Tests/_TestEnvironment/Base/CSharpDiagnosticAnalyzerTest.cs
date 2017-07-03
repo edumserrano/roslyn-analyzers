@@ -1,4 +1,5 @@
 ﻿using Analyzers.Tests._TestEnvironment.Roslyn.DiagnosticAnalyzers;
+using Analyzers.Tests._TestEnvironment.Utils;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Shouldly;

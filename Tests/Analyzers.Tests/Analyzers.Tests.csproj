@@ -170,6 +170,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Async\AsyncMethodNamesShouldBeSuffixedWithAsync\AsyncMethodNamesShouldBeSuffixedWithAsyncCodeFixTests.cs" />
+    <Compile Include="Async\AsyncMethodNamesShouldBeSuffixedWithAsync\AsyncMethodNamesShouldBeSuffixedWithAsyncDiagnosticAnalyzerTests.cs" />
     <Compile Include="Classes\SetClassAsSealed\SetClassAsSealedCodeFixTests.cs" />
     <Compile Include="_TestEnvironment\Base\FileReaderTest.cs" />
     <Compile Include="_TestEnvironment\Utils\AnalyzerGroup.cs" />
@@ -205,7 +207,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Async\" />
     <Folder Include="Enums\" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

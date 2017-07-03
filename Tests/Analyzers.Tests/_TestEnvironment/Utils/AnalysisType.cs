@@ -1,4 +1,4 @@
-﻿namespace Analyzers.Tests._TestEnvironment
+﻿namespace Analyzers.Tests._TestEnvironment.Utils
 {
     public enum AnalysisType
     {

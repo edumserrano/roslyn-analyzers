@@ -37,7 +37,7 @@ namespace Analyzers.Extensions
         public static IEnumerable<EventDeclarationSyntax> GetEvents(this ClassDeclarationSyntax classDeclaration)
         {
             return classDeclaration.Members
-                .Where(x => x.IsKind(SyntaxKind.EventDeclaration) || x.IsKind(SyntaxKind.EventFieldDeclaration))
+                .Where(x => x.IsKind(SyntaxKind.EventDeclaration))
                 .OfType<EventDeclarationSyntax>();
         }
 

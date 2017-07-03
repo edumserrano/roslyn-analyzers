@@ -8,13 +8,14 @@ using Microsoft.CodeAnalysis.CodeFixes;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Options;
 using Microsoft.CodeAnalysis.Rename;
+using Analyzers.CodeAnalysis.AnalyzersMetadata.CodeFixTitles;
 
 namespace Analyzers.CodeAnalysis.Async.AsyncMethodNamesShouldBeSuffixedWithAsync
 {
     [ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(AsyncMethodNamesShouldBeSuffixedWithAsyncCodeFix)), Shared]
     public sealed class AsyncMethodNamesShouldBeSuffixedWithAsyncCodeFix : CodeFixProvider
     {
-        private const string Title = "Rename {0} to {1}";
+        private static readonly LocalizableString Title = AsyncCodeFixTitles.AsyncMethodNamesShouldBeSuffixedWithAsync;
         private const string EquivalenceKey = AsyncMethodNamesShouldBeSuffixedWithAsyncDiagnosticAnalyzer.DiagnosticId + "CodeFixProvider";
 
         public override ImmutableArray<string> FixableDiagnosticIds => ImmutableArray.Create(AsyncMethodNamesShouldBeSuffixedWithAsyncDiagnosticAnalyzer.DiagnosticId);
@@ -38,7 +39,7 @@ namespace Analyzers.CodeAnalysis.Async.AsyncMethodNamesShouldBeSuffixedWithAsync
             var newName = $"{oldName}{AsyncConstants.AsyncSuffix}";
 
             var codeAction = CodeAction.Create(
-                title: string.Format(Title, oldName, newName),
+                title: string.Format(Title.ToString(), oldName, newName),
                 createChangedSolution: cancellationToken => Renamer.RenameSymbolAsync(solution, methodSymbol, newName, default(OptionSet), cancellationToken),
                 equivalenceKey: EquivalenceKey);
 

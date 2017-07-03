@@ -1,6 +1,7 @@
 ﻿using System.Collections.Immutable;
 using System.Composition;
 using System.Threading.Tasks;
+using Analyzers.CodeAnalysis.AnalyzersMetadata.CodeFixTitles;
 using Analyzers.CodeAnalysis.AnalyzersMetadata.DiagnosticIdentifiers;
 using Analyzers.Extensions;
 using Microsoft.CodeAnalysis;
@@ -15,7 +16,7 @@ namespace Analyzers.CodeAnalysis.Classes.SetClassAsSealed
     public sealed class SetClassAsSealedCodeFix : CodeFixProvider
     {
         private const string DiagnosticId = ClassDiagnosticIdentifiers.SetClassAsSealed;
-        private const string Title = "Add sealed modifier to class";
+        private static readonly LocalizableString Title = ClassCodeFixTitles.SetClassAsSealed;
         private const string EquivalenceKey = DiagnosticId + "CodeFixProvider";
 
         public override ImmutableArray<string> FixableDiagnosticIds => ImmutableArray.Create(DiagnosticId);
@@ -32,7 +33,7 @@ namespace Analyzers.CodeAnalysis.Classes.SetClassAsSealed
             var root = result.root;
 
             var codeAction = CodeAction.Create(
-                title: Title,
+                title: Title.ToString(),
                 createChangedDocument: cancellationToken => AddSealedModifierToClass(context, root, classDeclaration),
                 equivalenceKey: EquivalenceKey);
 

@@ -2,7 +2,7 @@
 
 namespace Analyzers.CodeAnalysis.AnalyzersMetadata.DiagnosticTitles
 {
-    public static class ClassTitles
+    public static class ClassDiagnosticTitles
     {
         public static readonly LocalizableString SetClassAsSealed = "Seal class";
     }

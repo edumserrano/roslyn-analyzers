@@ -1,5 +1,4 @@
 ﻿using Analyzers.CodeAnalysis.Classes.SetClassAsSealed;
-using Analyzers.Tests._TestEnvironment;
 using Analyzers.Tests._TestEnvironment.Base;
 using Analyzers.Tests._TestEnvironment.Utils;
 using Xunit;

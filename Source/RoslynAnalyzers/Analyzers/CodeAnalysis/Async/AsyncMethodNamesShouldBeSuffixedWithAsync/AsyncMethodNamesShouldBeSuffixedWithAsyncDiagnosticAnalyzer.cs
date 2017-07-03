@@ -2,6 +2,8 @@
 using System.Collections.Immutable;
 using Analyzers.CodeAnalysis.AnalyzersMetadata;
 using Analyzers.CodeAnalysis.AnalyzersMetadata.DiagnosticIdentifiers;
+using Analyzers.CodeAnalysis.AnalyzersMetadata.DiagnosticMessageFormats;
+using Analyzers.CodeAnalysis.AnalyzersMetadata.DiagnosticTitles;
 using Analyzers.Extensions;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
@@ -14,8 +16,8 @@ namespace Analyzers.CodeAnalysis.Async.AsyncMethodNamesShouldBeSuffixedWithAsync
     public sealed class AsyncMethodNamesShouldBeSuffixedWithAsyncDiagnosticAnalyzer : DiagnosticAnalyzer
     {
         public const string DiagnosticId = AsyncDiagnosticIdentifiers.AsyncMethodNamesShouldBeSuffixedWithAsync;
-        private static readonly LocalizableString Title = "Asynchronous method names should end with Async";
-        private static readonly LocalizableString MessageFormat = "Append asynchronous method name with Async";
+        private static readonly LocalizableString Title = AsyncDiagnosticTitles.AsyncMethodNamesShouldBeSuffixedWithAsync;
+        private static readonly LocalizableString MessageFormat = AsyncDiagnosticMessageFormats.AsyncMethodNamesShouldBeSuffixedWithAsync;
 
         private static readonly DiagnosticDescriptor Rule = new DiagnosticDescriptor(
             DiagnosticId,

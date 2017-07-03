@@ -1,7 +1,8 @@
-﻿namespace Analyzers.Tests._TestEnvironment
+﻿namespace Analyzers.Tests._TestEnvironment.Utils
 {
     public enum AnalyzerName
     {
-        SetClassAsSealed
+        SetClassAsSealed,
+        AsyncMethodNamesShouldBeSuffixedWithAsync
     }
 }

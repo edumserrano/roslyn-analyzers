@@ -15,8 +15,8 @@ namespace Analyzers.CodeAnalysis.Classes.SetClassAsSealed
     public sealed class SetClassAsSealedDiagnosticAnalyzer : DiagnosticAnalyzer
     {
         private const string DiagnosticId = ClassDiagnosticIdentifiers.SetClassAsSealed;
-        private static readonly LocalizableString Title = ClassTitles.SetClassAsSealed;
-        private static readonly LocalizableString MessageFormat = ClassMessageFormats.SetClassAsSealed;
+        private static readonly LocalizableString Title = ClassDiagnosticTitles.SetClassAsSealed;
+        private static readonly LocalizableString MessageFormat = ClassDiagnosticMessageFormats.SetClassAsSealed;
 
         private static readonly DiagnosticDescriptor Rule = new DiagnosticDescriptor(
             DiagnosticId,
