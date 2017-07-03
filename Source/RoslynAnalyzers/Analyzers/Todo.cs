@@ -1,6 +1,8 @@
 ﻿namespace Analyzers
 {
 #warning nos docs referir os 2 cursos no pluralsight!
+    //section for how to debug
+    //section for how to create a project like this: the debug vsxis, the analyzer and the tests
 
 #warning change the name of the Vsix proj to DebugAnalyzers.Vsix
 #warning create a wiki with hints on how to create roslyn analyzers/code fixers
@@ -37,7 +39,18 @@
 #warning localization
     // You can change these strings in the Resources.resx file. If you do not want your analyzer to be localize-able, you can use regular strings for Title and MessageFormat.
     // See https://github.com/dotnet/roslyn/blob/master/docs/analyzers/Localizing%20Analyzers.md for more on localization
-    class Todo
-    {
-    }
+
+#warning links
+
+    //search for roslyn analyzers on github - https://github.com/search?p=2&q=roslyn+analyzer&type=Repositories&utf8=%E2%9C%93
+    //assign all analyzer - https://github.com/anjdreas/roslyn-analyzers#enabledisable-by-comments
+    //roslynator - https://github.com/JosefPihrt/Roslynator
+    //exception analyzer - https://github.com/SergeyTeplyakov/ExceptionAnalyzer
+    //var rewriter - http://www.hexacta.com/2016/01/12/refactoring-roslyn-platform/
+    //syntax csharp rewriter - https://johnkoerner.com/csharp/using-a-csharp-syntax-rewriter/
+    //How To - https://github.com/dotnet/roslyn/wiki/How-To-Write-a-C%23-Analyzer-and-Code-Fix
+    //gitter for roslyn - https://gitter.im/dotnet/roslyn
+    //roslyn repo - https://github.com/dotnet/roslyn
+    //
+
 }
