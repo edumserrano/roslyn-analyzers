@@ -23,54 +23,35 @@ namespace Analyzers.Tests.Async.AsyncMethodNamesShouldBeSuffixedWithAsync
             VerifyNoDiagnosticTriggered(source);
         }
 
-        [Fact]
-        public void Async_methods_without_async_suffix_triggers_analyzer()
+        [Theory]
+        [InlineData("AsyncGenericTaskMethodWithAsyncSuffix.cs")]
+        [InlineData("AsyncTaskMethodWithAsyncSuffix.cs")]
+        [InlineData("AsyncVoidMethodWithAsyncSuffix.cs")]
+        [InlineData("GenericTaskMethodWithAsyncSuffix.cs")]
+        [InlineData("TaskMethodWithAsyncSuffix.cs")]
+        public void Analyzer_is_not_triggered(string filename)
         {
-            var source = ReadFile("TriggersAsyncMethodNamesShouldBeSuffixedWithAsync.cs");
-            var expectedDiagnostic1 = new DiagnosticResult
+            var source = ReadFile(filename);
+            VerifyNoDiagnosticTriggered(source);
+        }
+
+        [Theory]
+        [InlineData("AsyncGenericTaskMethodWithoutAsyncSuffix.cs", 7, 27)]
+        [InlineData("AsyncTaskMethodWithoutAsyncSuffix.cs", 7, 27)]
+        [InlineData("AsyncVoidMethodWithoutAsyncSuffix.cs", 7, 27)]
+        [InlineData("GenericTaskMethodWithoutAsyncSuffix.cs", 7, 27)]
+        [InlineData("TaskMethodWithoutAsyncSuffix.cs", 7, 27)]
+        public void Analyzer_is_triggered(string filename, int diagnosticLine, int diagnosticColumn)
+        {
+            var source = ReadFile(filename);
+            var expectedDiagnostic = new DiagnosticResult
             {
                 Id = AsyncDiagnosticIdentifiers.AsyncMethodNamesShouldBeSuffixedWithAsync,
                 Message = AsyncDiagnosticMessageFormats.AsyncMethodNamesShouldBeSuffixedWithAsync.ToString(),
                 Severity = DiagnosticSeverity.Warning,
-                Locations = new[] { new DiagnosticResultLocation("Test0.cs", 7, 27) }
+                Locations = new[] { new DiagnosticResultLocation("Test0.cs", diagnosticLine, diagnosticColumn) }
             };
-            var expectedDiagnostic2 = new DiagnosticResult
-            {
-                Id = AsyncDiagnosticIdentifiers.AsyncMethodNamesShouldBeSuffixedWithAsync,
-                Message = AsyncDiagnosticMessageFormats.AsyncMethodNamesShouldBeSuffixedWithAsync.ToString(),
-                Severity = DiagnosticSeverity.Warning,
-                Locations = new[] { new DiagnosticResultLocation("Test0.cs", 12, 27) }
-            };
-            var expectedDiagnostic3 = new DiagnosticResult
-            {
-                Id = AsyncDiagnosticIdentifiers.AsyncMethodNamesShouldBeSuffixedWithAsync,
-                Message = AsyncDiagnosticMessageFormats.AsyncMethodNamesShouldBeSuffixedWithAsync.ToString(),
-                Severity = DiagnosticSeverity.Warning,
-                Locations = new[] { new DiagnosticResultLocation("Test0.cs", 17, 32) }
-            };
-            var expectedDiagnostic4 = new DiagnosticResult
-            {
-                Id = AsyncDiagnosticIdentifiers.AsyncMethodNamesShouldBeSuffixedWithAsync,
-                Message = AsyncDiagnosticMessageFormats.AsyncMethodNamesShouldBeSuffixedWithAsync.ToString(),
-                Severity = DiagnosticSeverity.Warning,
-                Locations = new[] { new DiagnosticResultLocation("Test0.cs", 22, 21) }
-            };
-            var expectedDiagnostic5 = new DiagnosticResult
-            {
-                Id = AsyncDiagnosticIdentifiers.AsyncMethodNamesShouldBeSuffixedWithAsync,
-                Message = AsyncDiagnosticMessageFormats.AsyncMethodNamesShouldBeSuffixedWithAsync.ToString(),
-                Severity = DiagnosticSeverity.Warning,
-                Locations = new[] { new DiagnosticResultLocation("Test0.cs", 27, 26) }
-            };
-            
-            VerifyDiagnostic(source, new[]
-            {
-                expectedDiagnostic1,
-                expectedDiagnostic2,
-                expectedDiagnostic3,
-                expectedDiagnostic4,
-                expectedDiagnostic5
-            });
+            VerifyDiagnostic(source, expectedDiagnostic);
         }
     }
 }

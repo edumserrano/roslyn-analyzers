@@ -41,7 +41,7 @@ namespace Analyzers.Tests.Classes.SetClassAsSealed
         [Fact]
         public void Class_without_sealed_modifier_and_without_any_virtual_or_abstract_properties_methods_events_or_indexes_triggers_analyzer()
         {
-            var source = ReadFile("TriggersSetClassAsSealed.cs");
+            var source = ReadFile("ClassWithoutSealedModifier.cs");
             var expectedDiagnostic = new DiagnosticResult
             {
                 Id = ClassDiagnosticIdentifiers.SetClassAsSealed,
@@ -50,7 +50,7 @@ namespace Analyzers.Tests.Classes.SetClassAsSealed
                 Locations = new[] { new DiagnosticResultLocation("Test0.cs", 10, 18) }
             };
 
-            VerifyDiagnostic(source, new[] { expectedDiagnostic });
+            VerifyDiagnostic(source, expectedDiagnostic);
         }
     }
 }

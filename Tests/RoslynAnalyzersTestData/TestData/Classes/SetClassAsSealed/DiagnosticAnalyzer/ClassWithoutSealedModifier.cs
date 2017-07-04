@@ -1,6 +1,6 @@
 ﻿namespace TestData.Classes.SetClassAsSealed.DiagnosticAnalyzer
 {
-    public class TriggersSetClassAsSealed
+    public class ClassWithoutSealedModifier
     {
     }
 }

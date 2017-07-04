@@ -29,6 +29,11 @@ namespace Analyzers.Tests._TestEnvironment.Base
             VerifyDiagnostic(new[] { source }, expected);
         }
 
+        protected void VerifyDiagnostic(string source, DiagnosticResult expected)
+        {
+            VerifyDiagnostic(new[] { source }, new[] { expected });
+        }
+
         protected void VerifyNoDiagnosticTriggered(string source)
         {
             VerifyDiagnostic(new[] { source }, new DiagnosticResult[0]);
