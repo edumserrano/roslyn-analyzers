@@ -47,7 +47,7 @@ namespace Analyzers.Tests.Classes.SetClassAsSealed
                 Id = ClassDiagnosticIdentifiers.SetClassAsSealed,
                 Message = ClassDiagnosticMessageFormats.SetClassAsSealed.ToString(),
                 Severity = DiagnosticSeverity.Warning,
-                Locations = new[] { new DiagnosticResultLocation("Test0.cs", 10, 18) }
+                Locations = new[] { new DiagnosticResultLocation("Test0.cs", 3, 18) }
             };
 
             VerifyDiagnostic(source, expectedDiagnostic);

@@ -208,7 +208,9 @@ namespace Analyzers.Tests._TestEnvironment.Roslyn.DiagnosticAnalyzers
                 }
                 else
                 {
-                    VerifyDiagnosticLocation(analyzer, actual, actual.Location, expected.Locations.First());
+                    var locationResult = VerifyDiagnosticLocation(analyzer, actual, actual.Location, expected.Locations.First());
+                    if (!locationResult.Success) return locationResult;
+
                     var additionalLocations = actual.AdditionalLocations.ToArray();
 
                     if (additionalLocations.Length != expected.Locations.Length - 1)
@@ -219,7 +221,7 @@ namespace Analyzers.Tests._TestEnvironment.Roslyn.DiagnosticAnalyzers
 
                     for (var j = 0; j < additionalLocations.Length; ++j)
                     {
-                        var locationResult = VerifyDiagnosticLocation(analyzer, actual, additionalLocations[j], expected.Locations[j + 1]);
+                        locationResult = VerifyDiagnosticLocation(analyzer, actual, additionalLocations[j], expected.Locations[j + 1]);
                         if (!locationResult.Success) return locationResult;
                     }
                 }
@@ -346,7 +348,7 @@ namespace Analyzers.Tests._TestEnvironment.Roslyn.DiagnosticAnalyzers
             DiagnosticResultLocation expected,
             LinePosition actualLinePosition)
         {
-            return $"Expected diagnostic to start at column \"{expected.Column}\" was actually at column \"{actualLinePosition.Character + 1}\"{Environment.NewLine}{Environment.NewLine}Diagnostic:{Environment.NewLine}    {FormatDiagnostics(analyzer, new[] {diagnostic})}{Environment.NewLine}";
+            return $"Expected diagnostic to start at column \"{expected.Column}\" was actually at column \"{actualLinePosition.Character + 1}\"{Environment.NewLine}{Environment.NewLine}Diagnostic:{Environment.NewLine}    {FormatDiagnostics(analyzer, new[] { diagnostic })}{Environment.NewLine}";
         }
 
         private static string GetNotInExpectedLineMessage(
@@ -355,7 +357,7 @@ namespace Analyzers.Tests._TestEnvironment.Roslyn.DiagnosticAnalyzers
             DiagnosticResultLocation expected,
             LinePosition actualLinePosition)
         {
-            return $"Expected diagnostic to be on line \"{expected.Line}\" was actually on line \"{actualLinePosition.Line + 1}\"{Environment.NewLine}{Environment.NewLine}Diagnostic:{Environment.NewLine}    {FormatDiagnostics(analyzer, new[] {diagnostic})}{Environment.NewLine}";
+            return $"Expected diagnostic to be on line \"{expected.Line}\" was actually on line \"{actualLinePosition.Line + 1}\"{Environment.NewLine}{Environment.NewLine}Diagnostic:{Environment.NewLine}    {FormatDiagnostics(analyzer, new[] { diagnostic })}{Environment.NewLine}";
         }
 
         private static string GetNotInExpectedFileMessage(

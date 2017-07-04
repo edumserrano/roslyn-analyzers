@@ -36,11 +36,11 @@ namespace Analyzers.Tests.Async.AsyncMethodNamesShouldBeSuffixedWithAsync
         }
 
         [Theory]
-        [InlineData("AsyncGenericTaskMethodWithoutAsyncSuffix.cs", 7, 27)]
+        [InlineData("AsyncGenericTaskMethodWithoutAsyncSuffix.cs", 7, 32)]
         [InlineData("AsyncTaskMethodWithoutAsyncSuffix.cs", 7, 27)]
-        [InlineData("AsyncVoidMethodWithoutAsyncSuffix.cs", 7, 27)]
-        [InlineData("GenericTaskMethodWithoutAsyncSuffix.cs", 7, 27)]
-        [InlineData("TaskMethodWithoutAsyncSuffix.cs", 7, 27)]
+        [InlineData("AsyncVoidMethodWithoutAsyncSuffix.cs", 5, 27)]
+        [InlineData("GenericTaskMethodWithoutAsyncSuffix.cs", 7, 26)]
+        [InlineData("TaskMethodWithoutAsyncSuffix.cs", 7, 21)]
         public void Analyzer_is_triggered(string filename, int diagnosticLine, int diagnosticColumn)
         {
             var source = ReadFile(filename);

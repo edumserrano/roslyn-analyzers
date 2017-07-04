@@ -5,7 +5,8 @@ using Xunit;
 
 namespace Analyzers.Tests.Classes.SetClassAsSealed
 {
-    public class SetClassAsSealedCodeFixTests : CSharpCodeFixProviderTest<SetClassAsSealedDiagnosticAnalyzer, SetClassAsSealedCodeFix>
+    public class SetClassAsSealedCodeFixTests 
+        : CSharpCodeFixProviderTest<SetClassAsSealedDiagnosticAnalyzer, SetClassAsSealedCodeFix>
     {
         public override AnalyzerGroup AnalyzerGroup { get; } = AnalyzerGroup.Classes;
 

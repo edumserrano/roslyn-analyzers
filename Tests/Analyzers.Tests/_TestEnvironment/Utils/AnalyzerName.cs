@@ -3,6 +3,6 @@
     public enum AnalyzerName
     {
         SetClassAsSealed,
-        AsyncMethodNamesShouldBeSuffixedWithAsync
+        AsyncMethodNamesShouldBeSuffixedWithAsync,
     }
 }
