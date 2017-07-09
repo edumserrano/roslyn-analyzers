@@ -4,6 +4,7 @@
     {
         SetClassAsSealed,
         AsyncMethodNamesShouldBeSuffixedWithAsync,
-        AvoidAsyncVoidMethods
+        AvoidAsyncVoidMethods,
+        NonAsyncMethodNamesShouldNotBeSuffixedWithAsync
     }
 }

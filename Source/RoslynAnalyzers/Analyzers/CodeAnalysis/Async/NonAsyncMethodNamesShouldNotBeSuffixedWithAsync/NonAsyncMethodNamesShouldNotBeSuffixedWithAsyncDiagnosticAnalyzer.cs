@@ -2,6 +2,8 @@
 using System.Collections.Immutable;
 using Analyzers.AnalyzersMetadata;
 using Analyzers.AnalyzersMetadata.DiagnosticIdentifiers;
+using Analyzers.AnalyzersMetadata.DiagnosticMessageFormats;
+using Analyzers.AnalyzersMetadata.DiagnosticTitles;
 using Analyzers.Extensions;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
@@ -13,9 +15,9 @@ namespace Analyzers.CodeAnalysis.Async.NonAsyncMethodNamesShouldNotBeSuffixedWit
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
     public sealed class NonAsyncMethodNamesShouldNotBeSuffixedWithAsyncDiagnosticAnalyzer : DiagnosticAnalyzer
     {
-        public const string DiagnosticId = AsyncDiagnosticIdentifiers.NonAsyncMethodNamesShouldNotBeSuffixedWithAsync;
-        private static readonly LocalizableString Title = "Non asynchronous method names should end with Async";
-        private static readonly LocalizableString MessageFormat = "Remove Async suffix from method name";
+        private const string DiagnosticId = AsyncDiagnosticIdentifiers.NonAsyncMethodNamesShouldNotBeSuffixedWithAsync;
+        private static readonly LocalizableString Title = AsyncDiagnosticTitles.NonAsyncMethodNamesShouldNotBeSuffixedWithAsync;
+        private static readonly LocalizableString MessageFormat = AsyncDiagnosticMessageFormats.NonAsyncMethodNamesShouldNotBeSuffixedWithAsync;
 
         private static readonly DiagnosticDescriptor Rule = new DiagnosticDescriptor(
             DiagnosticId,
