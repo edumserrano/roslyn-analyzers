@@ -1,8 +1,8 @@
 ﻿using System.Collections.Immutable;
-using Analyzers.CodeAnalysis.AnalyzersMetadata;
-using Analyzers.CodeAnalysis.AnalyzersMetadata.DiagnosticIdentifiers;
-using Analyzers.CodeAnalysis.AnalyzersMetadata.DiagnosticMessageFormats;
-using Analyzers.CodeAnalysis.AnalyzersMetadata.DiagnosticTitles;
+using Analyzers.AnalyzersMetadata;
+using Analyzers.AnalyzersMetadata.DiagnosticIdentifiers;
+using Analyzers.AnalyzersMetadata.DiagnosticMessageFormats;
+using Analyzers.AnalyzersMetadata.DiagnosticTitles;
 using Analyzers.Extensions;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;

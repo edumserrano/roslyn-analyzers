@@ -1,6 +1,6 @@
 ﻿using Microsoft.CodeAnalysis;
 
-namespace Analyzers.CodeAnalysis.AnalyzersMetadata.DiagnosticMessageFormats
+namespace Analyzers.AnalyzersMetadata.DiagnosticMessageFormats
 {
     public static class ClassDiagnosticMessageFormats
     {

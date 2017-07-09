@@ -1,5 +1,5 @@
-﻿using Analyzers.CodeAnalysis.AnalyzersMetadata.DiagnosticIdentifiers;
-using Analyzers.CodeAnalysis.AnalyzersMetadata.DiagnosticMessageFormats;
+﻿using Analyzers.AnalyzersMetadata.DiagnosticIdentifiers;
+using Analyzers.AnalyzersMetadata.DiagnosticMessageFormats;
 using Analyzers.CodeAnalysis.Classes.SetClassAsSealed;
 using Analyzers.Tests._TestEnvironment.Base;
 using Analyzers.Tests._TestEnvironment.Roslyn.DiagnosticAnalyzers;

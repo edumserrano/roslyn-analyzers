@@ -1,7 +1,7 @@
 ﻿using System.Collections.Immutable;
 using System.Linq;
-using Analyzers.CodeAnalysis.AnalyzersMetadata;
-using Analyzers.CodeAnalysis.AnalyzersMetadata.DiagnosticIdentifiers;
+using Analyzers.AnalyzersMetadata;
+using Analyzers.AnalyzersMetadata.DiagnosticIdentifiers;
 using Analyzers.Extensions;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;

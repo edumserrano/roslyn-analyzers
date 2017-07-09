@@ -1,6 +1,6 @@
 ﻿using Microsoft.CodeAnalysis;
 
-namespace Analyzers.CodeAnalysis.AnalyzersMetadata.CodeFixTitles
+namespace Analyzers.AnalyzersMetadata.CodeFixTitles
 {
     public static class ClassCodeFixTitles
     {

@@ -172,6 +172,8 @@
   <ItemGroup>
     <Compile Include="Async\AsyncMethodNamesShouldBeSuffixedWithAsync\AsyncMethodNamesShouldBeSuffixedWithAsyncCodeFixTests.cs" />
     <Compile Include="Async\AsyncMethodNamesShouldBeSuffixedWithAsync\AsyncMethodNamesShouldBeSuffixedWithAsyncDiagnosticAnalyzerTests.cs" />
+    <Compile Include="Async\AvoidAsyncVoidMethods\AvoidAsyncVoidMethodsCodeFixTests.cs" />
+    <Compile Include="Async\AvoidAsyncVoidMethods\AvoidAsyncVoidMethodsDiagnosticAnalyzerTests.cs" />
     <Compile Include="Classes\SetClassAsSealed\SetClassAsSealedCodeFixTests.cs" />
     <Compile Include="_TestEnvironment\Base\FileReaderTest.cs" />
     <Compile Include="_TestEnvironment\Utils\AnalyzerGroup.cs" />

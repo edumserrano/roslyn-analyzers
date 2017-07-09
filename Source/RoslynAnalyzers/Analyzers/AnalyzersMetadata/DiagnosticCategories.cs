@@ -1,4 +1,4 @@
-﻿namespace Analyzers.CodeAnalysis.AnalyzersMetadata
+﻿namespace Analyzers.AnalyzersMetadata
 {
     public static class DiagnosticCategories
     {

@@ -1,9 +1,10 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Immutable;
-using Analyzers.CodeAnalysis.AnalyzersMetadata;
-using Analyzers.CodeAnalysis.AnalyzersMetadata.DiagnosticIdentifiers;
-using Analyzers.CodeAnalysis.AnalyzersMetadata.DiagnosticMessageFormats;
-using Analyzers.CodeAnalysis.AnalyzersMetadata.DiagnosticTitles;
+using Analyzers.AnalyzersMetadata;
+using Analyzers.AnalyzersMetadata.DiagnosticIdentifiers;
+using Analyzers.AnalyzersMetadata.DiagnosticMessageFormats;
+using Analyzers.AnalyzersMetadata.DiagnosticTitles;
 using Analyzers.Extensions;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
@@ -15,7 +16,7 @@ namespace Analyzers.CodeAnalysis.Async.AsyncMethodNamesShouldBeSuffixedWithAsync
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
     public sealed class AsyncMethodNamesShouldBeSuffixedWithAsyncDiagnosticAnalyzer : DiagnosticAnalyzer
     {
-        public const string DiagnosticId = AsyncDiagnosticIdentifiers.AsyncMethodNamesShouldBeSuffixedWithAsync;
+        private const string DiagnosticId = AsyncDiagnosticIdentifiers.AsyncMethodNamesShouldBeSuffixedWithAsync;
         private static readonly LocalizableString Title = AsyncDiagnosticTitles.AsyncMethodNamesShouldBeSuffixedWithAsync;
         private static readonly LocalizableString MessageFormat = AsyncDiagnosticMessageFormats.AsyncMethodNamesShouldBeSuffixedWithAsync;
 

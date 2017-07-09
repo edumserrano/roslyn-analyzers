@@ -1,6 +1,8 @@
 ﻿using System.Collections.Immutable;
 using System.Composition;
 using System.Threading.Tasks;
+using Analyzers.AnalyzersMetadata.CodeFixTitles;
+using Analyzers.AnalyzersMetadata.DiagnosticIdentifiers;
 using Analyzers.Extensions;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CodeActions;
@@ -8,7 +10,6 @@ using Microsoft.CodeAnalysis.CodeFixes;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Options;
 using Microsoft.CodeAnalysis.Rename;
-using Analyzers.CodeAnalysis.AnalyzersMetadata.CodeFixTitles;
 
 namespace Analyzers.CodeAnalysis.Async.AsyncMethodNamesShouldBeSuffixedWithAsync
 {
@@ -16,15 +17,15 @@ namespace Analyzers.CodeAnalysis.Async.AsyncMethodNamesShouldBeSuffixedWithAsync
     public sealed class AsyncMethodNamesShouldBeSuffixedWithAsyncCodeFix : CodeFixProvider
     {
         private static readonly LocalizableString Title = AsyncCodeFixTitles.AsyncMethodNamesShouldBeSuffixedWithAsync;
-        private const string EquivalenceKey = AsyncMethodNamesShouldBeSuffixedWithAsyncDiagnosticAnalyzer.DiagnosticId + "CodeFixProvider";
+        private const string EquivalenceKey = AsyncDiagnosticIdentifiers.AsyncMethodNamesShouldBeSuffixedWithAsync + "CodeFixProvider";
 
-        public override ImmutableArray<string> FixableDiagnosticIds => ImmutableArray.Create(AsyncMethodNamesShouldBeSuffixedWithAsyncDiagnosticAnalyzer.DiagnosticId);
+        public override ImmutableArray<string> FixableDiagnosticIds => ImmutableArray.Create(AsyncDiagnosticIdentifiers.AsyncMethodNamesShouldBeSuffixedWithAsync);
 
         public override FixAllProvider GetFixAllProvider() => WellKnownFixAllProviders.BatchFixer;
 
         public override async Task RegisterCodeFixesAsync(CodeFixContext context)
         {
-            var result = await context.TryGetSyntaxNode<MethodDeclarationSyntax>(AsyncMethodNamesShouldBeSuffixedWithAsyncDiagnosticAnalyzer.DiagnosticId);
+            var result = await context.TryGetSyntaxNode<MethodDeclarationSyntax>(AsyncDiagnosticIdentifiers.AsyncMethodNamesShouldBeSuffixedWithAsync);
             if (!result.success) return;
 
             var methodDeclaration = result.syntaxNode;

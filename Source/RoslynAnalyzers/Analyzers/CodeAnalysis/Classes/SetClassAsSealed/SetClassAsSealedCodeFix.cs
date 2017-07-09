@@ -1,8 +1,8 @@
 ﻿using System.Collections.Immutable;
 using System.Composition;
 using System.Threading.Tasks;
-using Analyzers.CodeAnalysis.AnalyzersMetadata.CodeFixTitles;
-using Analyzers.CodeAnalysis.AnalyzersMetadata.DiagnosticIdentifiers;
+using Analyzers.AnalyzersMetadata.CodeFixTitles;
+using Analyzers.AnalyzersMetadata.DiagnosticIdentifiers;
 using Analyzers.Extensions;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CodeActions;

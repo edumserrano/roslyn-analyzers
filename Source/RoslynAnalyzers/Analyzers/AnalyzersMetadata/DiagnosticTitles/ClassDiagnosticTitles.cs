@@ -1,6 +1,6 @@
 ﻿using Microsoft.CodeAnalysis;
 
-namespace Analyzers.CodeAnalysis.AnalyzersMetadata.DiagnosticTitles
+namespace Analyzers.AnalyzersMetadata.DiagnosticTitles
 {
     public static class ClassDiagnosticTitles
     {

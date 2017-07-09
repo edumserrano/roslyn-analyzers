@@ -1,6 +1,8 @@
 ﻿using System.Collections.Immutable;
-using Analyzers.CodeAnalysis.AnalyzersMetadata;
-using Analyzers.CodeAnalysis.AnalyzersMetadata.DiagnosticIdentifiers;
+using Analyzers.AnalyzersMetadata;
+using Analyzers.AnalyzersMetadata.DiagnosticIdentifiers;
+using Analyzers.AnalyzersMetadata.DiagnosticMessageFormats;
+using Analyzers.AnalyzersMetadata.DiagnosticTitles;
 using Analyzers.Extensions;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
@@ -12,9 +14,9 @@ namespace Analyzers.CodeAnalysis.Async.AvoidAsyncVoidMethods
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
     public sealed class AvoidAsyncVoidMethodsDiagnosticAnalyzer : DiagnosticAnalyzer
     {
-        public const string DiagnosticId = AsyncDiagnosticIdentifiers.AvoidAsyncVoidMethods;
-        private static readonly LocalizableString Title = "Avoid void returning asynchronous method";
-        private static readonly LocalizableString MessageFormat = "Change the return type of the asyncronous method";
+        private const string DiagnosticId = AsyncDiagnosticIdentifiers.AvoidAsyncVoidMethods;
+        private static readonly LocalizableString Title = AsyncDiagnosticTitles.AvoidAsyncVoidMethods;
+        private static readonly LocalizableString MessageFormat = AsyncDiagnosticMessageFormats.AvoidAsyncVoidMethods;
 
         private static readonly DiagnosticDescriptor Rule = new DiagnosticDescriptor(
             DiagnosticId,

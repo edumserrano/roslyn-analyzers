@@ -1,6 +1,8 @@
 ﻿using System.Collections.Immutable;
 using System.Composition;
 using System.Threading.Tasks;
+using Analyzers.AnalyzersMetadata.CodeFixTitles;
+using Analyzers.AnalyzersMetadata.DiagnosticIdentifiers;
 using Analyzers.Extensions;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CodeActions;
@@ -13,16 +15,16 @@ namespace Analyzers.CodeAnalysis.Async.AvoidAsyncVoidMethods
     [ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(AvoidAsyncVoidMethodsCodeFix)), Shared]
     public sealed class AvoidAsyncVoidMethodsCodeFix : CodeFixProvider
     {
-        private const string Title = "Change return type from void to Task";
-        private const string EquivalenceKey = AvoidAsyncVoidMethodsDiagnosticAnalyzer.DiagnosticId + "CodeFixProvider";
+        private static readonly LocalizableString Title = AsyncCodeFixTitles.AvoidAsyncVoidMethods;
+        private const string EquivalenceKey = AsyncDiagnosticIdentifiers.AvoidAsyncVoidMethods + "CodeFixProvider";
 
-        public override ImmutableArray<string> FixableDiagnosticIds => ImmutableArray.Create(AvoidAsyncVoidMethodsDiagnosticAnalyzer.DiagnosticId);
+        public override ImmutableArray<string> FixableDiagnosticIds => ImmutableArray.Create(AsyncDiagnosticIdentifiers.AvoidAsyncVoidMethods);
 
         public override FixAllProvider GetFixAllProvider() => WellKnownFixAllProviders.BatchFixer;
 
         public override async Task RegisterCodeFixesAsync(CodeFixContext context)
         {
-            var result = await context.TryGetSyntaxNode<MethodDeclarationSyntax>(AvoidAsyncVoidMethodsDiagnosticAnalyzer.DiagnosticId);
+            var result = await context.TryGetSyntaxNode<MethodDeclarationSyntax>(AsyncDiagnosticIdentifiers.AvoidAsyncVoidMethods);
             if (!result.success) return;
 
             var methodDeclaration = result.syntaxNode;
@@ -30,7 +32,7 @@ namespace Analyzers.CodeAnalysis.Async.AvoidAsyncVoidMethods
             var root = result.root;
 
             var codeAction = CodeAction.Create(
-                title: Title,
+                title: Title.ToString(),
                 createChangedDocument: cancellationToken => ChangeReturnTypeToTask(context, root, methodDeclaration),
                 equivalenceKey: EquivalenceKey);
 

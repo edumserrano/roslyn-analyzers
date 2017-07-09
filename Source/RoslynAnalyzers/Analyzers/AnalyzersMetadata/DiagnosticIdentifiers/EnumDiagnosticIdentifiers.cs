@@ -1,4 +1,4 @@
-namespace Analyzers.CodeAnalysis.AnalyzersMetadata.DiagnosticIdentifiers
+namespace Analyzers.AnalyzersMetadata.DiagnosticIdentifiers
 {
     public static class EnumDiagnosticIdentifiers
     {
