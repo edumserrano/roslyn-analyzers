@@ -1,6 +1,8 @@
 using System.Collections.Immutable;
 using Analyzers.AnalyzersMetadata;
 using Analyzers.AnalyzersMetadata.DiagnosticIdentifiers;
+using Analyzers.AnalyzersMetadata.DiagnosticMessageFormats;
+using Analyzers.AnalyzersMetadata.DiagnosticTitles;
 using Analyzers.Extensions;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
@@ -12,9 +14,9 @@ namespace Analyzers.CodeAnalysis.Async.UseConfigureAwaitFalse
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
     public sealed class UseConfigureAwaitFalseDiagnosticAnalyzer : DiagnosticAnalyzer
     {
-        public const string DiagnosticId = AsyncDiagnosticIdentifiers.UseConfigureAwaitFalseWhenPossible;
-        private static readonly LocalizableString Title = "Use ConfigureAwait(false) on await expression";
-        private static readonly LocalizableString MessageFormat = "Use ConfigureAwait(false)";
+        private const string DiagnosticId = AsyncDiagnosticIdentifiers.UseConfigureAwaitFalse;
+        private static readonly LocalizableString Title = AsyncDiagnosticTitles.UseConfigureAwaitFalse;
+        private static readonly LocalizableString MessageFormat = AsyncDiagnosticMessageFormats.UseConfigureAwaitFalse;
 
         private static readonly DiagnosticDescriptor Rule = new DiagnosticDescriptor(
             DiagnosticId,

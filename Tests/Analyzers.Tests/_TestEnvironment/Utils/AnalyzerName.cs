@@ -5,6 +5,7 @@
         SetClassAsSealed,
         AsyncMethodNamesShouldBeSuffixedWithAsync,
         AvoidAsyncVoidMethods,
-        NonAsyncMethodNamesShouldNotBeSuffixedWithAsync
+        NonAsyncMethodNamesShouldNotBeSuffixedWithAsync,
+        UseConfigureAwaitFalse
     }
 }

@@ -7,6 +7,6 @@ namespace Analyzers.AnalyzersMetadata.DiagnosticIdentifiers
         public const string AsyncMethodNamesShouldBeSuffixedWithAsync = AsyncPrefix + "0001";
         public const string NonAsyncMethodNamesShouldNotBeSuffixedWithAsync = AsyncPrefix + "0002";
         public const string AvoidAsyncVoidMethods = AsyncPrefix + "0003";
-        public const string UseConfigureAwaitFalseWhenPossible = AsyncPrefix + "0004";
+        public const string UseConfigureAwaitFalse = AsyncPrefix + "0004";
     }
 }

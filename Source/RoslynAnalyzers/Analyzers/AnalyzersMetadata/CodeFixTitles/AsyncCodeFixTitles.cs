@@ -7,5 +7,6 @@ namespace Analyzers.AnalyzersMetadata.CodeFixTitles
         public static readonly LocalizableString AsyncMethodNamesShouldBeSuffixedWithAsync = "Rename {0} to {1}";
         public static readonly LocalizableString AvoidAsyncVoidMethods = "Change return type from void to Task";
         public static readonly LocalizableString NonAsyncMethodNamesShouldNotBeSuffixedWithAsync = "Rename {0} to {1}";
+        public static readonly LocalizableString UseConfigureAwaitFalse = "Add ConfigureAwait(false)";
     }
 }

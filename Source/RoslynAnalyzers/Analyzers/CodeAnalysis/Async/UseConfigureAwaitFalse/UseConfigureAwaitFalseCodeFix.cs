@@ -1,6 +1,8 @@
 ﻿using System.Collections.Immutable;
 using System.Composition;
 using System.Threading.Tasks;
+using Analyzers.AnalyzersMetadata.CodeFixTitles;
+using Analyzers.AnalyzersMetadata.DiagnosticIdentifiers;
 using Analyzers.Extensions;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CodeActions;
@@ -13,16 +15,16 @@ namespace Analyzers.CodeAnalysis.Async.UseConfigureAwaitFalse
     [ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(UseConfigureAwaitFalseCodeFix)), Shared]
     public sealed class UseConfigureAwaitFalseCodeFix : CodeFixProvider
     {
-        private const string Title = "Add ConfigureAwait(false)";
-        private const string EquivalenceKey = UseConfigureAwaitFalseDiagnosticAnalyzer.DiagnosticId + "CodeFixProvider";
+        private readonly LocalizableString Title = AsyncCodeFixTitles.UseConfigureAwaitFalse;
+        private const string EquivalenceKey = AsyncDiagnosticIdentifiers.UseConfigureAwaitFalse + "CodeFixProvider";
 
-        public override ImmutableArray<string> FixableDiagnosticIds => ImmutableArray.Create(UseConfigureAwaitFalseDiagnosticAnalyzer.DiagnosticId);
+        public override ImmutableArray<string> FixableDiagnosticIds => ImmutableArray.Create(AsyncDiagnosticIdentifiers.UseConfigureAwaitFalse);
 
         public override FixAllProvider GetFixAllProvider() => WellKnownFixAllProviders.BatchFixer;
 
         public override async Task RegisterCodeFixesAsync(CodeFixContext context)
         {
-            var result = await context.TryGetSyntaxNode<AwaitExpressionSyntax>(UseConfigureAwaitFalseDiagnosticAnalyzer.DiagnosticId);
+            var result = await context.TryGetSyntaxNode<AwaitExpressionSyntax>(AsyncDiagnosticIdentifiers.UseConfigureAwaitFalse);
             if (!result.success) return;
 
             var awaitExpression = result.syntaxNode;
@@ -30,7 +32,7 @@ namespace Analyzers.CodeAnalysis.Async.UseConfigureAwaitFalse
             var root = result.root;
 
             var codeAction = CodeAction.Create(
-                title: Title,
+                title: Title.ToString(),
                 createChangedDocument: cancellationToken => AddConfigureAwaitFalse(context, root, awaitExpression),
                 equivalenceKey: EquivalenceKey);
 
