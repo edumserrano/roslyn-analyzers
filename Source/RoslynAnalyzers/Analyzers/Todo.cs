@@ -4,7 +4,6 @@
     //section for how to debug
     //section for how to create a project like this: the debug vsxis, the analyzer and the tests
 
-#warning change the name of the Vsix proj to DebugAnalyzers.Vsix
 #warning create a wiki with hints on how to create roslyn analyzers/code fixers
     //codefixprovider -> when do I need to use 'var generator = SyntaxGenerator.GetGenerator(context.Document);' ? helps create c# syntax
     //codefixprovider -> var node = root.FindNode(context.Span) gets the node that is highilighted by the analyzer
@@ -24,12 +23,14 @@
     // C:\Users\eduar\AppData\Local\Microsoft\VisualStudio
     // C:\Program Files(x86)\Microsoft Visual Studio\2017\Enterprise\VSSDK\VisualStudioIntegration\Tools\Bin>
     // CreateExpInstance.exe /Reset /VSInstance=15.0 /RootSuffix=_9e84fa4fRoslyn
-    
-#warning what is the difference between :
+
+#warning what is the difference between (aybe just put it on the wiki):
     //var syntaxGenerator = SyntaxGenerator.GetGenerator(context.Document);
     //and
     //using SyntaxFactory
     // ???
+
+#warning mention roslyn services on the wiki (see pluralsight for reference)
 
 #warning localization
     // You can change these strings in the Resources.resx file. If you do not want your analyzer to be localize-able, you can use regular strings for Title and MessageFormat.
