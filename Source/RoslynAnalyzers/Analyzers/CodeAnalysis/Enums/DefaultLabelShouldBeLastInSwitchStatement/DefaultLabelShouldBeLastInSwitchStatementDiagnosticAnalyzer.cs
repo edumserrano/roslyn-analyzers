@@ -1,6 +1,8 @@
 ﻿using System.Collections.Immutable;
 using Analyzers.AnalyzersMetadata;
 using Analyzers.AnalyzersMetadata.DiagnosticIdentifiers;
+using Analyzers.AnalyzersMetadata.DiagnosticMessageFormats;
+using Analyzers.AnalyzersMetadata.DiagnosticTitles;
 using Analyzers.Extensions;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
@@ -12,9 +14,9 @@ namespace Analyzers.CodeAnalysis.Enums.DefaultLabelShouldBeLastInSwitchStatement
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
     public sealed class DefaultLabelShouldBeLastInSwitchStatementDiagnosticAnalyzer : DiagnosticAnalyzer
     {
-        public const string DiagnosticId = EnumDiagnosticIdentifiers.DefaultLabelShouldBeTheLast;
-        private static readonly LocalizableString Title = "Default switch label";
-        private static readonly LocalizableString MessageFormat = "The default label should be the last in the switch statement";
+        private const string DiagnosticId = EnumDiagnosticIdentifiers.DefaultLabelShouldBeTheLast;
+        private static readonly LocalizableString Title = EnumDiagnosticTitles.DefaultLabelShouldBeTheLast;
+        private static readonly LocalizableString MessageFormat = EnumDiagnosticMessageFormats.DefaultLabelShouldBeTheLast;
 
         private static readonly DiagnosticDescriptor Rule = new DiagnosticDescriptor(
             id: DiagnosticId,

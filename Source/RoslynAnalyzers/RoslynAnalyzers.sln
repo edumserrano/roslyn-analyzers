@@ -3,12 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26430.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnalyzersDefault", "AnalyzersDefault\AnalyzersDefault\AnalyzersDefault.csproj", "{FA4327B4-4FDA-4350-B742-E1FAE0563C3D}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnalyzersDefault.Test", "AnalyzersDefault\AnalyzersDefault.Test\AnalyzersDefault.Test.csproj", "{939446F7-DB97-47B6-BF35-DFD118989CFA}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnalyzersDefault.Vsix", "AnalyzersDefault\AnalyzersDefault.Vsix\AnalyzersDefault.Vsix.csproj", "{11E10762-80B7-4A0B-9EEC-2F848BB00C6A}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Analyzers", "Analyzers\Analyzers.csproj", "{21AC1140-A1CD-4919-97C8-136B577D83D5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{BB25C7FF-2055-4178-84CD-9056C4863183}"
@@ -19,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Analyzers.Tests", "..\..\Te
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Debug", "Debug", "{283A022C-B986-4474-B092-DA24D508B73E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Analyzers.Vsix", "..\..\Debug\Analyzers.Vsix\Analyzers.Vsix.csproj", "{37FEB210-C1E2-4EB8-B1BA-3372F05F87C2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DebugAnalyzers.Vsix", "..\..\Debug\DebugAnalyzers.Vsix\DebugAnalyzers.Vsix.csproj", "{37FEB210-C1E2-4EB8-B1BA-3372F05F87C2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,18 +21,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{FA4327B4-4FDA-4350-B742-E1FAE0563C3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FA4327B4-4FDA-4350-B742-E1FAE0563C3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FA4327B4-4FDA-4350-B742-E1FAE0563C3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FA4327B4-4FDA-4350-B742-E1FAE0563C3D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{939446F7-DB97-47B6-BF35-DFD118989CFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{939446F7-DB97-47B6-BF35-DFD118989CFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{939446F7-DB97-47B6-BF35-DFD118989CFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{939446F7-DB97-47B6-BF35-DFD118989CFA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{11E10762-80B7-4A0B-9EEC-2F848BB00C6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{11E10762-80B7-4A0B-9EEC-2F848BB00C6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{11E10762-80B7-4A0B-9EEC-2F848BB00C6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{11E10762-80B7-4A0B-9EEC-2F848BB00C6A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{21AC1140-A1CD-4919-97C8-136B577D83D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{21AC1140-A1CD-4919-97C8-136B577D83D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{21AC1140-A1CD-4919-97C8-136B577D83D5}.Release|Any CPU.ActiveCfg = Release|Any CPU

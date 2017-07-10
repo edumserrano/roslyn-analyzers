@@ -16,5 +16,11 @@
                     return 3;
             }
         }
+        public enum CarModels
+        {
+            Ferrari,
+            Lamborghini,
+            Mercedes
+        }
     }
 }

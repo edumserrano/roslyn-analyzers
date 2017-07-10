@@ -2,6 +2,8 @@ using System.Collections.Immutable;
 using System.Linq;
 using Analyzers.AnalyzersMetadata;
 using Analyzers.AnalyzersMetadata.DiagnosticIdentifiers;
+using Analyzers.AnalyzersMetadata.DiagnosticMessageFormats;
+using Analyzers.AnalyzersMetadata.DiagnosticTitles;
 using Analyzers.Extensions;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
@@ -14,8 +16,8 @@ namespace Analyzers.CodeAnalysis.Enums.SwitchOnEnumMustHandleAllCases
     public sealed class SwitchOnEnumMustHandleAllCasesDiagnosticAnalyzer : DiagnosticAnalyzer
     {
         public const string DiagnosticId = EnumDiagnosticIdentifiers.SwitchOnEnumMustHandleAllCases;
-        private static readonly LocalizableString Title = "Populate switch";
-        private static readonly LocalizableString MessageFormat = "Add missing switch cases. A switch is considered incomplete if it is missing a possible value of the enum or the default case.";
+        private static readonly LocalizableString Title = EnumDiagnosticTitles.SwitchOnEnumMustHandleAllCases;
+        private static readonly LocalizableString MessageFormat = EnumDiagnosticMessageFormats.SwitchOnEnumMustHandleAllCases;
 
         private static readonly DiagnosticDescriptor Rule = new DiagnosticDescriptor(
             DiagnosticId,

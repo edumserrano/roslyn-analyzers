@@ -1,7 +1,8 @@
 ﻿using System.Collections.Immutable;
 using System.Composition;
-using System.Threading;
 using System.Threading.Tasks;
+using Analyzers.AnalyzersMetadata.CodeFixTitles;
+using Analyzers.AnalyzersMetadata.DiagnosticIdentifiers;
 using Analyzers.Extensions;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CodeActions;
@@ -13,16 +14,16 @@ namespace Analyzers.CodeAnalysis.Enums.DefaultLabelShouldBeLastInSwitchStatement
     [ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(DefaultLabelShouldBeLastInSwitchStatementCodeFix)), Shared]
     public sealed class DefaultLabelShouldBeLastInSwitchStatementCodeFix : CodeFixProvider
     {
-        private const string Title = "Move default label to the last position";
-        private const string EquivalenceKey = DefaultLabelShouldBeLastInSwitchStatementDiagnosticAnalyzer.DiagnosticId + "CodeFixProvider";
+        private readonly LocalizableString Title = EnumCodeFixTitles.DefaultLabelShouldBeTheLast;
+        private const string EquivalenceKey = EnumDiagnosticIdentifiers.DefaultLabelShouldBeTheLast + "CodeFixProvider";
 
-        public override ImmutableArray<string> FixableDiagnosticIds => ImmutableArray.Create(DefaultLabelShouldBeLastInSwitchStatementDiagnosticAnalyzer.DiagnosticId);
+        public override ImmutableArray<string> FixableDiagnosticIds => ImmutableArray.Create(EnumDiagnosticIdentifiers.DefaultLabelShouldBeTheLast);
 
         public override FixAllProvider GetFixAllProvider() => WellKnownFixAllProviders.BatchFixer;
 
         public override async Task RegisterCodeFixesAsync(CodeFixContext context)
         {
-            var result = await context.TryGetSyntaxNode<SwitchStatementSyntax>(DefaultLabelShouldBeLastInSwitchStatementDiagnosticAnalyzer.DiagnosticId);
+            var result = await context.TryGetSyntaxNode<SwitchStatementSyntax>(EnumDiagnosticIdentifiers.DefaultLabelShouldBeTheLast);
             if (!result.success) return;
 
             var switchStatement = result.syntaxNode;
@@ -30,7 +31,7 @@ namespace Analyzers.CodeAnalysis.Enums.DefaultLabelShouldBeLastInSwitchStatement
             var root = result.root;
 
             var codeAction = CodeAction.Create(
-                title: Title,
+                title: Title.ToString(),
                 createChangedDocument: cancellationToken => MoveDefaultLabelToLastInSwitchStatement(context, root, switchStatement),
                 equivalenceKey: EquivalenceKey);
 

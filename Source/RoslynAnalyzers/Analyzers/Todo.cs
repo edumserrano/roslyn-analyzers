@@ -24,12 +24,7 @@
     // C:\Users\eduar\AppData\Local\Microsoft\VisualStudio
     // C:\Program Files(x86)\Microsoft Visual Studio\2017\Enterprise\VSSDK\VisualStudioIntegration\Tools\Bin>
     // CreateExpInstance.exe /Reset /VSInstance=15.0 /RootSuffix=_9e84fa4fRoslyn
-
-#warning write an analyzer to check for sealed classes
-    // why? -> https://blogs.msdn.microsoft.com/ericlippert/2004/01/22/why-are-so-many-of-the-framework-classes-sealed/
-    // https://johnkoerner.com/csharp/creating-an-analyzer-for-sealing-classes/
-
-
+    
 #warning what is the difference between :
     //var syntaxGenerator = SyntaxGenerator.GetGenerator(context.Document);
     //and

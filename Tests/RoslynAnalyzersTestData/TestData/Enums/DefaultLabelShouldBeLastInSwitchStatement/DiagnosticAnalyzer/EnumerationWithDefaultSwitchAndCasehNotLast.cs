@@ -1,6 +1,6 @@
 ﻿namespace TestData.Enums.DefaultLabelShouldBeLastInSwitchStatement.DiagnosticAnalyzer
 {
-    public class EnumerationWithDefaultSwitcAndCasehNotLast
+    public class EnumerationWithDefaultSwitchAndCasehNotLast
     {
         public void EnumerationMethod(CarModels carModel)
         {

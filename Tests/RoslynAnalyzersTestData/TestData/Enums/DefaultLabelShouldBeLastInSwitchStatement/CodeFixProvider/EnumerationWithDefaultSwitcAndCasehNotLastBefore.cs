@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace TestData.Enums.DefaultLabelShouldBeLastInSwitchStatement.CodeFixProvider
+﻿namespace TestData.Enums.DefaultLabelShouldBeLastInSwitchStatement.CodeFixProvider
 {
     public class EnumerationWithDefaultSwitcAndCasehNotLast
     {

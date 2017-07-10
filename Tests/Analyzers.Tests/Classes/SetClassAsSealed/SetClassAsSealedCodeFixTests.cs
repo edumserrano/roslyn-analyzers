@@ -12,11 +12,12 @@ namespace Analyzers.Tests.Classes.SetClassAsSealed
 
         public override AnalyzerName AnalyzerName { get; } = AnalyzerName.SetClassAsSealed;
 
-        [Fact]
-        public void Adds_sealed_modifier_to_class_when_its_missing()
+        [Theory]
+        [InlineData("SetClassAsSealedBeforeFix.cs", "SetClassAsSealedAfterFix.cs")]
+        public void Adds_sealed_modifier_to_class_when_its_missing(string sourceBefore, string sourceAfter)
         {
-            var sourceBeforeFix = ReadFile("SetClassAsSealedBeforeFix.cs");
-            var sourceAfterFix = ReadFile("SetClassAsSealedAfterFix.cs");
+            var sourceBeforeFix = ReadFile(sourceBefore);
+            var sourceAfterFix = ReadFile(sourceAfter);
             VerifyFix(sourceBeforeFix, sourceAfterFix);
         }
     }

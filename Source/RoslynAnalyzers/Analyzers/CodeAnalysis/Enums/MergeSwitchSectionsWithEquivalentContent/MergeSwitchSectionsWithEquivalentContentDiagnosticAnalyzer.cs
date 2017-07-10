@@ -2,6 +2,8 @@
 using System.Linq;
 using Analyzers.AnalyzersMetadata;
 using Analyzers.AnalyzersMetadata.DiagnosticIdentifiers;
+using Analyzers.AnalyzersMetadata.DiagnosticMessageFormats;
+using Analyzers.AnalyzersMetadata.DiagnosticTitles;
 using Analyzers.Extensions;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
@@ -13,11 +15,9 @@ namespace Analyzers.CodeAnalysis.Enums.MergeSwitchSectionsWithEquivalentContent
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
     public sealed class MergeSwitchSectionsWithEquivalentContentDiagnosticAnalyzer : DiagnosticAnalyzer
     {
-        public const string DiagnosticId = EnumDiagnosticIdentifiers.MergeSwitchSectionsWithEquivalentContent;
-        private static readonly LocalizableString Title = "Merge switch sections";
-
-        private static readonly LocalizableString MessageFormat =
-            "Switch statements with equivalent content should be merged";
+        private const string DiagnosticId = EnumDiagnosticIdentifiers.MergeSwitchSectionsWithEquivalentContent;
+        private static readonly LocalizableString Title = EnumDiagnosticTitles.MergeSwitchSectionsWithEquivalentContent;
+        private static readonly LocalizableString MessageFormat = EnumDiagnosticMessageFormats.MergeSwitchSectionsWithEquivalentContent;
 
         private static readonly DiagnosticDescriptor Rule = new DiagnosticDescriptor(
             DiagnosticId,

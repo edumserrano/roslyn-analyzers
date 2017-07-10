@@ -1,8 +1,6 @@
-using System;
-
-namespace TestData.Enums.SwitchOnEnumMustHandleAllCases.CodeFixProvider
+﻿namespace TestData.Enums.DefaultLabelShouldBeLastInSwitchStatement.DiagnosticAnalyzer
 {
-    public class SwitchWithMissingCase
+    public class EnumerationWithDefaultSwitchAndCaseLast
     {
         public void EnumerationMethod(CarModels carModel)
         {
@@ -10,12 +8,11 @@ namespace TestData.Enums.SwitchOnEnumMustHandleAllCases.CodeFixProvider
             {
                 case CarModels.Ferrari:
                     break;
-                case CarModels.Lamborghini:
-                    break;
                 case CarModels.Mercedes:
                     break;
+                case CarModels.Lamborghini:
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(carModel), carModel, null);
+                    break;
             }
         }
     }

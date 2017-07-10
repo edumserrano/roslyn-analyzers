@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace TestData.Enums.MergeSwitchSectionsWithEquivalentContent.CodeFixProvider
+﻿namespace TestData.Enums.MergeSwitchSectionsWithEquivalentContent.CodeFixProvider
 {
     public class EnumWithEquivalentSwitchSectionContent
     {
@@ -17,6 +15,13 @@ namespace TestData.Enums.MergeSwitchSectionsWithEquivalentContent.CodeFixProvide
                 default:
                     return 1;
             }
+        }
+
+        public enum CarModels
+        {
+            Ferrari,
+            Lamborghini,
+            Mercedes
         }
     }
 }

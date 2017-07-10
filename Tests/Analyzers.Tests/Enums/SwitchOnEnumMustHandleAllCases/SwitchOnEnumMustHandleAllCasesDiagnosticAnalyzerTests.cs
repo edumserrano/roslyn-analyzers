@@ -1,18 +1,19 @@
 ﻿using Analyzers.AnalyzersMetadata.DiagnosticIdentifiers;
 using Analyzers.AnalyzersMetadata.DiagnosticMessageFormats;
-using Analyzers.CodeAnalysis.Classes.SetClassAsSealed;
+using Analyzers.CodeAnalysis.Enums.SwitchOnEnumMustHandleAllCases;
 using Analyzers.Tests._TestEnvironment.Base;
 using Analyzers.Tests._TestEnvironment.Roslyn.DiagnosticAnalyzers;
 using Analyzers.Tests._TestEnvironment.Utils;
 using Microsoft.CodeAnalysis;
 using Xunit;
 
-namespace Analyzers.Tests.Classes.SetClassAsSealed
+namespace Analyzers.Tests.Enums.SwitchOnEnumMustHandleAllCases
 {
-    public class SetClassAsSealedDiagnosticAnalyzerTests : CSharpDiagnosticAnalyzerTest<SetClassAsSealedDiagnosticAnalyzer>
+    public class SwitchOnEnumMustHandleAllCasesDiagnosticAnalyzerTests
+        : CSharpDiagnosticAnalyzerTest<SwitchOnEnumMustHandleAllCasesDiagnosticAnalyzer>
     {
-        public override AnalyzerGroup AnalyzerGroup { get; } = AnalyzerGroup.Classes;
-        public override AnalyzerName AnalyzerName { get; } = AnalyzerName.SetClassAsSealed;
+        public override AnalyzerGroup AnalyzerGroup { get; } = AnalyzerGroup.Enums;
+        public override AnalyzerName AnalyzerName { get; } = AnalyzerName.SwitchOnEnumMustHandleAllCases;
 
         [Fact]
         public void Empty_source_code_does_not_trigger_analyzer()
@@ -22,16 +23,7 @@ namespace Analyzers.Tests.Classes.SetClassAsSealed
         }
 
         [Theory]
-        [InlineData("ClassWithAbstractEventField.cs")]
-        [InlineData("ClassWithAbstractIndex.cs")]
-        [InlineData("ClassWithAbstractMethod.cs")]
-        [InlineData("ClassWithAbstractProperty.cs")]
-        [InlineData("ClassWithStaticModifier.cs")]
-        [InlineData("ClassWithVirtualEvent.cs")]
-        [InlineData("ClassWithVirtualEventField.cs")]
-        [InlineData("ClassWithVirtualIndex.cs")]
-        [InlineData("ClassWithVirtualMethod.cs")]
-        [InlineData("ClassWithVirtualProperty.cs")]
+        [InlineData("SwitchWithAllCases.cs")]
         public void Analyzer_is_not_triggered(string filename)
         {
             var source = ReadFile(filename);
@@ -39,14 +31,15 @@ namespace Analyzers.Tests.Classes.SetClassAsSealed
         }
 
         [Theory]
-        [InlineData("ClassWithoutSealedModifier.cs", 3, 18)]
+        [InlineData("SwitchWithMissingCase.cs", 9, 13)]
+        [InlineData("SwitchWithoutDefaultCase.cs", 7, 13)]
         public void Analyzer_is_triggered(string filename, int diagnosticLine, int diagnosticColumn)
         {
             var source = ReadFile(filename);
             var expectedDiagnostic = new DiagnosticResult
             {
-                Id = ClassDiagnosticIdentifiers.SetClassAsSealed,
-                Message = ClassDiagnosticMessageFormats.SetClassAsSealed.ToString(),
+                Id = EnumDiagnosticIdentifiers.SwitchOnEnumMustHandleAllCases,
+                Message = EnumDiagnosticMessageFormats.SwitchOnEnumMustHandleAllCases.ToString(),
                 Severity = DiagnosticSeverity.Warning,
                 Locations = new[] { new DiagnosticResultLocation("Test0.cs", diagnosticLine, diagnosticColumn) }
             };

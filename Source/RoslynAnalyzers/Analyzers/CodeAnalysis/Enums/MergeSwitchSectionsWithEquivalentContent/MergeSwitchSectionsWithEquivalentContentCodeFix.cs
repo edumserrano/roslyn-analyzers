@@ -1,6 +1,9 @@
 ﻿using System.Collections.Immutable;
 using System.Composition;
 using System.Threading.Tasks;
+using Analyzers.AnalyzersMetadata.CodeFixTitles;
+using Analyzers.AnalyzersMetadata.DiagnosticIdentifiers;
+using Analyzers.AnalyzersMetadata.DiagnosticTitles;
 using Analyzers.Extensions;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CodeActions;
@@ -12,16 +15,16 @@ namespace Analyzers.CodeAnalysis.Enums.MergeSwitchSectionsWithEquivalentContent
     [ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(MergeSwitchSectionsWithEquivalentContentCodeFix)), Shared]
     public sealed class MergeSwitchSectionsWithEquivalentContentCodeFix : CodeFixProvider
     {
-        private const string Title = "Merge switch statements";
-        private const string EquivalenceKey = MergeSwitchSectionsWithEquivalentContentDiagnosticAnalyzer.DiagnosticId + "CodeFixProvider";
+        private readonly LocalizableString Title = EnumCodeFixTitles.MergeSwitchSectionsWithEquivalentContent;
+        private const string EquivalenceKey = EnumDiagnosticIdentifiers.MergeSwitchSectionsWithEquivalentContent + "CodeFixProvider";
 
-        public override ImmutableArray<string> FixableDiagnosticIds => ImmutableArray.Create(MergeSwitchSectionsWithEquivalentContentDiagnosticAnalyzer.DiagnosticId);
+        public override ImmutableArray<string> FixableDiagnosticIds => ImmutableArray.Create(EnumDiagnosticIdentifiers.MergeSwitchSectionsWithEquivalentContent);
 
         public override FixAllProvider GetFixAllProvider() => WellKnownFixAllProviders.BatchFixer;
 
         public override async Task RegisterCodeFixesAsync(CodeFixContext context)
         {
-            var result = await context.TryGetSyntaxNode<SwitchStatementSyntax>(MergeSwitchSectionsWithEquivalentContentDiagnosticAnalyzer.DiagnosticId);
+            var result = await context.TryGetSyntaxNode<SwitchStatementSyntax>(EnumDiagnosticIdentifiers.MergeSwitchSectionsWithEquivalentContent);
             if (!result.success) return;
 
             var switchStatement = result.syntaxNode;
@@ -29,7 +32,7 @@ namespace Analyzers.CodeAnalysis.Enums.MergeSwitchSectionsWithEquivalentContent
             var root = result.root;
 
             var codeAction = CodeAction.Create(
-                title: Title,
+                title: Title.ToString(),
                 createChangedDocument: cancellationToken => MergeSwitchStatements(context, root, switchStatement),
                 equivalenceKey: EquivalenceKey);
 

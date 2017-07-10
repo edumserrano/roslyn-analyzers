@@ -6,6 +6,9 @@
         AsyncMethodNamesShouldBeSuffixedWithAsync,
         AvoidAsyncVoidMethods,
         NonAsyncMethodNamesShouldNotBeSuffixedWithAsync,
-        UseConfigureAwaitFalse
+        UseConfigureAwaitFalse,
+        DefaultLabelShouldBeLastInSwitchStatement,
+        MergeSwitchSectionsWithEquivalentContent,
+        SwitchOnEnumMustHandleAllCases
     }
 }
