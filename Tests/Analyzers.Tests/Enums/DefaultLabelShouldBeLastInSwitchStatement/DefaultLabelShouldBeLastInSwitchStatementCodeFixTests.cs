@@ -13,7 +13,7 @@ namespace Analyzers.Tests.Enums.DefaultLabelShouldBeLastInSwitchStatement
         public override AnalyzerName AnalyzerName { get; } = AnalyzerName.DefaultLabelShouldBeLastInSwitchStatement;
 
         [Theory]
-        [InlineData("EnumerationWithDefaultSwitcAndCasehNotLastBefore.cs", "EnumerationWithDefaultSwitcAndCasehNotLastAfter.cs")]
+        [InlineData("EnumerationWithDefaultSwitchAndCaseNotLastBefore.cs", "EnumerationWithDefaultSwitchAndCaseNotLastAfter.cs")]
         [InlineData("EnumerationWithDefaultSwitchNotLastBefore.cs", "EnumerationWithDefaultSwitchNotLastAfter.cs")]
         public void Moves_default_switch_and_case_to_last(string sourceBefore,string sourceAfter)
         {

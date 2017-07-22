@@ -18,5 +18,12 @@ namespace TestData.Enums.DefaultLabelShouldBeLastInSwitchStatement.DiagnosticAna
                     throw new ArgumentOutOfRangeException(nameof(carModel), carModel, null);
             }
         }
+
+        public enum CarModels
+        {
+            Ferrari,
+            Lamborghini,
+            Mercedes
+        }
     }
 }

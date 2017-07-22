@@ -15,5 +15,12 @@
                     break;
             }
         }
+
+        public enum CarModels
+        {
+            Ferrari,
+            Lamborghini,
+            Mercedes
+        }
     }
 }

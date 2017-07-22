@@ -1,6 +1,6 @@
 ﻿namespace TestData.Enums.DefaultLabelShouldBeLastInSwitchStatement.CodeFixProvider
 {
-    public class EnumerationWithDefaultSwitcAndCasehNotLast
+    public class EnumerationWithDefaultSwitchAndCaseNotLast
     {
         public void EnumerationMethod(CarModels carModel)
         {
@@ -14,6 +14,13 @@
                 default:
                     break;
             }
+        }
+
+        public enum CarModels
+        {
+            Ferrari,
+            Lamborghini,
+            Mercedes
         }
     }
 }

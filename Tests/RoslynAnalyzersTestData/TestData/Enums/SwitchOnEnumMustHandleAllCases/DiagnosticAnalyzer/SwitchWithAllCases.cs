@@ -18,6 +18,7 @@ namespace TestData.Enums.SwitchOnEnumMustHandleAllCases.DiagnosticAnalyzer
                     throw new ArgumentOutOfRangeException(nameof(carModel), carModel, null);
             }
         }
+
         public enum CarModels
         {
             Ferrari,

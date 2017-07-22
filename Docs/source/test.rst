@@ -62,8 +62,14 @@ Edit the cs proj file in order to set the PackageTargetFallback as follows::
 
 Save and close the cs proj file and add the following nugets to the .NET Standard project:
 
-* `Microsoft.CodeAnalysis.CSharp.Workspaces <https://www.nuget.org/packages/Microsoft.CodeAnalysis.CSharp.Workspaces>`_
-* `Microsoft.Composition <https://www.nuget.org/packages/Microsoft.Composition>`_
+* `Microsoft.CodeAnalysis.CSharp.Workspaces <https://www.nuget.org/packages/Microsoft.CodeAnalysis.CSharp.Workspaces>`_;
+* `Microsoft.Composition <https://www.nuget.org/packages/Microsoft.Composition>`_;
+
+.. note:: Tested using:
+
+   * Version 1.4 of the .NETStandard framework
+   * Version 2.3.1 of the nuget Microsoft.CodeAnalysis.CSharp.Workspaces. 
+   * Version 1.0.31 of the nuget Microsoft.Composition. 
 
 Creating the debug project
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -109,3 +115,8 @@ Now you can reference the .NET Standard project and create your tests. I recomme
 
 In my own projects I've copied and changed them so that I could use them the way I wanted but they will work fine if you use them as they are.
 
+.. note:: Tested using:
+
+   * Version 4.6.2 of the .NET Framework
+   * Version 2.3.1 of the nuget Microsoft.CodeAnalysis.CSharp.Workspaces. 
+   * Version 1.0.31 of the nuget Microsoft.Composition. 

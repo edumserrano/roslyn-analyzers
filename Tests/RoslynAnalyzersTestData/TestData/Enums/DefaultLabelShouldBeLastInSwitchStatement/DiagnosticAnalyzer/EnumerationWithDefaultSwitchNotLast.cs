@@ -18,5 +18,12 @@ namespace TestData.Enums.DefaultLabelShouldBeLastInSwitchStatement.DiagnosticAna
                     break;
             }
         }
+
+        public enum CarModels
+        {
+            Ferrari,
+            Lamborghini,
+            Mercedes
+        }
     }
 }
