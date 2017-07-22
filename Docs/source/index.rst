@@ -10,7 +10,7 @@ Welcome to roslyn-analyzers-docs's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-   test
+   how-to-start
 
 
 
