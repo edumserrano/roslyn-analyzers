@@ -1,5 +1,9 @@
 ﻿namespace Analyzers
 {
+
+    //na seccao Creating the debug project do getting started por um link para a pagina de hwo to debug
+    //no getting started criar notas com as versoes dos projs e nugets testados
+
 #warning enable git lfs for images in docs
 
 #warning nos docs referir os 2 cursos no pluralsight!

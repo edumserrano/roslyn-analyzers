@@ -13,7 +13,7 @@
     <ProjectGuid>{37FEB210-C1E2-4EB8-B1BA-3372F05F87C2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DbugAnalyzers.Vsix</RootNamespace>
+    <RootNamespace>DebugAnalyzers.Vsix</RootNamespace>
     <AssemblyName>DebugAnalyzers.Vsix</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <GeneratePkgDefFile>false</GeneratePkgDefFile>
