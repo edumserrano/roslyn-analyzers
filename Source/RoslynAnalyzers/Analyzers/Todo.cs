@@ -1,5 +1,7 @@
 ﻿namespace Analyzers
 {
+#warning enable git lfs for images in docs
+
 #warning nos docs referir os 2 cursos no pluralsight!
     //section for how to debug
     //section for how to create a project like this: the debug vsxis, the analyzer and the tests
