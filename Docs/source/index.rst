@@ -11,6 +11,7 @@ Welcome to roslyn-analyzers-docs's documentation!
    :caption: Contents:
 
    how-to-start
+   config-analyzer
 
 
 
