@@ -48,8 +48,6 @@ Let's start by creating a blank solution. Once the blank solution is created we 
 
 In this case let's create a .NET Standard Class library project. Go to File->Add->New Project, select .NET Standard under Templates->Visual C# and then select Class Library (.NET Standard).
 
-.. image:: images/net_standard_proj.PNG
-
 Now let's edit the project so that we can install the nugets we require to create our analyzers. Right click the project and select Edit.
 
 .. image:: images/edit_cs_proj.png
