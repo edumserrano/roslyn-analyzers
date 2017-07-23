@@ -1,3 +1,5 @@
+.. _how-to-start:
+
 How to create a Roslyn Analyzer project for C#
 ==============================================
 
@@ -77,7 +79,7 @@ Creating the debug project
 
 The debug project as the name suggests will allow you to debug the code of your analyzers. For that we will create a VSIX project. VSIX projects are used to create `extensions for Visual Studio <https://www.visualstudio.com/vs/extend/>`_ and although we are creating a VSIX project the intent is not to then distribute the resulting VSIX file. We could do that and when users installed the VSIX file they would have access to the analyzers you've developed but for distributing the analyzers I think a nuget package is better. 
 
-The VSIX project is still what we want because once configured and set as the startup project it will launch an `experimental version of visual studio <https://docs.microsoft.com/en-us/visualstudio/extensibility/the-experimental-instance>`_
+The VSIX project is still what we want because once configured and set as the startup project it will launch an `experimental version of Visual Studio <https://docs.microsoft.com/en-us/visualstudio/extensibility/the-experimental-instance>`_
 that is being debugged by the Visual Studio process that launched it (the one that has your analyzer solution). This will allow you to create a new project and test your analyzers with break points to aid your development.
 
 Go to File->New->Project then select Extensibility under Templates->Visual C#. Make sure the .NET framework version selected is 4.6.2 and you will be able to see a template called VSIX Project.

@@ -12,8 +12,9 @@ Welcome to roslyn-analyzers-docs's documentation!
 
    how-to-start
    config-analyzer
-
-
+   how-to-debug
+   tips-and-resources
+   
 
 Indices and tables
 ==================
