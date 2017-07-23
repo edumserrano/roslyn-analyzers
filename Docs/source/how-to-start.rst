@@ -71,8 +71,8 @@ Save and close the cs proj file and add the following nugets to the .NET Standar
 .. note:: Tested using:
 
    * Version 1.4 of the .NETStandard framework for the .NET Standard project.
-   * Version 2.3.1 of the nuget Microsoft.CodeAnalysis.CSharp.Workspaces. 
-   * Version 1.0.31 of the nuget Microsoft.Composition. 
+   * Version 2.2.0 of the nuget Microsoft.CodeAnalysis.CSharp.Workspaces. 
+   * Version 1.0.30 of the nuget Microsoft.Composition. 
 
 Creating the debug project
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -122,5 +122,5 @@ In my own projects I've copied and changed them so that I could use them the way
 .. note:: Tested using:
 
    * Version 4.6.2 of the .NET Framework for the unit test project.
-   * Version 2.3.1 of the nuget Microsoft.CodeAnalysis.CSharp.Workspaces. 
-   * Version 1.0.31 of the nuget Microsoft.Composition. 
+   * Version 2.2.0 of the nuget Microsoft.CodeAnalysis.CSharp.Workspaces. 
+   * Version 1.0.30 of the nuget Microsoft.Composition. 

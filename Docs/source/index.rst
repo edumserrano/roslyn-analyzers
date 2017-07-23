@@ -14,6 +14,7 @@ Read `this <https://docs.readthedocs.io/en/latest/getting_started.html#in-restru
    config-analyzer
    how-to-debug
    how-to-test
+   nuget-packages
    tips-and-resources
    analyzers-in-the-repo
 
