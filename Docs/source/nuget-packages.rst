@@ -27,7 +27,7 @@ I could not find out why but in the test project all the tests run with the late
 
 So as a word of caution if you want to upgrade the nuget packages then:
 
-* Run the tests after
+* Run the tests after.
 * Check that breakpoints are triggering for both analyzers and code fix providers using the :ref:`debug VSIX project <how-to-debug>`.
 
 .. note:: The analyzers created using the working versions of the nugets were tested against the following frameworks:
