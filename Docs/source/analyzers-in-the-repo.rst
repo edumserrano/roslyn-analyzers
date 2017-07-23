@@ -1,7 +1,7 @@
 Analyzers in the repository
 ===========================
 
-Here is the list of the analyzers present in the `roslyn-analyzers repository <https://github.com/edumserrano/roslyn-analyzers/tree/master/Tests/Analyzers.Tests/_TestEnvironment>`_.
+Here is the list of the analyzers present in the `roslyn-analyzers repository <https://github.com/edumserrano/roslyn-analyzers/tree/master/Source/RoslynAnalyzers>`_.
 
 =================================================================================================================  ==========  =======================================================  =================
 Name                                                                                                               Identifier  Title                                                    Default action     
