@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
   <Metadata>
-    <Identity Id="Analyzers..116eb7fe-4f78-4bae-ad8c-74712d683891" Version="1.2.1" Language="en-US" Publisher="Eduardo Miguel Serrano" />
+    <Identity Id="Analyzers..116eb7fe-4f78-4bae-ad8c-74712d683892" Version="1.2.3" Language="en-US" Publisher="Eduardo Miguel Serrano" />
     <DisplayName>Roslyn Analyzers</DisplayName>
     <Description xml:space="preserve">Set of Roslyn analyzers</Description>
   </Metadata>
