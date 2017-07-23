@@ -3,7 +3,6 @@ using Analyzers.AnalyzersMetadata.DiagnosticMessageFormats;
 using Analyzers.CodeAnalysis.Classes.SetClassAsSealed;
 using Analyzers.Tests._TestEnvironment.Base;
 using Analyzers.Tests._TestEnvironment.Roslyn.DiagnosticAnalyzers;
-using Analyzers.Tests._TestEnvironment.Utils;
 using Microsoft.CodeAnalysis;
 using Xunit;
 
@@ -11,8 +10,7 @@ namespace Analyzers.Tests.Classes.SetClassAsSealed
 {
     public class SetClassAsSealedDiagnosticAnalyzerTests : CSharpDiagnosticAnalyzerTest<SetClassAsSealedDiagnosticAnalyzer>
     {
-        public override AnalyzerGroup AnalyzerGroup { get; } = AnalyzerGroup.Classes;
-        public override AnalyzerName AnalyzerName { get; } = AnalyzerName.SetClassAsSealed;
+        public override string Filepath { get; } = "Classes/SetClassAsSealed/DiagnosticAnalyzer";
 
         [Fact]
         public void Empty_source_code_does_not_trigger_analyzer()

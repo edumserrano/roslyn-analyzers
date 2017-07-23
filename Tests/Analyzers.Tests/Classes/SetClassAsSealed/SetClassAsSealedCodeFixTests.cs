@@ -1,6 +1,5 @@
 ﻿using Analyzers.CodeAnalysis.Classes.SetClassAsSealed;
 using Analyzers.Tests._TestEnvironment.Base;
-using Analyzers.Tests._TestEnvironment.Utils;
 using Xunit;
 
 namespace Analyzers.Tests.Classes.SetClassAsSealed
@@ -8,9 +7,7 @@ namespace Analyzers.Tests.Classes.SetClassAsSealed
     public class SetClassAsSealedCodeFixTests 
         : CSharpCodeFixProviderTest<SetClassAsSealedDiagnosticAnalyzer, SetClassAsSealedCodeFix>
     {
-        public override AnalyzerGroup AnalyzerGroup { get; } = AnalyzerGroup.Classes;
-
-        public override AnalyzerName AnalyzerName { get; } = AnalyzerName.SetClassAsSealed;
+        public override string Filepath { get; } = "Classes/SetClassAsSealed/CodeFixProvider";
 
         [Theory]
         [InlineData("SetClassAsSealedBeforeFix.cs", "SetClassAsSealedAfterFix.cs")]

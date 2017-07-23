@@ -3,7 +3,6 @@ using Analyzers.AnalyzersMetadata.DiagnosticMessageFormats;
 using Analyzers.CodeAnalysis.Enums.DefaultLabelShouldBeLastInSwitchStatement;
 using Analyzers.Tests._TestEnvironment.Base;
 using Analyzers.Tests._TestEnvironment.Roslyn.DiagnosticAnalyzers;
-using Analyzers.Tests._TestEnvironment.Utils;
 using Microsoft.CodeAnalysis;
 using Xunit;
 
@@ -12,8 +11,7 @@ namespace Analyzers.Tests.Enums.DefaultLabelShouldBeLastInSwitchStatement
     public class DefaultLabelShouldBeLastInSwitchStatementDiagnosticAnalyzerTests
         : CSharpDiagnosticAnalyzerTest<DefaultLabelShouldBeLastInSwitchStatementDiagnosticAnalyzer>
     {
-        public override AnalyzerGroup AnalyzerGroup { get; } = AnalyzerGroup.Enums;
-        public override AnalyzerName AnalyzerName { get; } = AnalyzerName.DefaultLabelShouldBeLastInSwitchStatement;
+        public override string Filepath { get; } = "Enums/DefaultLabelShouldBeLastInSwitchStatement/DiagnosticAnalyzer";
 
         [Fact]
         public void Empty_source_code_does_not_trigger_analyzer()

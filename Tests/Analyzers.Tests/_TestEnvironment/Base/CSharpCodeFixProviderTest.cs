@@ -1,5 +1,4 @@
 ﻿using Analyzers.Tests._TestEnvironment.Roslyn.CodeFixProviders;
-using Analyzers.Tests._TestEnvironment.Utils;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CodeFixes;
 using Microsoft.CodeAnalysis.Diagnostics;
@@ -19,9 +18,7 @@ namespace Analyzers.Tests._TestEnvironment.Base
             _diagnosticAnalyzer = new TDiagnosticAnalyzer();
             _codeFixProvider = new TCodeFixProvider();
         }
-
-        public override AnalysisType AnalysisType { get; } = AnalysisType.CodeFixProvider;
-
+        
         /// <summary>
         /// Called to test a C# codefix when applied on the inputted string as a source
         /// </summary>

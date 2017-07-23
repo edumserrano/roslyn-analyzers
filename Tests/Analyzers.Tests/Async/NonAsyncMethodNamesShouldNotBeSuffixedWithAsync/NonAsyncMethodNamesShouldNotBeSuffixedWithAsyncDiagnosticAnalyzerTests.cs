@@ -3,7 +3,6 @@ using Analyzers.AnalyzersMetadata.DiagnosticMessageFormats;
 using Analyzers.CodeAnalysis.Async.NonAsyncMethodNamesShouldNotBeSuffixedWithAsync;
 using Analyzers.Tests._TestEnvironment.Base;
 using Analyzers.Tests._TestEnvironment.Roslyn.DiagnosticAnalyzers;
-using Analyzers.Tests._TestEnvironment.Utils;
 using Microsoft.CodeAnalysis;
 using Xunit;
 
@@ -12,9 +11,7 @@ namespace Analyzers.Tests.Async.NonAsyncMethodNamesShouldNotBeSuffixedWithAsync
     public class NonAsyncMethodNamesShouldNotBeSuffixedWithAsyncDiagnosticAnalyzerTests
         : CSharpDiagnosticAnalyzerTest<NonAsyncMethodNamesShouldNotBeSuffixedWithAsyncDiagnosticAnalyzer>
     {
-        public override AnalyzerGroup AnalyzerGroup { get; } = AnalyzerGroup.Async;
-
-        public override AnalyzerName AnalyzerName { get; } = AnalyzerName.NonAsyncMethodNamesShouldNotBeSuffixedWithAsync;
+        public override string Filepath { get; } = "Async/NonAsyncMethodNamesShouldNotBeSuffixedWithAsync/DiagnosticAnalyzer";
 
         [Fact]
         public void Empty_source_code_does_not_trigger_analyzer()

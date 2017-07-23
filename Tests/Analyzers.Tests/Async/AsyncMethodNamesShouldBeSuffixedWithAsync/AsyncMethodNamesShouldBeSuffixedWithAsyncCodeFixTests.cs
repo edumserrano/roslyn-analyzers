@@ -1,6 +1,5 @@
 ﻿using Analyzers.CodeAnalysis.Async.AsyncMethodNamesShouldBeSuffixedWithAsync;
 using Analyzers.Tests._TestEnvironment.Base;
-using Analyzers.Tests._TestEnvironment.Utils;
 using Xunit;
 
 namespace Analyzers.Tests.Async.AsyncMethodNamesShouldBeSuffixedWithAsync
@@ -8,10 +7,8 @@ namespace Analyzers.Tests.Async.AsyncMethodNamesShouldBeSuffixedWithAsync
     public class AsyncMethodNamesShouldBeSuffixedWithAsyncCodeFixTests
         : CSharpCodeFixProviderTest<AsyncMethodNamesShouldBeSuffixedWithAsyncDiagnosticAnalyzer, AsyncMethodNamesShouldBeSuffixedWithAsyncCodeFix>
     {
-        public override AnalyzerGroup AnalyzerGroup { get; } = AnalyzerGroup.Async;
-
-        public override AnalyzerName AnalyzerName { get; } = AnalyzerName.AsyncMethodNamesShouldBeSuffixedWithAsync;
-
+        public override string Filepath { get; } = "Async/AsyncMethodNamesShouldBeSuffixedWithAsync/CodeFixProvider";
+        
         [Theory]
         [InlineData("AsyncGenericTaskMethodWithoutAsyncSuffixBefore.cs", "AsyncGenericTaskMethodWithoutAsyncSuffixAfter.cs")]
         [InlineData("AsyncTaskMethodWithoutAsyncSuffixBefore.cs", "AsyncTaskMethodWithoutAsyncSuffixAfter.cs")]

@@ -1,19 +1,17 @@
-﻿using Analyzers.Tests._TestEnvironment.Utils;
+﻿using System.IO;
 
 namespace Analyzers.Tests._TestEnvironment.Base
 {
     public abstract class FileReaderTest
     {
-        public abstract AnalyzerGroup AnalyzerGroup { get; }
+        public abstract string Filepath { get; }
 
-        public abstract AnalyzerName AnalyzerName { get; }
-
-        public abstract AnalysisType AnalysisType { get; }
+        public virtual string PathToTestData { get; } = "../../../RoslynAnalyzersTestData/TestData/";
 
         public string ReadFile(string filename)
         {
-            var fileReader = new TestDataFileReader(AnalyzerGroup, AnalyzerName, AnalysisType);
-            return fileReader.ReadFile(filename);
+            var pathToFile = $"{PathToTestData}{Filepath}/{filename}";
+            return File.ReadAllText(pathToFile); 
         }
     }
 }

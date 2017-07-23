@@ -1,5 +1,4 @@
 ﻿using Analyzers.Tests._TestEnvironment.Roslyn.DiagnosticAnalyzers;
-using Analyzers.Tests._TestEnvironment.Utils;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Shouldly;
@@ -15,9 +14,7 @@ namespace Analyzers.Tests._TestEnvironment.Base
         {
             _diagnosticAnalyzer = new T();
         }
-
-        public override AnalysisType AnalysisType { get; } = AnalysisType.DiagnosticAnalyzer;
-
+        
         /// <summary>
         /// Called to test a C# DiagnosticAnalyzer when applied on the single inputted string as a source
         /// Note: input a DiagnosticResult for each Diagnostic expected

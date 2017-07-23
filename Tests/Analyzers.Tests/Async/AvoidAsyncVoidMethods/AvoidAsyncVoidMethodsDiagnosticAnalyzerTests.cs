@@ -3,7 +3,6 @@ using Analyzers.AnalyzersMetadata.DiagnosticMessageFormats;
 using Analyzers.CodeAnalysis.Async.AvoidAsyncVoidMethods;
 using Analyzers.Tests._TestEnvironment.Base;
 using Analyzers.Tests._TestEnvironment.Roslyn.DiagnosticAnalyzers;
-using Analyzers.Tests._TestEnvironment.Utils;
 using Microsoft.CodeAnalysis;
 using Xunit;
 
@@ -11,9 +10,7 @@ namespace Analyzers.Tests.Async.AvoidAsyncVoidMethods
 {
     public class AvoidAsyncVoidMethodsDiagnosticAnalyzerTests : CSharpDiagnosticAnalyzerTest<AvoidAsyncVoidMethodsDiagnosticAnalyzer>
     {
-        public override AnalyzerGroup AnalyzerGroup { get; } = AnalyzerGroup.Async;
-
-        public override AnalyzerName AnalyzerName { get; } = AnalyzerName.AvoidAsyncVoidMethods;
+        public override string Filepath { get; } = "Async/AvoidAsyncVoidMethods/DiagnosticAnalyzer";
 
         [Fact]
         public void Empty_source_code_does_not_trigger_analyzer()

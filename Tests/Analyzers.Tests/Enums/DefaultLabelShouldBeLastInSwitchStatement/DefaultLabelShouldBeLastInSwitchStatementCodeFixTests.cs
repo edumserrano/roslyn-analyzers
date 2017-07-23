@@ -1,6 +1,5 @@
 ﻿using Analyzers.CodeAnalysis.Enums.DefaultLabelShouldBeLastInSwitchStatement;
 using Analyzers.Tests._TestEnvironment.Base;
-using Analyzers.Tests._TestEnvironment.Utils;
 using Xunit;
 
 namespace Analyzers.Tests.Enums.DefaultLabelShouldBeLastInSwitchStatement
@@ -8,9 +7,7 @@ namespace Analyzers.Tests.Enums.DefaultLabelShouldBeLastInSwitchStatement
     public class DefaultLabelShouldBeLastInSwitchStatementCodeFixTests
         : CSharpCodeFixProviderTest<DefaultLabelShouldBeLastInSwitchStatementDiagnosticAnalyzer, DefaultLabelShouldBeLastInSwitchStatementCodeFix>
     {
-        public override AnalyzerGroup AnalyzerGroup { get; } = AnalyzerGroup.Enums;
-
-        public override AnalyzerName AnalyzerName { get; } = AnalyzerName.DefaultLabelShouldBeLastInSwitchStatement;
+        public override string Filepath { get; } = "Enums/DefaultLabelShouldBeLastInSwitchStatement/CodeFixProvider";
 
         [Theory]
         [InlineData("EnumerationWithDefaultSwitchAndCaseNotLastBefore.cs", "EnumerationWithDefaultSwitchAndCaseNotLastAfter.cs")]
