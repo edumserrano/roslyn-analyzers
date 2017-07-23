@@ -1,0 +1,3 @@
+this file is here to that the folder ntemplates is created on github
+
+the ntemplates folder is required by the make file to build the docs source

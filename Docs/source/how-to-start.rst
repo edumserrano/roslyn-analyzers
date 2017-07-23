@@ -105,6 +105,8 @@ As a last step make sure the VSIX project will launch an `experimental version o
 * Under Start action the option to Start external program should be selected and the location should be where you have installed visual studio. Something like C:/Program Files (x86)/Microsoft Visual Studio/2017/Enterprise/Common7/IDE/devenv.exe.
 * Under Start options the Command line arguments should be set to /rootsuffix Exp
 
+.. _creating-test-proj:
+
 Creating the test project
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 

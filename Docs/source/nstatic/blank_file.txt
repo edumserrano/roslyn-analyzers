@@ -1,0 +1,3 @@
+this file is here to that the folder nstatic is created on github
+
+the nstatic folder is required by the make file to build the docs source

@@ -1,3 +1,5 @@
+.. _how-to-debug:
+
 How to debug an analyzer
 ========================
 
