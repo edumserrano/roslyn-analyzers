@@ -10,9 +10,10 @@
     <Description>Contains a set of useful analyzers for C#. For a list of all the analyzers see http://roslyn-analyzers.readthedocs.io/en/latest/analyzers-in-the-repo.html.</Description>
     <Authors>Eduardo Serrano</Authors>
     <Company></Company>
-    <PackageId>Analyzers</PackageId>
+    <PackageId>Roslyn.Analyzers</PackageId>
     <PackageLicenseUrl>https://github.com/edumserrano/roslyn-analyzers/blob/master/Licence</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/edumserrano/roslyn-analyzers</PackageProjectUrl>
+    <Product />
   </PropertyGroup>
 
   <ItemGroup>
