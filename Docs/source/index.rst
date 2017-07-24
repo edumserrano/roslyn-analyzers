@@ -10,5 +10,11 @@ Read `this <https://docs.readthedocs.io/en/latest/getting_started.html#in-restru
    :maxdepth: 2
    :caption: Contents:
 
-
+   how-to-start
+   config-analyzer
+   how-to-debug
+   how-to-test
+   nuget-packages
+   tips-and-resources
+   analyzers-in-the-repo
 
