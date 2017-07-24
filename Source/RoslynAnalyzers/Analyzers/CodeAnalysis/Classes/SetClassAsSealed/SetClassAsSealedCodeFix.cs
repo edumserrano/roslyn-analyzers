@@ -13,7 +13,7 @@ using Microsoft.CodeAnalysis.Editing;
 namespace Analyzers.CodeAnalysis.Classes.SetClassAsSealed
 {
     [ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(SetClassAsSealedCodeFix)), Shared]
-    public sealed class SetClassAsSealedCodeFix : CodeFixProvider
+    public sealed class SetClassA sSealedCodeFix : CodeFixProvider
     {
         private const string DiagnosticId = ClassDiagnosticIdentifiers.SetClassAsSealed;
         private static readonly LocalizableString Title = ClassCodeFixTitles.SetClassAsSealed;
