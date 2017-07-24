@@ -5,6 +5,14 @@
     <PackageTargetFallback>portable-net45+win8+wp8+wpa81</PackageTargetFallback>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
+    <RepositoryUrl></RepositoryUrl>
+    <PackageTags>roslyn analyzer analyser code analysis fix refactoring csharp c#</PackageTags>
+    <Description>Contains a set of useful analyzers for C#. For a list of all the analyzers see http://roslyn-analyzers.readthedocs.io/en/latest/analyzers-in-the-repo.html.</Description>
+    <Authors>Eduardo Serrano</Authors>
+    <Company></Company>
+    <PackageId>Analyzers</PackageId>
+    <PackageLicenseUrl>https://github.com/edumserrano/roslyn-analyzers/blob/master/Licence</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/edumserrano/roslyn-analyzers</PackageProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>
