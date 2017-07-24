@@ -3,8 +3,7 @@ roslyn-analyzers
 
 |build-status| |docs| 
 
-For documentation about this repository go `here <http://roslyn-analyzers.readthedocs.io/en/latest/>`.
-
+For documentation about this repository go `here <http://roslyn-analyzers.readthedocs.io/en/latest/>`_.
 
 .. |build-status| image:: https://eduardomserrano.visualstudio.com/_apis/public/build/definitions/e575bb72-927b-4cb5-aabf-df6415768b5b/31/badge
     :alt: build status
