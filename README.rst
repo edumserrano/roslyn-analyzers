@@ -13,3 +13,4 @@ roslyn-analyzers
     :alt: Documentation Status
     :scale: 100%
     :target: http://roslyn-analyzers.readthedocs.io/en/latest/?badge=latest
+    
