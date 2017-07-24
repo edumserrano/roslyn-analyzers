@@ -1,5 +1,14 @@
 # roslyn-analyzers
 
-![Build status](https://eduardomserrano.visualstudio.com/_apis/public/build/definitions/e575bb72-927b-4cb5-aabf-df6415768b5b/31/badge)
+![Build status](https://eduardomserrano.visualstudio.com/_apis/public/build/definitions/e575bb72-927b-4cb5-aabf-df6415768b5b/31/badge) [![read the docs](https://eduardomserrano.visualstudio.com/_apis/public/build/definitions/e575bb72-927b-4cb5-aabf-df6415768b5b/31/badge)](http://roslyn-analyzers.readthedocs.io/en/latest/?badge=latest)
 
-[![read the docs](https://eduardomserrano.visualstudio.com/_apis/public/build/definitions/e575bb72-927b-4cb5-aabf-df6415768b5b/31/badge)](http://roslyn-analyzers.readthedocs.io/en/latest/?badge=latest)
+
+.. |build-status| image:: https://eduardomserrano.visualstudio.com/_apis/public/build/definitions/e575bb72-927b-4cb5-aabf-df6415768b5b/31/badge
+    :alt: build status
+    :scale: 100%
+    :target:
+
+.. |docs| image:: https://readthedocs.org/projects/roslyn-analyzers/badge/?version=latest
+    :alt: Documentation Status
+    :scale: 100%
+    :target: http://roslyn-analyzers.readthedocs.io/en/latest/?badge=latest
