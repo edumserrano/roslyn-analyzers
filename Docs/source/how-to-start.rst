@@ -39,7 +39,7 @@ And you're set to go. I advise you to explore the default analyzer (DiagnosticAn
 The #Pro way
 ------------
 
-Although templates are great to get you started they might not fit your case. Also if you want to understand you everything works then by this section will give you a better understanding of all the magic that the default template does for you.
+Although templates are great to get you started they might not fit your case. Also if you want to understand how everything works then this section will give you a better understanding of all the magic that the default template does for you.
 
 .. _creating-analyzer-proj:
 
