@@ -54,7 +54,7 @@ Now let's edit the project so that we can install the nugets we require to creat
 
 .. image:: images/edit_cs_proj.png
 
-Edit the cs proj file in order to set the *PackageTargetFallback* as follows::
+Edit the cs proj file in order to set the `PackageTargetFallback <https://docs.microsoft.com/en-us/nuget/schema/msbuild-targets#packagetargetfallback>`_ as follows::
 
 	<Project Sdk="Microsoft.NET.Sdk">
 		<PropertyGroup>
@@ -65,14 +65,8 @@ Edit the cs proj file in order to set the *PackageTargetFallback* as follows::
 
 Save and close the cs proj file and add the following nugets to the .NET Standard project:
 
-* `Microsoft.CodeAnalysis.CSharp.Workspaces <https://www.nuget.org/packages/Microsoft.CodeAnalysis.CSharp.Workspaces>`_.
-* `Microsoft.Composition <https://www.nuget.org/packages/Microsoft.Composition>`_.
-
-.. note:: Tested using:
-
-   * Version 1.4 of the .NETStandard framework for the .NET Standard project.
-   * Version 2.2.0 of the nuget Microsoft.CodeAnalysis.CSharp.Workspaces. 
-   * Version 1.0.30 of the nuget Microsoft.Composition. 
+* `Microsoft.CodeAnalysis.CSharp.Workspaces <https://www.nuget.org/packages/Microsoft.CodeAnalysis.CSharp.Workspaces>`_ version 2.2.0.
+* `Microsoft.Composition <https://www.nuget.org/packages/Microsoft.Composition>`_ version 1.0.30.
 
 Creating the debug project
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -112,15 +106,19 @@ Creating the test project
 
 Just create a regular unit test project and add the following nugets:
 
-* `Microsoft.CodeAnalysis.CSharp.Workspaces <https://www.nuget.org/packages/Microsoft.CodeAnalysis.CSharp.Workspaces>`_
-* `Microsoft.Composition <https://www.nuget.org/packages/Microsoft.Composition>`_
+* `Microsoft.CodeAnalysis.CSharp.Workspaces <https://www.nuget.org/packages/Microsoft.CodeAnalysis.CSharp.Workspaces>`_ version 2.2.0.
+* `Microsoft.Composition <https://www.nuget.org/packages/Microsoft.Composition>`_ version 1.0.30.
 
 Now you can reference the .NET Standard project and create your tests. I recommend that you copy the folders Helpers and Verifiers that are created as part of the test project when using the template Analyzer with Code Fix (Nuget + VSIX). See :ref:`easy-way`. These classes contain methods that will greatly help you understand how to test your analyzers and code fixes. 
 
 In my own projects I've copied and changed them so that I could use them the way I wanted but they will work fine if you use them as they are.
 
-.. note:: Tested using:
+.. note:: This guide was tested using:
 
+   * Version 1.4 of the .NET Standard framework for the .NET Standard project.
    * Version 4.6.2 of the .NET Framework for the unit test project.
    * Version 2.2.0 of the nuget Microsoft.CodeAnalysis.CSharp.Workspaces. 
    * Version 1.0.30 of the nuget Microsoft.Composition. 
+   * Visual Studio 2017 Version 15.2
+
+   See :ref:`here <nuget-packages>` for more information on what nuget versions you should.
