@@ -25,8 +25,6 @@ For list of analyzers go `here <http://roslyn-analyzers.readthedocs.io/en/latest
 Licence
 =================================================
 
-For list of analyzers go `here <http://roslyn-analyzers.readthedocs.io/en/latest/analyzers-in-the-repo.html>`_.
-
 This project is licensed under the `MIT license <https://github.com/edumserrano/roslyn-analyzers/blob/master/Licence>`_.
 
 
