@@ -1,9 +1,34 @@
-roslyn-analyzers
-========================
+Analyzers and Code Fixes for C#
+===============================
 
-|build-status| |docs| 
+|build-status| |nuget| |docs| 
 
-For documentation about this repository go `here <http://roslyn-analyzers.readthedocs.io/en/latest/>`_.
+This repository started as a learning experience about the Roslyn API. Hopefully it will grow to hold many more analyzers.
+
+Installation
+=================================================
+
+Installation is performed via NuGet::
+    
+    PM> Install-Package Roslyn.Analyzers
+    
+Documentation
+=================================================
+
+For documentation go `here <http://roslyn-analyzers.readthedocs.io/en/latest/>`_.
+
+List of Analyzers
+=================
+
+For list of analyzers go `here <http://roslyn-analyzers.readthedocs.io/en/latest/analyzers-in-the-repo.html>`_.
+
+Licence
+=================================================
+
+For list of analyzers go `here <http://roslyn-analyzers.readthedocs.io/en/latest/analyzers-in-the-repo.html>`_.
+
+This project is licensed under the `MIT license <https://github.com/edumserrano/roslyn-analyzers/blob/master/Licence>`_.
+
 
 .. |build-status| image:: https://eduardomserrano.visualstudio.com/_apis/public/build/definitions/e575bb72-927b-4cb5-aabf-df6415768b5b/31/badge
     :alt: build status
@@ -15,3 +40,7 @@ For documentation about this repository go `here <http://roslyn-analyzers.readth
     :scale: 100%
     :target: http://roslyn-analyzers.readthedocs.io/en/latest/?badge=latest
     
+.. |docs| image:: https://img.shields.io/nuget/v/Roslyn.Analyzers.svg?style=flat
+    :alt: nuget package
+    :scale: 100%
+    :target: https://www.nuget.org/packages/Roslyn.Analyzers/
