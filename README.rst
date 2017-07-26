@@ -40,7 +40,7 @@ This project is licensed under the `MIT license <https://github.com/edumserrano/
     :scale: 100%
     :target: http://roslyn-analyzers.readthedocs.io/en/latest/?badge=latest
     
-.. |docs| image:: https://img.shields.io/nuget/v/Roslyn.Analyzers.svg?style=flat
+.. |nuget| image:: https://img.shields.io/nuget/v/Roslyn.Analyzers.svg?style=flat
     :alt: nuget package
     :scale: 100%
     :target: https://www.nuget.org/packages/Roslyn.Analyzers/
