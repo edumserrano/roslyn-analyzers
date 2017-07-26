@@ -28,11 +28,12 @@ The major and minor versions of Microsoft.CodeAnalysis.CSharp.Workspaces are dir
 
 It is up to you to chose which version you want to support and there might be a analyzers that you probably won't be able to do whilst at the same time keeping support for Visual Studio 2015. I'm thinking about analyzers for `new C# 7.0 language features <https://blogs.msdn.microsoft.com/dotnet/2017/03/09/new-features-in-c-7-0/>`_ that came out with Visual Studio 2017. If you're doing analyzers for those then you probably need to use at least version 2.0 of Microsoft.CodeAnalysis.CSharp.Workspaces.
 
-
 Microsoft.Composition package
 ------------------------------
 
 Although there is no relation with Visual Studio version as there is with Microsoft.CodeAnalysis.CSharp.Workspaces package you need to keep in mind that Microsoft.CodeAnalysis.CSharp.Workspaces have a dependency on different versions of Microsoft.Composition. I tried to use Microsoft.CodeAnalysis.CSharp.Workspaces version 2.2.0 and Microsoft.Composition version 1.0.31 and when I ran my tests it complained it couldn't find Microsoft.Composition version 1.0.30. So I had to keep version 1.0.30.
+
+The :ref:`default template <easy-way>` for creating Roslyn analyzers uses version 1.0.27 of Microsoft.Composition.
 
 Also, as a heads up, from chatting on the `Gitter channel for Roslyn <https://gitter.im/dotnet/roslyn>`_ I've found out that the plan is to move to the package `System.Composition <https://www.nuget.org/packages/System.Composition>`_. 
 
