@@ -3,17 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard1.4</TargetFramework>
     <PackageTargetFallback>portable-net45+win8+wp8+wpa81</PackageTargetFallback>
-    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
-    <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
-    <RepositoryUrl></RepositoryUrl>
-    <PackageTags>roslyn analyzer analyser code analysis fix refactoring csharp c#</PackageTags>
-    <Description>Contains a set of useful analyzers for C#. Requires at least VS2017. For a list of all the analyzers see http://roslyn-analyzers.readthedocs.io/en/latest/analyzers-in-the-repo.html.</Description>
-    <Authors>Eduardo Serrano</Authors>
-    <Company></Company>
-    <PackageId>Roslyn.Analyzers</PackageId>
-    <PackageLicenseUrl>https://github.com/edumserrano/roslyn-analyzers/blob/master/Licence</PackageLicenseUrl>
-    <PackageProjectUrl>https://github.com/edumserrano/roslyn-analyzers</PackageProjectUrl>
-    <Product />
+    <AssemblyName>Roslyn.Analyzers</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
@@ -25,12 +15,10 @@
     <None Update="Roslyn.Analyzers.nuspec">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tools\install.ps1">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\uninstall.ps1">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="tools\" />
   </ItemGroup>
 
 </Project>
