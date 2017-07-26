@@ -16,6 +16,7 @@ Read `this <https://docs.readthedocs.io/en/latest/getting_started.html#in-restru
    how-to-debug
    how-to-test
    nuget-packages
+   create-nuget-package
    analyzers-in-the-repo
    tips-and-resources
 

@@ -36,6 +36,8 @@ Once you have created your new project the template will create three projects f
 
 And you're set to go. I advise you to explore the default analyzer (DiagnosticAnalyzer.cs) and code fix provider (CodeFixProvider.cs) that are created as part of the template in the portable class library project as well as the tests (UnitTests.cs) that are in the test project.
 
+.. _pro-way:
+
 The #Pro way
 ------------
 

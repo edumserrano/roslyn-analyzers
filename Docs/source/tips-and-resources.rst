@@ -1,3 +1,5 @@
+.. _tips-and-more-resources:
+
 Tips and more resources
 =======================
 

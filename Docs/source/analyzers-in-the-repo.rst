@@ -3,7 +3,7 @@ Analyzers in the repository
 
 Here is the list of the analyzers present in the `roslyn-analyzers repository <https://github.com/edumserrano/roslyn-analyzers/tree/master/Source/RoslynAnalyzers>`_.
 
-.. note:: The analyzers created in the `roslyn-analyzers repository <https://github.com/edumserrano/roslyn-analyzers>`_ were tested and worked on Visual Studio 2017 15.2 on different project types:
+.. note:: The analyzers created in the roslyn-analyzers repository were tested and worked on Visual Studio 2017 15.2 on different project types:
 
    * .NET Framework 4.6.2
    * .NET Core 1.1
