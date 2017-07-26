@@ -7,7 +7,7 @@
     <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
     <RepositoryUrl></RepositoryUrl>
     <PackageTags>roslyn analyzer analyser code analysis fix refactoring csharp c#</PackageTags>
-    <Description>Contains a set of useful analyzers for C#. For a list of all the analyzers see http://roslyn-analyzers.readthedocs.io/en/latest/analyzers-in-the-repo.html.</Description>
+    <Description>Contains a set of useful analyzers for C#. Requires at least VS2017. For a list of all the analyzers see http://roslyn-analyzers.readthedocs.io/en/latest/analyzers-in-the-repo.html.</Description>
     <Authors>Eduardo Serrano</Authors>
     <Company></Company>
     <PackageId>Roslyn.Analyzers</PackageId>
