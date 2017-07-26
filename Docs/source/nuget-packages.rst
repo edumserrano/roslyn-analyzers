@@ -31,7 +31,7 @@ It is up to you to chose which version you want to support and there might be a 
 Microsoft.Composition package
 ------------------------------
 
-Although there is no relation with Visual Studio version as there is with Microsoft.CodeAnalysis.CSharp.Workspaces package you need to keep in mind that Microsoft.CodeAnalysis.CSharp.Workspaces have a dependency on different versions of Microsoft.Composition. I tried to use Microsoft.CodeAnalysis.CSharp.Workspaces version 2.2.0 and Microsoft.Composition version 1.0.31 and when I ran my tests it complained it couldn't find Microsoft.Composition version 1.0.30. So I had to keep version 1.0.30.
+Although there is no relation with Visual Studio version as there is with Microsoft.CodeAnalysis.CSharp.Workspaces package you need to keep in mind that Microsoft.CodeAnalysis.CSharp.Workspaces has a dependency on different versions of Microsoft.Composition. For instance, I tried to use Microsoft.CodeAnalysis.CSharp.Workspaces version 2.2.0 and Microsoft.Composition version 1.0.31 and when I ran my tests it complained it couldn't find Microsoft.Composition version 1.0.30. So I had to keep version 1.0.30.
 
 The :ref:`default template <easy-way>` for creating Roslyn analyzers uses version 1.0.27 of Microsoft.Composition.
 
