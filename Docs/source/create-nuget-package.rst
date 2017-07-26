@@ -1,7 +1,7 @@
 .. _create-nuget-package:
 
-Create nuget package for your analyzer
-======================================
+Create a nuget package for your analyzer
+========================================
 
 If you've used the :ref:`default template <easy-way>` to create your analyzer project then you don't need to worry because it is already configured to produce a nuget package upon building. If you have followed :ref:`pro-way` then you have to do some work to create a nuget package that will work properly for distributing your analyzer.
 
