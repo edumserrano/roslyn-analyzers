@@ -4,27 +4,37 @@
     <TargetFramework>netstandard1.4</TargetFramework>
     <PackageTargetFallback>portable-net45+win8+wp8+wpa81</PackageTargetFallback>
     <AssemblyName>Roslyn.Analyzers</AssemblyName>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageId>Roslyn.Analyzers</PackageId>
+    <PackageVersion>1.0.3.1</PackageVersion>
+    <Title>Collection of useful C# analyzers</Title>
+    <Authors>Eduardo Serrano</Authors>
+    <Owners>Eduardo Serrano</Owners>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageLicenseUrl>https://github.com/edumserrano/roslyn-analyzers/blob/master/Licence</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/edumserrano/roslyn-analyzers</PackageProjectUrl>
+    <!--<RepositoryUrl>https://github.com/edumserrano/roslyn-analyzers</RepositoryUrl>-->
+    <!--<PackageIconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</PackageIconUrl>-->
+    <Description>Contains a set of useful analyzers for C#. Requires at least VS2017. For a list of all the analyzers see http://roslyn-analyzers.readthedocs.io/en/latest/analyzers-in-the-repo.html.</Description>
+    <!--<PackageReleaseNotes>Summary of changes made in this release of the package.</PackageReleaseNotes>-->
+    <!--<Copyright>Copyright</Copyright>-->
+    <PackageTags>roslyn analyzer analyser code analysis fix refactoring csharp c#</PackageTags>
+    <!--<NoPackageAnalysis>true</NoPackageAnalysis>-->
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="2.2.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="2.2.0" PrivateAssets="all" />
     <PackageReference Include="Microsoft.Composition" Version="1.0.30" />
+    <PackageReference Update="NETStandard.Library" PrivateAssets="all" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Roslyn.Analyzers.nuspec">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\install.ps1">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\uninstall.ps1">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="tools\" />
+    <None Update="tools\*.ps1" CopyToOutputDirectory="Always" Pack="true" PackagePath="tools" />
+    <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
   </ItemGroup>
 
 </Project>
