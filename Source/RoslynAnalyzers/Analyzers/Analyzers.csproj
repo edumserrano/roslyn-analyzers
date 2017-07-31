@@ -17,13 +17,15 @@
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageLicenseUrl>https://github.com/edumserrano/roslyn-analyzers/blob/master/Licence</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/edumserrano/roslyn-analyzers</PackageProjectUrl>
+    <Description>Contains a set of useful analyzers for C#. Requires at least VS2017. For a list of all the analyzers see http://roslyn-analyzers.readthedocs.io/en/latest/analyzers-in-the-repo.html.</Description>
+    <PackageTags>roslyn analyzer analyser code analysis fix refactoring csharp c#</PackageTags>
+    
+    <!--<NoPackageAnalysis>true</NoPackageAnalysis>-->
     <!--<RepositoryUrl>https://github.com/edumserrano/roslyn-analyzers</RepositoryUrl>-->
     <!--<PackageIconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</PackageIconUrl>-->
-    <Description>Contains a set of useful analyzers for C#. Requires at least VS2017. For a list of all the analyzers see http://roslyn-analyzers.readthedocs.io/en/latest/analyzers-in-the-repo.html.</Description>
     <!--<PackageReleaseNotes>Summary of changes made in this release of the package.</PackageReleaseNotes>-->
     <!--<Copyright>Copyright</Copyright>-->
-    <PackageTags>roslyn analyzer analyser code analysis fix refactoring csharp c#</PackageTags>
-    <!--<NoPackageAnalysis>true</NoPackageAnalysis>-->
+    
   </PropertyGroup>
 
   <ItemGroup>
