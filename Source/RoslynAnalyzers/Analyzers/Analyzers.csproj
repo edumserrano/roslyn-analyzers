@@ -10,7 +10,7 @@
 
   <PropertyGroup>
     <PackageId>Roslyn.Analyzers</PackageId>
-    <PackageVersion>1.0.3.1</PackageVersion>
+    <PackageVersion>1.0.3.2</PackageVersion>
     <Title>Collection of useful C# analyzers</Title>
     <Authors>Eduardo Serrano</Authors>
     <Owners>Eduardo Serrano</Owners>
@@ -28,7 +28,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="2.2.0" PrivateAssets="all" />
-    <PackageReference Include="Microsoft.Composition" Version="1.0.30" />
+    <PackageReference Include="Microsoft.Composition" Version="1.0.30" PrivateAssets="all" />
     <PackageReference Update="NETStandard.Library" PrivateAssets="all" />
   </ItemGroup>
 
