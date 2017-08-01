@@ -29,6 +29,8 @@ Tips and more resources
 
 * There are more advanced Roslyn classes that can aid you in doing very cool things. Look for more Roslyn related info on:
 
+  * **Data flow Analysis**
+  * **Control flow Analysis**
   * **CSharp Syntax Rewriter**
   * **Workspace Services**
   * **Classifier Service**
