@@ -66,7 +66,7 @@ The uninstall script does the reverse by removing the analyzer dlls from the pro
 	
 	foreach ($analyzerFilePath in Get-ChildItem -Path "$analyzersPath\*.dll" -Exclude *.resources.dll)
 
-   Although I have not tested this should only impact projects that are :ref:`localized <tips-and-more-resources>`. Altough the official documentation in not excluding the resource files it is probably the correct thing to do but I have not tested it.
+   I have not tested but this line of the powershell script should only impact projects that are :ref:`localized <tips-and-more-resources>`. Altough the official documentation in not excluding the resource files it is probably the correct thing to do but I have not tested it.
 
 
 
