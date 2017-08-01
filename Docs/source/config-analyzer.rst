@@ -1,3 +1,5 @@
+.. _how-to-configure-roslyn-analyzers:
+
 How to configure Roslyn analyzers
 =================================
 
