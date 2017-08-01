@@ -20,5 +20,5 @@ Name                                                                            
 :ref:`DefaultLabelShouldBeTheLast <default-label-should-be-the-last>`                                              ENUM0001      Default switch label                                     Warning            
 :ref:`MergeSwitchSectionsWithEquivalentContent <merge-switch-sections-with-equivalent-content>`                    ENUM0002      Merge switch sections                                    Warning            
 :ref:`SwitchOnEnumMustHandleAllCases <switch-on-enum-must-handle-all-cases>`                                       ENUM0003      Populate switch                                          Warning
-:ref:`DoNotReturnNull <do-not-return-null>`									                                       RETURN0001    Do not return null                                       Warning                   
+:ref:`DoNotReturnNull <do-not-return-null>`                                                                        RETURN0001    Do not return null                                       Warning                   
 =================================================================================================================  ============  =======================================================  =================

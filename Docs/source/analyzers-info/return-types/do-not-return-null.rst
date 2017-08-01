@@ -17,7 +17,7 @@ Regarding code honesty consider the following: is a method that returns an insta
 
 And what if there are other error scenarios that you want to express? Should you return null in the event of any error scenario or should it be better to create a type that might contain a user or an error?
 
-If this rationale does not apply to your domain the consider changing the default action of this analyzer to Info or disable it. For information on how to configure analyzers see :ref:`here <how-to-configure-roslyn-analyzers>`
+If this rationale does not apply to your domain the consider changing the default action of this analyzer to Info or disable it. For information on how to configure analyzers see :ref:`here <how-to-configure-roslyn-analyzers>`.
 
 .. image:: ../../images/analyzers/return-types/do-not-return-null.png
 
