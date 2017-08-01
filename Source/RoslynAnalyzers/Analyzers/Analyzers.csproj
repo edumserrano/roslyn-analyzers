@@ -10,7 +10,7 @@
 
   <PropertyGroup>
     <PackageId>Roslyn.Analyzers</PackageId>
-    <PackageVersion>1.0.3.3</PackageVersion>
+    <PackageVersion>1.0.3.4</PackageVersion>
     <Title>Collection of useful C# analyzers</Title>
     <Authors>Eduardo Serrano</Authors>
     <Owners>Eduardo Serrano</Owners>

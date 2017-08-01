@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
   <metadata>
     <id>Roslyn.Analyzers</id>
-    <version>1.0.3.3</version>
+    <version>1.0.3.4</version>
     <title>Collection of useful C# analyzers</title>
     <authors>Eduardo Serrano</authors>
     <owners>Eduardo Serrano</owners>
@@ -21,4 +21,5 @@
     <file src="*.dll" target="analyzers\dotnet\cs" exclude="**\Microsoft.CodeAnalysis.*;**\System.Collections.Immutable.*;**\System.Reflection.Metadata.*;**\System.Composition.*" />
     <file src="tools\*.ps1" target="tools\" />
   </files>
+  <!-- This file is not being used because I'm using the nuget support from the csproj to create the nuget package. Keeping it for reference -->
 </package>

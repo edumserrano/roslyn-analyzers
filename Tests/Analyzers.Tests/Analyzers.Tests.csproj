@@ -184,6 +184,7 @@
     <Compile Include="Enums\MergeSwitchSectionsWithEquivalentContent\MergeSwitchSectionsWithEquivalentContentCodeFixTests.cs" />
     <Compile Include="Enums\MergeSwitchSectionsWithEquivalentContent\MergeSwitchSectionsWithEquivalentContentDiagnosticAnalyzerTests.cs" />
     <Compile Include="Enums\SwitchOnEnumMustHandleAllCases\SwitchOnEnumMustHandleAllCasesDiagnosticAnalyzerTests.cs" />
+    <Compile Include="ReturnTypes\DoNotReturnNull\DoNotReturnNullDiagnosticAnalyzerTests.cs" />
     <Compile Include="_TestEnvironment\Base\FileReaderTest.cs" />
     <Compile Include="_TestEnvironment\Roslyn\CodeFixProviders\CodeFixProviderTestExtensions.cs" />
     <Compile Include="_TestEnvironment\Base\CSharpCodeFixProviderTest.cs" />
