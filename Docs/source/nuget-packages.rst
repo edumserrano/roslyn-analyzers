@@ -1,6 +1,6 @@
 .. _nuget-packages:
 
-Nuget packages required to develop analyzers
+NuGet packages required to develop analyzers
 =============================================
 
 When creating the analyzers and test projects you will have to reference nugets that contain the Roslyn APIs and not only enable the development of the Analyzers and Code Fix Providers as well as integrate them with Visual Studio.
