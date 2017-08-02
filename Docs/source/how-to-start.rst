@@ -5,8 +5,6 @@ How to create a Roslyn Analyzer project for C#
 
 This is a step by step guide on how to create a C# Roslyn Analyzer project for Visual Studio.
 
-.. note:: Everything shown here was tested on Visual Studio 2017.
-
 Requirements
 -------------
 

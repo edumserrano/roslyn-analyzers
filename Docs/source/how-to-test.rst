@@ -1,3 +1,5 @@
+.. _how-to-test-an-analyzer:
+
 How to test an analyzer
 =======================
 
