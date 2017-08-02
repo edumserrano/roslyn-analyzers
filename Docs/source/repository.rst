@@ -26,6 +26,10 @@ The classes inside `Tests/Analyzers.Tests/_TestEnvironment/Roslyn <https://githu
 
 To debug the analyzers set the project DebugAnalyzers.Vsix as the startup project and follow the instructions :ref:`here <how-to-debug>`.
 
+.. note:: Because I used the Tuple syntax from C# 7.0 on the analyzers project I had to do the following for the unit test project to work:
+
+   * Update the NuGet package System.ValueTuple to 4.3.1 on the unit test project.
+   * Install the Nuget package System.Composition 1.0.31 on the unit test project.
 
 RoslynAnalyzersTestData.sln
 ---------------------------
