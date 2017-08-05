@@ -5,13 +5,18 @@ Analyzers and Code Fixes for C#
 
 This repository started as a learning experience about the Roslyn API. Hopefully it will grow to hold many more analyzers.
 
-Installation
+Installing
 =================================================
 
 Installation is performed via NuGet::
     
     PM> Install-Package Roslyn.Analyzers
-    
+
+Building
+=================================================
+
+This repository adheres to the `F5 manifesto <http://www.khalidabuhakmeh.com/the-f5-manifesto-for-net-developers>`_ so you should be able to clone, open in Visual Studio and build.
+
 Documentation
 =================================================
 
