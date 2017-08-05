@@ -1,7 +1,7 @@
 Analyzers and Code Fixes for C#
 ===============================
 
-|build-status| |nuget| |docs| 
+|build-status| |nuget| |docs| |licence|
 
 This repository started as a learning experience about the Roslyn API. Hopefully it will grow to hold many more analyzers.
 
@@ -47,3 +47,9 @@ This project is licensed under the `MIT license <https://github.com/edumserrano/
     :alt: nuget package
     :scale: 100%
     :target: https://www.nuget.org/packages/Roslyn.Analyzers/
+
+.. |licence| image:: https://img.shields.io/github/license/mashape/apistatus.svg
+    :alt: licence
+    :scale: 100%
+    :target: https://github.com/edumserrano/roslyn-analyzers/blob/master/Licence
+
