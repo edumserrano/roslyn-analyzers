@@ -25,7 +25,7 @@ For documentation go `here <http://roslyn-analyzers.readthedocs.io/en/latest/>`_
 List of Analyzers
 =================
 
-For list of analyzers go `here <http://roslyn-analyzers.readthedocs.io/en/latest/analyzers-in-the-repo.html>`_.
+For list of analyzers go `here <http://roslyn-analyzers.readthedocs.io/en/latest/repository.html#analyzers-in-the-repository>`_.
 
 Licence
 =================================================
