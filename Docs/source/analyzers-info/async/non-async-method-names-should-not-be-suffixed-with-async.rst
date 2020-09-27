@@ -4,7 +4,7 @@
 
 .. _non-async-method-names-should-not-be-suffixed-with-async:
 
-Non asynchronous method names should end with Async
+Non asynchronous method names should not end with Async
 ===================================================
 
 **Identifier**: ASYNC0002
