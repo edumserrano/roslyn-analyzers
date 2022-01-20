@@ -42,10 +42,15 @@ namespace Analyzers.CodeAnalysis.Async.AsyncMethodNamesShouldBeSuffixedWithAsync
             if (!result.success) return;
 
             var methodDeclaration = result.syntaxNode;
-            var semanticModel = context.SemanticModel;
-            var methodSymbol = semanticModel.GetDeclaredSymbol(methodDeclaration, context.CancellationToken);
+            if (methodDeclaration == null) return;
 
+            var semanticModel = context.SemanticModel;
+            if (semanticModel == null) return;
+
+            var methodSymbol = semanticModel.GetDeclaredSymbol(methodDeclaration, context.CancellationToken);
+            if (methodSymbol == null) return;
             if (!methodSymbol.ReturnsTask() && !methodSymbol.IsAsync) return;
+            if (methodSymbol.Name == null) return;
             if (methodSymbol.Name.EndsWith(AsyncConstants.AsyncSuffix, StringComparison.Ordinal)) return;
 
             context.ReportDiagnostic(Diagnostic.Create(Rule, methodDeclaration.Identifier.GetLocation()));
